@@ -1,0 +1,48 @@
+{
+  "nativescript": {
+    "id": "org.nativescript.influmemobile",
+    "tns-android": {
+      "version": "5.0.0"
+    },
+    "tns-ios": {
+      "version": "5.0.0"
+    }
+  },
+  "name": "influme-mobile",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Influme MobileApp",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/santteegt/influme-mobile.git",
+  "scripts": {
+    "lint": "tslint \"app/**/*.ts\""
+  },
+  "dependencies": {
+    "@angular/animations": "~7.0.0",
+    "@angular/common": "~7.0.0",
+    "@angular/compiler": "~7.0.0",
+    "@angular/core": "~7.0.0",
+    "@angular/forms": "~7.0.0",
+    "@angular/http": "~7.0.0",
+    "@angular/platform-browser": "~7.0.0",
+    "@angular/platform-browser-dynamic": "~7.0.0",
+    "@angular/router": "~7.0.0",
+    "kinvey-nativescript-sdk": "3.12.3",
+    "nativescript-angular": "~7.0.0",
+    "nativescript-localize": "^4.1.0",
+    "nativescript-theme-core": "~1.0.4",
+    "reflect-metadata": "~0.1.10",
+    "rxjs": "~6.3.0",
+    "tns-core-modules": "~5.0.2",
+    "zone.js": "~0.8.18"
+  },
+  "devDependencies": {
+    "@nativescript/schematics": "~0.4.0",
+    "nativescript-dev-typescript": "~0.7.0",
+    "nativescript-dev-webpack": "~0.18.0",
+    "typescript": "^3.1.6",
+    "@angular/compiler-cli": "~7.0.0",
+    "@ngtools/webpack": "~7.0.0"
+  },
+  "readme": "NativeScript Application"
+}

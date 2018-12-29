@@ -1,0 +1,16 @@
+{
+  "main": "main.js",
+  "android": {
+    "v8Flags": "--expose_gc",
+    "requireModules": ["nativescript-localize"]
+  },
+  "pluginsData": {
+    "kinvey-nativescript-sdk": {
+      "config": {
+        "appKey": "",
+        "appSecret": "",
+        "redirectUri": "myscheme://"
+      }
+    }
+  }
+}
