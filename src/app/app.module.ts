@@ -1,5 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-// import { NativeScriptLocalizeModule } from "nativescript-localize/angular";
+import { HttpClientModule } from '@angular/common/http';
+// import { HttpModule } from '@angular/http';
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 
 
@@ -15,7 +16,8 @@ import { LoggedInLazyLoadGuard } from "./logged-in-lazy-load.guard";
     imports: [
         NativeScriptModule,
         AppRoutingModule,
-        // NativeScriptLocalizeModule
+        // HttpModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent

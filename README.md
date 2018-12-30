@@ -17,3 +17,5 @@ Influme Mobile application written in NativeScript
 * `tns device`
 * `tns run <ios|android>`
 * `tns plugin add <plugin-name>`
+
+* `ng generate service <service-name>`
