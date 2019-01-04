@@ -43,5 +43,5 @@ $ tns run <ios|android>
 * `tns run <ios|android>`
 * `tns plugin add <plugin-name>`
 
-* `ng generate component <component-name>`
+* `ng generate module <module-name>`
 * `ng generate service <service-name>`
