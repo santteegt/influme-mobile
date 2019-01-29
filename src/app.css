@@ -123,3 +123,7 @@ refer to http://docs.nativescript.org/ui/theme.
 .action-button{
     font-size: 20;
 }
+
+.font-awesome {
+    font-family: "FontAwesome";
+}

@@ -1,0 +1,86 @@
+<!-- <ActionBar>
+    <ActionItem android.position="actionBar" ios.position="left" (tap)="onProfileButtonTap()">
+        <Label text="&#xf053;" font-family="FontAwesome"></Label>
+    </ActionItem>
+</ActionBar> --> 
+<GridLayout rows="200,70,*,50" class="markerprofile-layout">
+      <GridLayout row="0">   
+        <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
+                <CarouselItem>
+                    <Image src="res://mercado/mercado" stretch="fill" ></Image>
+                </CarouselItem>
+                <CarouselItem>
+                    <Image src="res://mercado/salmon" stretch="fill"></Image>
+                </CarouselItem>
+                <CarouselItem>
+                    <Image src="res://mercado/interior" stretch="fill"></Image>
+                </CarouselItem>
+        </Carousel>
+      </GridLayout>
+    <LABEL text="{{profile_id_selected[0].seguidores}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+    <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
+    <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="followers" class="followers-style-text"></LABEL>
+
+    
+    <StackLayout row="1">
+        <GridLayout rows="70">
+            <StackLayout row="0" orientation="vertical" class="homemarker-title">
+                <Label text="{{profile_id_selected[0].title}}"></Label>                
+            </StackLayout>
+            <StackLayout row="0" orientation="vertical" class="homemarker-description">
+                <Label text="{{profile_id_selected[0].descripcion}}"></Label>
+            </StackLayout>
+            <StackLayout row="0" orientation="vertical" class="homemarker-line-layout">                
+                <Label text=" " class="homemarker-line"></Label>
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
+    <!-- class="homemarker-follow-button" -->
+    <StackLayout horizontalAlignment="right" row="1" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
+        <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
+    </StackLayout>
+
+        <GridLayout row="2" class="homemarker-social-media">
+          <ScrollView>  
+            <StackLayout>
+                <StackLayout class="homemarker-description-social">
+                    <Label text="Lorem Ipsum"></Label>
+                </StackLayout>
+                <StackLayout class="homemarker-description-web">   
+                    <Label text="{{profile_id_selected[0].web}}"></Label>
+                </StackLayout>
+                <StackLayout orientation="horizontal" marginTop="5">
+                    <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
+                    </StackLayout>
+                    <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
+                    </StackLayout>
+                    <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
+                    </StackLayout>
+                </StackLayout>
+            <StackLayout class="homemarker-deals">
+                <Label text="Availables Deals"></Label>
+                <!-- <Label text="{{'availables_deals' | L}}"></Label> -->
+            </StackLayout>
+            <StackLayout height="10" class="homemarker-line-layout-a">                
+                <Label text=" " class="homemarker-line "></Label>
+            </StackLayout>
+
+            <StackLayout class="homemarker-deals-images" orientation="vertical" #myNgStack>    
+            <!-- <StackLayout  orientation="vertical" #myNgStack> -->
+                <!-- <Image *ngFor="let element of images_descuentos" [src]="element.img" stretch="fill" (tap)="element.function"></Image>                 -->
+                <Image src="res://mercado/descuentom" stretch="fill" (tap)="onClickImga()"></Image>               
+                <Image src="res://mercado/descuentoa" stretch="fill" (tap)="onClickImgb()"></Image>               
+            </StackLayout>    
+         </StackLayout>  
+      </ScrollView>
+    </GridLayout>
+
+    <StackLayout row="3" orientation="horizontal">
+        <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
+        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
+    </StackLayout>
+
+
+</GridLayout>

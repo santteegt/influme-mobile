@@ -1,0 +1,44 @@
+/* Add mobile styles for the component here.  */
+.filter-layout{
+	background-color: black;
+	padding-top: 50;
+	padding-left: 40px;
+	padding-right: 40px;
+	font-family: "Times New Roman", Times, serif;
+}
+.options-menu{
+	padding-top: 10;
+	/*background-color: lightgray;*/
+	width: 50;
+	height: 50;
+	border-width: 1;
+	border-color: white;
+	border-radius: 5;
+	opacity: 0.5;
+}
+.img-style{
+	padding-top: 2;
+	padding-left: 2;
+	padding-right: 2;
+	padding-bottom: 2;
+	width: 30;
+	height: 30;
+/*	border-width: 1;
+	border-color: white;
+	border-radius: 5;
+	opacity: 0.5;*/
+}
+
+.save-button{
+	width: 150;
+	height: 50;
+	color: white;
+	font-weight: bold;
+	background-color: #EE185F;
+	border-radius: 5;
+}
+
+.layout-button{
+	background-color: black;
+	padding-top: 40;
+}

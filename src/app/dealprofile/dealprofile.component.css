@@ -1,0 +1,62 @@
+/* Add mobile styles for the component here.  */
+.main-layout-deal {
+	padding-left: 40;
+	padding-right: 40; 
+	font-family: "Times New Roman", Times, serif;
+}
+
+.main-layout-deal-image {
+	padding-top: 45;
+}
+
+.deal-image {
+	border-radius: 5;
+	height: 180;
+}
+
+.main-layout-deal-title {
+	padding-top: 15;
+	text-align: center;
+	font-weight: bold;
+    font-size: 25px;
+
+}
+
+.main-layout-deal-subtitle {
+	padding-top: 10;
+	/*text-align: justify-all;*/
+	font-weight: bold;
+    font-size: 18px;
+	
+}
+
+.main-layout-deal-text {
+	padding-top: 8;
+	/*text-align: justify-all;*/
+    
+    font-size: 14px;
+}
+
+.main-layout-deal-button {
+	padding-top: 20;
+}
+
+.main-layout-deal-button-back {
+	padding-top: 10;
+}
+
+.deal-button{
+	width: 175;
+	height: 46;
+	color: white;
+	font-weight: bold;
+	background-color: #EE185F;
+	border-radius: 5;
+}
+
+.deal-button-back{
+	width: 100;
+	height: 35;
+	color: #EE185F;
+	font-weight: bold;
+}

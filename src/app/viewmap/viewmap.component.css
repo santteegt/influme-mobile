@@ -1,0 +1,98 @@
+/* Add mobile styles for the component here.  */
+.bottom-menu-maps {
+    background-color: black;
+    color: white;
+    font-family: FontAwesome;
+    font-size: 24;
+    vertical-align: middle;
+    width: 25%;
+    height: 50;
+}
+
+.bottom-menu-maps:active {
+    background-color: lightgray;
+    color:white;
+}
+
+.summary-layout {
+    /*padding-top: 10px;*/
+/*    padding-left: 70px;
+    padding-right: 70px;
+*/    background-color: white;
+    vertical-align: middle;
+    width: 350;
+    height: 350;
+    border-radius: 75px;
+    border-style: solid;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.summary-layout-description{
+    color: #757171;
+    font-size: 18px;
+}
+
+.homemarker-title {
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 0px;
+    vertical-align: middle;
+}
+
+.homemarker-description {
+    padding-top: 1px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 0px;
+    vertical-align: middle;
+}
+
+.homemarker-icon {
+    /*padding-top: 1px;
+    padding-left: 550px;
+    padding-right: 40px;
+    padding-bottom: 0px; */
+    vertical-align: middle;
+    height: 30;
+    width: 35;
+    background-color: black;
+
+}
+
+.homemarker-image {
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 0px;
+    vertical-align: middle;
+}
+
+.homemarker-button {
+    padding-top: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 25px;
+    vertical-align: middle;
+}
+.button-home-marker{
+    border-radius: 25px;
+    height: 70;
+    background-color: #EE185F; 
+    font-size: 20px;    
+    font-weight: bold;
+    color: white;
+}
+.filter-menu{
+    width: 40;
+    height: 40;
+    font-size: 20;
+    color: white;
+    background-color: black;
+    border-radius: 20;
+    font-family: FontAwesome;
+
+}
+

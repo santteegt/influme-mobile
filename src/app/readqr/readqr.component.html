@@ -1,0 +1,10 @@
+  <GridLayout>
+  <BarcodeScanner
+      height="300"
+      formats="QR_CODE, EAN_13, UPC_A"
+      beepOnScan="true"      
+      reportDuplicates="false"
+      preferFrontCamera="false"
+      (scanResult)="onScanResult($event)">
+  </BarcodeScanner>
+</GridLayout>

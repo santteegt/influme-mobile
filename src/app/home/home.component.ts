@@ -53,6 +53,18 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    gomap() {
+        this._routerExtensions.navigate(["viewmap"], {
+            clearHistory: true,
+            animated: true,
+            transition: {
+                name: "slideTop",
+                duration: 350,
+                curve: "ease"
+            }
+        });
+    }    
+
     onMenuButtonTap(args: EventData) {
         // Navigate to corresponding page
         const menuButtonParent = (<StackLayout>args.object).parent;
@@ -63,12 +75,12 @@ export class HomeComponent implements OnInit {
         // Navigate to profile page here
         // alert(this.userApiService);
         try {
-            const user = await this.userApiService.getUser("5c2714038bf0fc0a6210a530");
+            const user = await this.userApiService.getUser("5c33e84dfbf87045d3aeae91");
             alert(user);
         } catch(err) {
             console.log(err);
         }
-        // this.userApiService.getUser("5c2714038bf0fc0a6210a530").then((data) => {
+        // this.userApiService.getUser("5c33e84dfbf87045d3aeae91").then((data) => {
         //     alert(data);    
         // }).catch((error) => alert(error));
     }

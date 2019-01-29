@@ -30,6 +30,8 @@ $ tns platform add <ios|android>
 $ tns run <ios|android>
 ```
 
+AIzaSyBD71DgYMShdu8PD0x7waGLBPBgZjAZKes
+
 ## Wireframes
 
 [Source](https://sketch.cloud/s/vEWA1?fbclid=IwAR0hqaNvNGvX7oMl2Fm_G43jI491KbCi8ViGClrnm0pS6vycnMgypKNBR6A)
@@ -43,6 +45,6 @@ $ tns run <ios|android>
 * `tns run <ios|android>`
 * `tns plugin add <plugin-name>`
 
-* `ng generate module <module-name>`
+* `ng generate module <module-name> --routing`
 * `ng generate component <component-name> --module <module-name>`
 * `ng generate service <service-name>`

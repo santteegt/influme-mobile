@@ -1,0 +1,48 @@
+<!-- <ActionBar title ="Discover"> -->
+<!--    <ActionItem android.position="actionBar" ios.position="left" (tap)="onProfileButtonTap()">
+    </ActionItem> -->
+<!-- </ActionBar> -->
+
+<GridLayout rows="*,50">
+
+    <MapView #mapView [latitude]="latitude" [longitude]="longitude"
+         [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom" [bearing]="bearing"
+         [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+         (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)"
+         (markerEndDragging)="onMarkerEvent($event)" (markerDrag)="onMarkerEvent($event)"
+         (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+         (cameraChanged)="onCameraChanged($event)"
+         (cameraMove)="onCameraMove($event)">
+    </MapView>
+    <GridLayout rows=auto marginTop="50" marginRight="25" width="50" verticalAlignment="top" horizontalAlignment="right">                  
+        <BUTTON left="1" top="10" text="&#xf0c9;" class="filter-menu" (tap)="gofilter()"></BUTTON>
+    </GridLayout>
+
+    <StackLayout row="0" orientation="vertical" verticalAlignment="bottom" class="summary-layout" visibility="{{ showDetails }}">
+        <GridLayout rows="45,30,150,90">
+            <StackLayout row="0" orientation="vertical" class="homemarker-title">
+                <Label [text]="title_marker_selected"></Label>                
+            </StackLayout>
+            <StackLayout row="0" orientation="vertical" class="homemarker-icon" marginLeft="260" marginTop="25" #myNgStack1 id="myStackId1">                
+                <!-- <Label text="&#xf000;" textWrap="true" class="font-awesome"></Label>                 -->
+            </StackLayout>
+            <StackLayout row="1" orientation="vertical" class="homemarker-description">
+                <Label [text]="des_marker_selected" class="summary-layout-description"></Label>
+            </StackLayout>
+            <StackLayout row="2" orientation="vertical" class="homemarker-image" #myNgStack id="myStackId">
+                <!-- <Image src="registerSelected.picture-home" stretch="fill"></Image> -->
+            </StackLayout>
+            <StackLayout row="3" orientation="vertical" class="homemarker-button">
+                <Button class="button-home-marker" text="{{'1_available_deal' | L}}" (tap)="gomarkerprofile()"></Button>
+            </StackLayout>
+        </GridLayout>    
+    </StackLayout>
+    
+    <StackLayout row="1" orientation="horizontal">
+        <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()" ></Button>
+        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
+    </StackLayout>
+
+</GridLayout>

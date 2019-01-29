@@ -1,0 +1,147 @@
+/* Add mobile styles for the component here.  */
+/*@import '~nativescript-theme-core/css/core.light.css';*/
+.markerprofile-layout {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: bold;
+}
+.followers-style-number{
+    padding-top: 30px;
+	width:65;
+	height: 45; 
+	background-color: black;
+	color: white;
+	font-weight: 700;
+	font-size: 30px;
+	text-align: center;
+	border-top-left-radius: 17px;
+	border-top-right-radius: 17px;
+}
+
+.followers-style-text{
+	padding-top: 0;
+	width:65;
+	height: 30; 
+	background-color: black;
+	color: white;
+	font-size: 12px;
+    text-align: center;
+	border-bottom-left-radius: 17px;
+	border-bottom-right-radius: 17px;
+}
+
+/*.summary-layout {
+}*/
+
+.homemarker-title {
+	padding-top: 12;
+    padding-left: 40;
+}
+
+.homemarker-description {
+    padding-top: 40;
+    padding-left: 40;
+    font-size: 17px;
+    color: #757171;
+}
+
+.homemarker-follow-button-layout {
+    /*padding-top: 10;*/
+    /*padding-left: 250;*/
+    vertical-align: middle;
+}
+
+.homemarker-follow-button {
+    width: 85;
+    height: 30;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
+    border-radius: 5;
+    background-color: #EE185F;
+    color: white;
+    font-size: 14px;
+}
+
+.homemarker-line {
+    border-bottom: solid;
+    border-bottom-color: #757171;
+    border-bottom-width: 2;
+
+}
+
+.homemarker-line-layout {
+    padding-top: 40;
+    padding-left: 40;
+    padding-right: 40;
+
+}
+
+.homemarker-line-layout-a {
+    padding-top: 5;
+    padding-right: 40;
+
+}
+
+.homemarker-social-media{    
+    padding-top: 5;
+    padding-left: 40;
+}
+
+.homemarker-description-social {
+    color: #757171;
+    font-size: 15px;
+}
+
+.homemarker-description-web {
+    color: black;
+    font-size: 13px;
+    font-style: normal;
+    padding-top: 5; 
+}
+
+.homemarker-deals-images{
+    padding-top: 20;
+    padding-right: 40;
+    /*padding-left: 40;*/
+}
+
+.homemarker-deals {
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+    padding-top: 10; 
+}
+
+.homemarker-facebook {
+    width: 35;
+    height: 35;
+    border-radius: 5;
+}
+
+.homemarker-twitter {
+    width: 35;
+    height: 35;
+    border-radius: 5;
+}
+
+.homemarker-instagram {
+    width: 35;
+    height: 35;
+    border-radius: 5;
+}
+.bottom-menu-maps {
+    background-color: black;
+    color: white;
+    font-family: FontAwesome;
+    font-size: 24;
+    vertical-align: middle;
+    width: 25%;
+    height: 50;
+}
+
+.bottom-menu-maps:active {
+    background-color: lightgray;
+    color:white;
+}

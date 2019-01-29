@@ -1,0 +1,22 @@
+<ScrollView>
+	<Gridlayout rows="auto,auto,auto,150, auto, auto" class="main-layout-deal">
+		<StackLayout row="0" orientation="vertical" class="main-layout-deal-image">
+			<Image [src]="aux_marker[0].img" stretch="fill" class="deal-image"></Image>
+		</StackLayout>
+		<StackLayout row="1" class="main-layout-deal-title">
+			<LABEL text="{{'terms_conditions' | L }}"></LABEL>
+		</StackLayout>
+		<StackLayout row="2" class="main-layout-deal-subtitle">
+			<TextView text="{{'subtitle_terms_condictions' | L }}" editable="False"></TextView>
+		</StackLayout>
+		<StackLayout row="3" class="main-layout-deal-text">
+			<TextView [text]="aux_marker[0].condiciones" editable="False"></TextView>
+		</StackLayout>
+		<StackLayout row="4" class="main-layout-deal-button">
+			<BUTTON text="{{'redeem_deal' | L }}" class="deal-button" (tap)="onRedeemDeal()"></BUTTON>
+		</StackLayout>
+		<StackLayout row="5" class="main-layout-deal-button-back">
+			<BUTTON text="{{ 'go_back' | L }}" class="deal-button-back" (tap)="onGoMarkerProfile()"></BUTTON>
+		</StackLayout>
+	</Gridlayout>
+</ScrollView>
