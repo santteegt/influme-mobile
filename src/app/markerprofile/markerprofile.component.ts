@@ -1,17 +1,18 @@
 import { AfterViewInit, Component, OnInit, ElementRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { Carousel, IndicatorAnimation, CarouselItem } from 'nativescript-carousel';
+// import { Carousel, IndicatorAnimation, CarouselItem } from 'nativescript-carousel';
 import { isAndroid } from 'tns-core-modules/platform';
 import { alert } from 'tns-core-modules/ui/dialogs';
-import { registerElement } from 'nativescript-angular/element-registry';
+// import { registerElement } from 'nativescript-angular/element-registry';
 import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationExtras } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { Image } from "tns-core-modules/ui/image";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import { GestureEventData, GestureTypes } from "tns-core-modules/ui/gestures";
+import { Page } from "tns-core-modules/ui/page";
 
-registerElement('Carousel', () => Carousel);
-registerElement('CarouselItem', () => CarouselItem);
+// registerElement('Carousel', () => Carousel);
+// registerElement('CarouselItem', () => CarouselItem);
 
 @Component({
   selector: 'markerprofile',
@@ -34,7 +35,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
   images_descuentos: any;
 
-  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute) {
+  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
+
+    this.page.actionBarHidden = true;
+    // this.page.backgroundSpanUnderStatusBar = true;  
 
     let titleSearch = ""; 
 

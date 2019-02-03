@@ -9,12 +9,12 @@ const routes: Routes = [
     { path: "", redirectTo: "/viewmap", pathMatch: "full" },
     { path: "login", loadChildren: "~/app/login/login.module#LoginModule" },
     { path: "viewmap", loadChildren: "~/app/viewmap/viewmap.module#ViewmapModule", canLoad: [LoggedInLazyLoadGuard] },
-    // { path: "viewmap/:optionfilter", loadChildren: "~/app/viewmap/viewmap.module#ViewmapModule" },
-    // { path: "viewmap/:optionfilter", loadChildren: "~/app/viewmap/viewmap.module#ViewmapModule" },
     { path: "filtermap", loadChildren: "~/app/filtermap/filtermap.module#FiltermapModule"},
     { path: "markerprofile", loadChildren: "~/app/markerprofile/markerprofile.module#MarkerprofileModule"},
     { path: "readqr", loadChildren: "~/app/readqr/readqr.module#ReadqrModule"},
-    { path: "dealprofile", loadChildren: "~/app/dealprofile/dealprofile.module#DealprofileModule"}    
+    { path: "dealprofile", loadChildren: "~/app/dealprofile/dealprofile.module#DealprofileModule"},
+    { path: "user", loadChildren: "~/app/user/user.module#UserModule" },
+    { path: "profile", loadChildren: "~/app/profile/profile.module#ProfileModule" },    
 ];
 
 @NgModule({

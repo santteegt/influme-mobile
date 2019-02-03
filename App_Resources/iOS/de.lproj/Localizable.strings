@@ -1,3 +1,8 @@
+"filter" = "Filter";
+"deals_redeemed" = "Angebote eingelöst";
+"follow" = "Folgen";
+"following" = "folgend";
+"profile" = "Profil";
 "availables_deals" = "verfügbare Angebote";
 "go_back" = "geh zurück";
 "redeem_deal" = "einlösen";
@@ -10,6 +15,7 @@
 "news" = "Nachrichten";
 "home" = "Zuhause";
 "welcome" = "Herzlich willkommen";
+"_button_continue_18Aa26" = "fortsetzen";
 "_button_logout_M2rbW" = "Ausloggen";
 "_button_login_Z8rQzV" = "Einloggen";
 "_company_name_1D0bFg" = "Ihr Firmenname";

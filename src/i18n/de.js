@@ -4,6 +4,7 @@ module.exports = {
 	"button": {
 		"login": "Einloggen",
 		"logout": "Ausloggen",
+		"continue": "fortsetzen"
 	},
 	"welcome": "Herzlich willkommen",
 	"home": "Zuhause",
@@ -16,5 +17,10 @@ module.exports = {
 	"subtitle_terms_condictions": "Um auf den Rabatt zuzugreifen, muss ich den folgenden Bedingungen zustimmen.",
 	"redeem_deal": "einlösen",
 	"go_back": "geh zurück",
-	"availables_deals": "verfügbare Angebote" 
+	"availables_deals": "verfügbare Angebote",
+	"profile": "Profil",
+	"following": "folgend",
+	"follow": "Folgen",
+	"deals_redeemed":"Angebote eingelöst",
+	"filter": "Filter"
 };

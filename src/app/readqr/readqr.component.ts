@@ -4,7 +4,7 @@ import * as dialogs from "tns-core-modules/ui/dialogs";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { NavigationExtras } from "@angular/router";
-  
+import { Page } from "tns-core-modules/ui/page";  
   
 
 @Component({
@@ -17,11 +17,13 @@ export class ReadqrComponent implements OnInit {
 
   extrastitle: string;
 
-  constructor(private barcodeScanner: BarcodeScanner, private _routerExtensions: RouterExtensions, private route: ActivatedRoute) { 
+  constructor(private barcodeScanner: BarcodeScanner, private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) { 
         
-        this.extrastitle = "";
+    this.page.actionBarHidden = true;
+    // this.page.backgroundSpanUnderStatusBar = true;
 
-        this.route.queryParams.subscribe(params => {
+    this.extrastitle = "";
+    this.route.queryParams.subscribe(params => {
             this.extrastitle = params["Titleid"];
         });
 }

@@ -1,0 +1,72 @@
+/* Add mobile styles for the component here.  */
+/* Add mobile styles for the component here.  */
+.pageUser {
+    background-color: #fa5641;
+    color: #ffffff;
+    flex-direction: column;
+    /*align-items: center;*/
+}
+.img {
+	border-radius: 50%;
+}
+
+.company-name-container2 {
+    height: 13%;
+}
+.company-name2{
+    margin-top: 40;
+}
+.flexbox-item2 {
+    width: 95%;
+    text-align: center;
+}
+
+.btn2 {
+    color: #ffffff;
+    background-color: #3C59FD;
+    /*margin: 20 0 30 0;
+*/}
+
+.btn2:highlighted {
+    background-color: #2241F0;
+}
+
+.btn-continue {
+    color: #EE185F;
+    background-color: #ffffff;
+    width: 50%;
+    height: 40;
+    border-radius: 5;
+}
+
+.btn3 {
+    color: #ffffff;
+    background-color: #fa5641;
+    
+}
+
+.btn-goback {
+    color: #ffffff;
+    background-color: #fa5641;
+    width: 50%;
+}
+
+.txt {
+	width: 100%;
+	text-align: left;
+
+}
+
+.flexbox-item3 {
+  margin-top: 25;  
+}
+
+.SwitchStyle {
+	background-color: #00cc00: 
+}
+
+.border-stack{
+    padding-bottom: 0;
+    border-width: 0 0 2 0;
+    border-bottom-color: white;
+}

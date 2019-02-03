@@ -12,9 +12,10 @@ refer to http://docs.nativescript.org/ui/theme.
 @import '~nativescript-theme-core/css/core.light.css';
 
 /* Common */
-.fa {
+/*.fa {
     font-family: "FontAwesome";
 }
+
 .page {
     background-color: #ffffff;
     color: #000000;
@@ -39,7 +40,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 .action-bar {
     background-color: #3C59FD;
-    color: #ffffff;
+    color: #000000;
     padding-right: 10;
 }
 .hr {
@@ -47,10 +48,10 @@ refer to http://docs.nativescript.org/ui/theme.
     width: 95%;
     margin-top: 21;
     height: 1;
-}
+}*/
 
 /* Login */
-.page-login-container {
+/*.page-login-container {
     background-color: #3C59FD;
     android-status-bar-background: #3C59FD;
 }
@@ -87,11 +88,11 @@ refer to http://docs.nativescript.org/ui/theme.
 .btn-login:highlighted {
     background-color: #EAEAEA;
     color: #000000;
-}
+}*/
 
 /*  Welcome */
 
-.title {
+/*.title {
     color: #3C59FD;
     margin-top: 20;
 }
@@ -122,7 +123,7 @@ refer to http://docs.nativescript.org/ui/theme.
 
 .action-button{
     font-size: 20;
-}
+}*/
 
 .font-awesome {
     font-family: "FontAwesome";

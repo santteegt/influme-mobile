@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { NavigationExtras } from "@angular/router";
+import { Page } from "tns-core-modules/ui/page";
 
 
 @Component({
@@ -16,7 +17,10 @@ export class DealprofileComponent implements OnInit {
 
   aux_marker: any;
 
-  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute) { 
+  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) { 
+
+    this.page.actionBarHidden = true;
+    // this.page.backgroundSpanUnderStatusBar = true;    
 
         let extrastitle = "";
 

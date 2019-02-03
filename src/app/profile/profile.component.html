@@ -1,0 +1,101 @@
+<!-- <StackLayout>
+  <GridLayout columns="* *" rows="auto auto">
+    <label class="profiletxt" text="  Profile" col="0" row="0"></label>
+    <button  text="Conf" textWrap="true" col="1" row="0" (tap)="goUser()"></button>
+  </GridLayout>
+  <Image [src]="urlImage" class="imagebackground"></Image>
+  <GridLayout class="Grid" columns="* *" rows="auto auto" width="80%">
+    <label class="nametxt" text=" @ChioGT" col="0" row="0"></label>
+    <button class="followbtn" text="follow" textWrap="true" col="1" row="0"></button> 
+  </GridLayout>
+  <StackLayout class="hr-light m-10" width="80%"></StackLayout>
+  <StackLayout orientation="horizontal">
+    <button class="btnsocial btnsocial1" text="88" ></button> 
+    <button class="btnsocial btnsocial2" text="88"></button> 
+    <button class="btnsocial btnsocial3" text="88"></button> 
+  </StackLayout>
+  <StackLayout>
+    <Imagen [src]="confImage"></Imagen>
+  </StackLayout>
+</StackLayout > -->
+
+<!-- <GridLayout rows="60,200,70,*,50" class="markerprofile-layout"> -->
+<GridLayout rows="60,200,*,50" class="markerprofile-layout"> -->
+  <GridLayout rows="60" columns="200, 200">
+    <StackLayout row="0" col="0" class="title-layout">
+      <LABEL text="{{'profile' | L}}"></LABEL>
+    </StackLayout>
+    <StackLayout row="0" col="1">
+      <Image height="40" width="40" src="res://icons/setting" marginTop="10"></Image>
+    </StackLayout>
+  </GridLayout>
+
+    <StackLayout row=1>
+      <Image stretch="fill" [src]="urlImage"></Image>
+    </StackLayout>
+    <LABEL text="{{120}}" verticalAlignment="top" marginTop="80" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+    <LABEL verticalAlignment="top" marginTop="125" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
+    <LABEL text="{{28}}" verticalAlignment="top" marginTop="80" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+    <LABEL verticalAlignment="top" marginTop="125" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
+
+
+<GridLayout row="2">
+<ScrollView>    
+  <StackLayout>
+    <StackLayout orientation="vertical" class="homemarker-title" height="30">
+        <Label [text]="nameUser"></Label>                
+    </StackLayout>
+    <StackLayout orientation="vertical" class="homemarker-description">
+        <Label [text]="cityUser"></Label>
+    </StackLayout>
+    <StackLayout orientation="vertical" class="homemarker-line-layout" height="5">                
+        <Label text=" " class="homemarker-line"></Label>
+    </StackLayout>
+
+    <GridLayout row="1" class="homemarker-social-media">
+      <StackLayout>
+        <StackLayout orientation="horizontal" marginTop="5">
+            <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
+            </StackLayout>
+            <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
+            </StackLayout>
+            <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
+            </StackLayout>
+                <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
+        <BUTTON text="{{'follow' | L}}" class="homemarker-follow-button"></BUTTON>
+            </StackLayout>
+
+        </StackLayout>
+        
+        <StackLayout class="homemarker-deals">
+            <Label text="{{'deals_redeemed' | L}}"></Label>
+        </StackLayout>
+
+        <StackLayout height="10" class="homemarker-line-layout-a">                
+            <Label text=" " class="homemarker-line "></Label>
+        </StackLayout>
+
+        <StackLayout class="homemarker-deals-images">
+          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
+                  <CarouselItem>
+                      <Image src="res://mercado/descuentom" stretch="fill" ></Image>
+                  </CarouselItem>
+                  <CarouselItem>
+                      <Image src="res://mercado/descuentoa" stretch="fill"></Image>
+                  </CarouselItem>
+          </Carousel>    
+        </StackLayout>   
+      </StackLayout>  
+    </GridLayout>
+  </StackLayout>
+</ScrollView>
+</GridLayout>
+
+    <StackLayout row="3" orientation="horizontal">
+        <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
+        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
+    </StackLayout>
+
+</GridLayout>

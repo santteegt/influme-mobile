@@ -2,8 +2,9 @@ module.exports = {
 	"app.name": "Influme",
 	"company.name": "Influme",
 	"button": {
-		"login": "Log in",
+		"login": "Sign up with Instagram",
 		"logout": "Log out",
+		"continue": "continue"
 	},
 	"welcome": "Welcome",
 	"home": "Home",
@@ -11,10 +12,15 @@ module.exports = {
 	"favorites": "Favorites",
 	"settings": "Settings",
 	"1_available_deal": "1 available deal",
-	"followers": "followersa",
+	"followers": "followers",
 	"terms_conditions": "Terms and Conditions",
 	"subtitle_terms_condictions": "To access the discount I must agree with the following terms.",
 	"redeem_deal": "redeem deal",
 	"go_back": "go back",
-	"availables_deals": "Availables Deals" 
+	"availables_deals": "Availables Deals",
+	"profile": "Profile",
+	"following": "following",
+	"follow": "follow",
+	"deals_redeemed":"Deals redeemed",
+	"filter": "Filter"
 };

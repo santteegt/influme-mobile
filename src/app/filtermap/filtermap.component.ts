@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationExtras } from "@angular/router";
+import { Page } from "tns-core-modules/ui/page";
 
 @Component({
   selector: 'filtermap',
@@ -14,7 +15,11 @@ export class FiltermapComponent implements OnInit {
   private colorstack: string;  
   private opacityvalue: string;
   
-  constructor(private _routerExtensions: RouterExtensions) { 
+  constructor(private _routerExtensions: RouterExtensions, private page: Page) { 
+
+    this.page.actionBarHidden = true;
+    // this.page.backgroundSpanUnderStatusBar = true;
+
     this.myItems = [
     {
         "id": "1", "type": "restaurant", "colorstack": "border-color: white;", "opacityvalue": "0.5", "status": 0},

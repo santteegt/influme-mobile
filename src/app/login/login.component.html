@@ -1,4 +1,4 @@
-<FlexboxLayout class="page page-login" backgroundImage="res://mesh">
+<!-- <FlexboxLayout class="page page-login" backgroundImage="res://mesh">
     <StackLayout class="flexbox-item company-name-container">
         <Label class="t-30 company-name" text="{{ 'app.name' | L }}"></Label>
     </StackLayout>
@@ -7,4 +7,35 @@
         <Label class="t-18 login-text" text="Log in with your organizational account"></Label>
         <Button class="btn btn-login btn-rounded-sm font-weight-bold t-18" (tap)="login()" text="{{'button.login' | L}}"></Button>        
     </StackLayout>
-</FlexboxLayout>
+</FlexboxLayout> -->
+<!-- <FlexboxLayout class="page1">
+    <StackLayout marginTop="50" class="company-name-container1">
+        <Label class="t-30 company-name1" text="{{ 'app.name' | L }}"></Label>
+        <Image width="200" height="120" src="res://appicon" stretch="fill"></Image>
+    </StackLayout>
+    <GridLayout marginTop="50" rows="50" columns="*, *" background="white" width="280" height="50" (tap)="login()">
+      <StackLayout horizontalAlignment="center" row="0" col="0">
+         <Image width="50" height="50" src="res://icons/instagram"></Image>
+      </StackLayout>
+      <StackLayout row="0" col="1" horizontalAlignment="left">         
+         <Label class="t-18 login-text1" text="Log in the app"></Label>
+         <Label class="text-login" text="{{'button.login' | L}}"></Label>
+         <Button class="btn1 btn-login1 font-weight-bold t-15" (tap)="login()" text="{{'button.login' | L}}"></Button>        
+      </StackLayout>
+    </GridLayout>
+</FlexboxLayout> -->
+<GridLayout class="main-container">
+    <StackLayout marginTop="100" class="company-name-container1">
+        <Image width="200" height="80" src="res://appicon" stretch="fill"></Image>
+    </StackLayout>
+    <GridLayout marginTop="50" rows="50" columns="60, *" backgroundcolor="white" width="280" height="50" (tap)="login()" class="stack-login">
+      <StackLayout verticalAlignment="center" horizontalAlignment="center" row="0" col="0">
+         <Image width="35" height="35" src="res://icons/instagram"></Image>
+      </StackLayout>
+      <StackLayout row="0" col="1" horizontalAlignment="left" verticalAlignment="center">         
+         <!-- <Label class="t-18 login-text1" text="Log in the app"></Label> -->
+         <Label class="text-login" text="{{'button.login' | L}}"></Label>
+         <!-- <Button class="btn1 btn-login1 font-weight-bold t-15" (tap)="login()" text="{{'button.login' | L}}"></Button>         -->
+      </StackLayout>
+    </GridLayout>
+</GridLayout>

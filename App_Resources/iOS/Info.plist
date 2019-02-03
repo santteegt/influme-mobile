@@ -50,5 +50,22 @@
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>None</string>
+            <key>CFBundleURLName</key>
+            <string>auth0</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>org.nativescript.influmemobile</string>
+            </array>
+        </dict>
+    </array>
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleBlackContent</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <false/>
   </dict>
 </plist>

@@ -1,0 +1,29 @@
+/* Add mobile styles for the component here.  */
+/* Login */
+
+.main-container{
+    background-color: #fa5641;
+}
+
+.stack-login{
+    border-radius: 5;
+}
+
+/*.container-login{
+    padding-top: 6;
+    padding-bottom: 6;
+    padding-left: 10;
+    padding-right: 10;
+}*/
+.text-login {
+    color: #EE185F;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 30px:
+    vertical-align: middle;
+}
+
+.company-name-container1 {
+    padding-top: 100px;
+}

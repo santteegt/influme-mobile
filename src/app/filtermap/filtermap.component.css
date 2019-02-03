@@ -42,3 +42,12 @@
 	background-color: black;
 	padding-top: 40;
 }
+
+.title-layout {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 30;
+    padding-top: 10;
+    color: white;
+}

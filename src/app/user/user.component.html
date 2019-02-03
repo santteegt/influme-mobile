@@ -1,0 +1,63 @@
+<FlexboxLayout class="pageUser">
+
+<ScrollView>
+	<GridLayout rows="80,150,45,45,45,45,40,70,55" marginLeft="40" marginRight="40" marginBottom="10">
+
+    <StackLayout row="0" class="flexbox-item2 company-name-container2">
+        <Label class="t-30 company-name2" text="{{ 'app.name' | L }}"></Label>
+    </StackLayout>
+  
+    <StackLayout marginLeft="20" marginRight="20" row="1" class="p-20">
+    	<Image class="img" [src]="imageurl" id="image0" width="100" height="100" stretch="aspectFill"></Image>
+    </StackLayout>
+    
+    <StackLayout row="2">
+    	<TextField height="40" class="txt t-15 c-white border-stack" hint="Name" [text]="lname"></TextField>
+    </StackLayout>
+    
+    <StackLayout row="3">
+    	<TextField height="40" class="txt t-15 c-white border-stack" hint="City" [text]="lcity"></TextField>
+    </StackLayout>
+    
+    <StackLayout row="4">
+      <TextField height="40" class="txt t-15 c-white border-stack" hint="Email" [text]="lemail"></TextField>
+    </StackLayout>
+    
+    <StackLayout row="5">
+      <TextField height="40" class="txt t-15 c-white border-stack" hint="Nickname" [text]="lnname"></TextField>
+    </StackLayout>
+
+<!--     <StackLayout row="6">
+      <TextField height="40" class="txt t-15 c-white border-stack" text="password"></TextField>
+    </StackLayout>
+
+    <StackLayout row="7">
+      <TextField height="40" class="txt t-15 c-white border-stack" text="confirm password"></TextField>
+    </StackLayout>
+ -->    
+    <StackLayout row="6">
+      <GridLayout columns="*, *">        
+          <StackLayout orientation="vertical" col="0" verticalAlignment="center">
+            <!-- class="t-15 switch" -->
+        	   <Label class="t-15 c-white" text="Influencer account" textWrap="true"></Label>            
+          </StackLayout>
+          <StackLayout orientation="vertical" col="1" verticalAlignment="center" horizontalAlignment="right">
+          	<Switch checked="false" (checkedChange)="onFirstChecked($event)"></Switch>
+          </StackLayout>
+      </GridLayout>
+    </StackLayout>
+
+    <StackLayout row="7" class="flexbox-item3">
+      <Button class="btn2 btn-continue font-weight-bold t-15" (tap)="continue()" text="{{'button.continue' | L}}"></Button>
+      <!-- <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}"></Button> -->
+    </StackLayout>
+    <StackLayout row="8" class="flexbox-item3">
+      <!-- <Button class="btn2 btn-continue font-weight-bold t-15" (tap)="continue()" text="{{'button.continue' | L}}"></Button> -->
+      <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}"></Button>
+    </StackLayout>    
+
+  </GridLayout>
+
+</ScrollView>
+
+</FlexboxLayout>

@@ -8,6 +8,9 @@ import { ViewChild, ElementRef } from "@angular/core";
 // >> import-image-module
 import { Image } from "tns-core-modules/ui/image";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
+import { Page } from "tns-core-modules/ui/page";
+import * as localstorage from "nativescript-localstorage";
+
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -21,13 +24,15 @@ registerElement('MapView', () => MapView);
 })
 export class ViewmapComponent {
 
+    private jsonuser: any;
+
     // Para coger un StackLayout y agregar elementos
     @ViewChild("myNgStack") stackRef: ElementRef;
-   myNativeStack: StackLayout;
+    myNativeStack: StackLayout;
 
     // @ViewChild("myNgStack1") stackRef1: ElementRef;
     @ViewChild("myNgStack1") stackRef1: ElementRef;
-   myNativeStack1: StackLayout;
+    myNativeStack1: StackLayout;
 
     // >> creating-image-code
     public newImage: Image;
@@ -56,7 +61,14 @@ export class ViewmapComponent {
     // Variable JSON que contiene los parametros de busqueda
     optionsFilter: any;
 
-    constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute) {
+    constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
+
+        this.page.actionBarHidden = true;
+        // this.page.backgroundSpanUnderStatusBar = true;
+
+        // if(jsonuseraux != null){
+        //     this.jsonuser = JSON.parse(jsonuseraux);
+        // }
 
         this.optionsFilter = [];
         let extrasfilter = "";
@@ -245,5 +257,36 @@ export class ViewmapComponent {
         };
         
         this._routerExtensions.navigate(["viewmap"], navigationExtras );
+    }
+
+    gologinview() {
+
+        let jsonuseraux = "";
+        let jsonDataUser: any;
+        jsonuseraux = localstorage.getItem('ResultLogin');
+
+        console.log("[888888] " + jsonuseraux);
+
+        // let jsonDataUser;
+        // console.log("[***] :" + this.jsonuser);
+        // console.log("[***] :" + this.jsonuser);
+        // console.log("[***] :" + this.jsonuser);
+
+        if( jsonuseraux == null)
+            this._routerExtensions.navigate(["login"]);
+        else{
+            let auxdata = JSON.parse(jsonuseraux);
+            jsonDataUser = {
+                "nameU": auxdata["profile"]["name"],
+                "cityU": "Cuenca, Ecuador",
+                "imageU": auxdata["profile"]["picture"]
+            };
+            let navigationExtras: NavigationExtras = {
+            queryParams: {
+                  "info": JSON.stringify(jsonDataUser)
+                }
+            };
+            this._routerExtensions.navigate(["profile"], navigationExtras);
+        }
     }
 }

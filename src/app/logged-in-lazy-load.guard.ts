@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { CanLoad } from "@angular/router";
 // import { Kinvey } from "kinvey-nativescript-sdk";
 import { RouterExtensions } from "nativescript-angular/router";
+import { NavigationExtras } from "@angular/router";
 
 @Injectable()
 export class LoggedInLazyLoadGuard implements CanLoad {
@@ -12,8 +13,17 @@ export class LoggedInLazyLoadGuard implements CanLoad {
     }
 
     canLoad(): boolean {
+        let initparam = [];
     	if(!this.firstTime) {
-    		this._routerExtensions.navigate(["login"], { clearHistory: true });
+            let navigationExtras: NavigationExtras = {
+                queryParams: 
+                {
+                    "DataList": JSON.stringify(initparam)
+                }
+            };
+    		// this._routerExtensions.navigate(["login"], { clearHistory: true });
+            this._routerExtensions.navigate(["viewmap"], navigationExtras);
+
     		this.firstTime = true;
     	}
         // if (!Kinvey.User.getActiveUser()) {
