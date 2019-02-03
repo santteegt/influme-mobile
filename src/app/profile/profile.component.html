@@ -20,7 +20,7 @@
 </StackLayout > -->
 
 <!-- <GridLayout rows="60,200,70,*,50" class="markerprofile-layout"> -->
-<GridLayout rows="60,200,*,50" class="markerprofile-layout"> -->
+<GridLayout rows="60,*,50" class="markerprofile-layout"> -->
   <GridLayout rows="60" columns="200, 200">
     <StackLayout row="0" col="0" class="title-layout">
       <LABEL text="{{'profile' | L}}"></LABEL>
@@ -30,18 +30,30 @@
     </StackLayout>
   </GridLayout>
 
-    <StackLayout row=1>
-      <Image stretch="fill" [src]="urlImage"></Image>
-    </StackLayout>
-    <LABEL text="{{120}}" verticalAlignment="top" marginTop="80" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
-    <LABEL verticalAlignment="top" marginTop="125" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
-    <LABEL text="{{28}}" verticalAlignment="top" marginTop="80" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
-    <LABEL verticalAlignment="top" marginTop="125" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
-
-
-<GridLayout row="2">
-<ScrollView>    
+<GridLayout row="1">    
+<ScrollView>
   <StackLayout>
+    <GridLayout rows="200">
+     <StackLayout row="0">
+      <Image stretch="fill" [src]="urlImage"></Image>        
+     </StackLayout>
+      <StackLayout row="0">
+        <LABEL text="{{120}}" verticalAlignment="top" marginTop="30" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+      </StackLayout>
+      <StackLayout row="0">
+        <LABEL verticalAlignment="top" marginTop="75" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
+      </StackLayout>
+      <StackLayout row="0">
+        <LABEL text="{{28}}" verticalAlignment="top" marginTop="30" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+      </StackLayout>
+      <StackLayout row="0">
+        <LABEL verticalAlignment="top" marginTop="75" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
+      </StackLayout>
+ <!-- </StackLayout> -->
+    </GridLayout> 
+
+<!--     </StackLayout> -->
+<!-- <GridLayout row="2"> -->
     <StackLayout orientation="vertical" class="homemarker-title" height="30">
         <Label [text]="nameUser"></Label>                
     </StackLayout>
