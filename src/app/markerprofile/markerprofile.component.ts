@@ -45,7 +45,7 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
     this.marker_profile = [
       { 
-        "title" : "Mido jkjkjk jkkj jsjs jue jj sdsd mck kj kuiu usu kjasu hs iusa",
+        "title" : "Mido",
         "descripcion": "Best quality sushi & vietnamese cuisine since 1999",
         "web": "www.mido.berlin",
         "seguidores": "120",

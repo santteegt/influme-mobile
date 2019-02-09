@@ -80,7 +80,7 @@ export class ViewmapComponent {
 
         this.marker_profile = [
                 { 
-                  "title" : "Mido jkjkjk jkkj jsjs jue jj sdsd mck kj kuiu usu kjasu hs iusa",
+                  "title" : "Mido",
                   "snippet" : "Sushi Restaurant",
                   "tipo": "restaurant", 
                   "lat": "52.501346",
