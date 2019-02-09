@@ -7,6 +7,8 @@ import {ActivatedRoute} from "@angular/router";
 import { NavigationExtras } from "@angular/router";
 
 import { UserapiService } from "../shared/api/user/userapi.service";
+import * as localstorage from "nativescript-localstorage";
+
 // import { registerElement } from 'nativescript-angular/element-registry';
 
 // registerElement('Carousel', () => Carousel);
@@ -52,7 +54,12 @@ constructor(private route: ActivatedRoute, private page: Page,
 
   goviewmap() {
 
-    let empty_value = []
+    this.routeMap();
+
+  }
+
+  private routeMap() {
+    let empty_value = [];
     let navigationExtras: NavigationExtras = {
         queryParams: {
             "DataList": JSON.stringify(empty_value)
@@ -60,6 +67,13 @@ constructor(private route: ActivatedRoute, private page: Page,
     };
     
     this._routExt.navigate(["viewmap"], navigationExtras );
+
+  }
+
+  logoutUser() {
+ 
+    localStorage.removeItem('ResultLogin');
+    this.routeMap();
 
   }
 

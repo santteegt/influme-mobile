@@ -34,7 +34,7 @@ export class LoginComponent {
     login() {
         /// Promise returns credentials object
         this.auth0.webAuthentication({
-            scope: 'openid profile email offline_access', scheme: "influmemobile"
+            scope: 'openid profile email bio offline_access', scheme: "influmemobile"
         }).then((result) => {            
         // console.log(result);
             
@@ -68,13 +68,25 @@ export class LoginComponent {
 
     private navigateUser(res) {
 
+        // this.auth0.getUserInfo(res['accessToken']).then((result) => {            
+        //     alert(JSON.stringify(result));
+        //     // console.log("[***] Informacion de Usuario " + result);
+        //     // console.log("[***] Informacion de Usuario " + result.pictureURL);
+        //     // console.log("[***] Informacion de Usuario " + result.name);
+        //     // console.log("[***] Informacion de Usuario " + result.nickname);
+        //     // console.log("[***] Informacion de Usuario " + result.counts);
+        //     // console.log("[***] Informacion de Usuario " + result.follows);
+        // }).catch((e: Error) => console.log(e, e.stack));        
+
         console.log('[*] Access Token: ' + res['accessToken']);
         
         console.log('[*] Todo el resultado: ' + JSON.stringify(res));
         
         const usuario: string = jwt(res['idToken']);
+        // const usuario: string = "";
+
         //console.log("luego del decode");
-        console.log ("[*] Data res[idToken]: " + JSON.stringify(usuario));
+        // console.log ("[*] Data res[idToken]: " + JSON.stringify(usuario));
         // this.zone.run(() => {
 
         this.jsonFinal = {
