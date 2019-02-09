@@ -43,11 +43,10 @@ export class ViewmapComponent {
     // Titulo, Desripcion e imagen de el marcador seleccionado
     title_marker_selected: string;
     des_marker_selected: string;
-
-    // Para mapa
-    latitude =  -2.901232;
-    longitude = -79.003472;
-    zoom = 15;
+ 
+    latitude = 52.531361;
+    longitude = 13.375285;
+    zoom = 12;
     minZoom = 0;
     maxZoom = 22;
     bearing = 0;
@@ -81,61 +80,68 @@ export class ViewmapComponent {
 
         this.marker_profile = [
                 { 
-                  "title" : "El Mercado",
-                  "snippet" : "Comida tradicional",
-                  "tipo": "restaurant",
-                  "lat": "-2.901232",
-                  "lon": "-79.005040",
-                  "picturehome": "res://mercado/mercado",
+                  "title" : "Mido",
+                  "snippet" : "Sushi Restaurant",
+                  "tipo": "restaurant", 
+                  "lat": "52.501346",
+                  "lon": "13.307921",
+                  "picturehome": "res://mido/1",
                   "icontype": "res://icons/filterA"
                 },
-                // { 
-                //   "title" : "Golden Prague Pub",
-                //   "snippet" : "Cerveceria artesanal",
-                //   "tipo": "bar",
-                //   "lat": "-2.906803",
-                //   "lon": "-79.003472",         
-                //   "picturehome": "res://mercado/mercado",
-                //   "icontype": "res://icons/filterB"
-                // },
-
                 {
-                    "title": "Art Gym",
-                    "snippet" : "Gimnasio",
-                    "tipo": "gym",
-                    "lat": "-2.902862",
-                    "lon": "-79.000974",
-                    "picturehome": "res://mercado/mercado",
-                    "icontype": "res://icons/filterE"
-                }
-
-                // {
-                //     "title": "Vispera del Chuchaqui",
-                //     "snippet" : "Los mejores cocteles",
-                //     "tipo": "bar",
-                //     "lat": "-2.901466",
-                //     "lon": "-79.004752",
-                //     "picturehome": "res://mercado/mercado",
-                //     "icontype": "res://icons/filterB"
-                // },                
-                // {
-                //     "title": "Clinica Santa Ines",
-                //     "snippet" : "Clinica privada",
-                //     "tipo": "health",
-                //     "lat": "-2.902116",
-                //     "lon": "-79.008917",
-                //     "picturehome": "res://mercado/mercado",
-                //     "icontype": "res://icons/filterG"
-                // },
-                // {
-                //     "title": "Fybeca",
-                //     "snippet" : "Farmacia",
-                //     "tipo": "health",
-                //     "lat": "-2.902523",
-                //     "lon": "-79.008042",
-                //     "picturehome": "res://mercado/mercado",
-                //     "icontype": "res://icons/filterG"
-                // }
+                    "title": "808 Club Berlin",
+                    "snippet" : "Night Club",
+                    "tipo": "health",
+                    "lat": "52.505766",
+                    "lon": "13.338038",
+                    "picturehome": "res://808/1",
+                    "icontype": "res://icons/filterG"
+                },
+                {
+                    "title": "Zola",
+                    "snippet" : "Pizza Restaurant",
+                    "tipo": "restaurant",
+                    "lat": "52.496335",
+                    "lon": "13.422261",
+                    "picturehome": "res://zola/1",
+                    "icontype": "res://icons/filterA"
+                },
+                {
+                    "title": "Sons of Mana",
+                    "snippet" : "Hawaiian Cuisine",
+                    "tipo": "restaurant",
+                    "lat": "52.527582",
+                    "lon": "13.408219",
+                    "picturehome": "res://sonsofmana/1",
+                    "icontype": "res://icons/filterA"
+                },
+                {
+                    "title": "Bar Tausend",
+                    "snippet" : "Cocktails-Music-Dining",
+                    "tipo": "bar",
+                    "lat": "52.521061",
+                    "lon": "13.384872",
+                    "picturehome": "res://tausend/2",
+                    "icontype": "res://icons/filterB"
+                },
+                {
+                    "title": "Aquadom & Sealife Berlin",
+                    "snippet" : "Aquarium",
+                    "tipo": "type3",
+                    "lat": "52.520339",
+                    "lon": "13.403782",
+                    "picturehome": "res://asb/1",
+                    "icontype": "res://icons/filterC"
+                },
+                {
+                    "title": "Berliner Fernsehturm",
+                    "snippet" : "Television Tower",
+                    "tipo": "painting",
+                    "lat": "52.521030",
+                    "lon": "13.409430",
+                    "picturehome": "res://berliner/5",
+                    "icontype": "res://icons/filterM"
+                }                
                 ]
     }
 
@@ -195,16 +201,20 @@ export class ViewmapComponent {
         let img_marker_selected = jsonAuxSelect[0]["picturehome"];
         let icon_type = jsonAuxSelect[0]["icontype"];
 
-        console.log("Icono " + icon_type);
-
+        //console.log("Icono " + icon_type);
+        
+        this.myNativeStack.removeChildren();
         this.newImage = new Image();
         this.newImage.src = img_marker_selected;
         this.newImage.stretch = "fill";
         this.myNativeStack.addChild(this.newImage);
 
+        this.myNativeStack1.removeChildren();
         this.newImage = new Image();
         this.newImage.src = icon_type;
         this.newImage.stretch = "fill";
+        this.newImage.width = 25;
+        this.newImage.height = 25;
         // this.newImage.style.color = "black";
         this.myNativeStack1.addChild(this.newImage);
 
@@ -243,7 +253,8 @@ export class ViewmapComponent {
             "Titleid": this.title_marker_selected
           }
     };
-    this._routerExtensions.navigate(["markerprofile"], navigationExtras)
+    this._routerExtensions.navigate(["markerprofile"], navigationExtras);
+    
 
     }
 
@@ -265,12 +276,7 @@ export class ViewmapComponent {
         let jsonDataUser: any;
         jsonuseraux = localstorage.getItem('ResultLogin');
 
-        console.log("[888888] " + jsonuseraux);
-
-        // let jsonDataUser;
-        // console.log("[***] :" + this.jsonuser);
-        // console.log("[***] :" + this.jsonuser);
-        // console.log("[***] :" + this.jsonuser);
+        console.log("[*] Storage Perfil " + jsonuseraux);
 
         if( jsonuseraux == null)
             this._routerExtensions.navigate(["login"]);

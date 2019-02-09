@@ -23,14 +23,16 @@
             <StackLayout row="0" orientation="vertical" class="homemarker-title">
                 <Label [text]="title_marker_selected"></Label>                
             </StackLayout>
-            <StackLayout row="0" orientation="vertical" class="homemarker-icon" marginLeft="260" marginTop="25" #myNgStack1 id="myStackId1">                
+            <!-- <StackLayout row="0" orientation="vertical" class="homemarker-icon" marginLeft="260" marginTop="25" #myNgStack1 id="myStackId1">                 -->
+            <StackLayout row="0" orientation="vertical" class="homemarker-icon" marginLeft="260" marginTop="75" #myNgStack1 id="myStackId1">                                
+                <!-- <Image [src]="icon_type"></Image> -->
                 <!-- <Label text="&#xf000;" textWrap="true" class="font-awesome"></Label>                 -->
             </StackLayout>
             <StackLayout row="1" orientation="vertical" class="homemarker-description">
                 <Label [text]="des_marker_selected" class="summary-layout-description"></Label>
             </StackLayout>
             <StackLayout row="2" orientation="vertical" class="homemarker-image" #myNgStack id="myStackId">
-                <!-- <Image src="registerSelected.picture-home" stretch="fill"></Image> -->
+                <!-- <Image [src]="img_marker_selected" stretch="fill"></Image> -->
             </StackLayout>
             <StackLayout row="3" orientation="vertical" class="homemarker-button">
                 <Button class="button-home-marker" text="{{'1_available_deal' | L}}" (tap)="gomarkerprofile()"></Button>

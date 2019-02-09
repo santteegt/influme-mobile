@@ -7,13 +7,13 @@
       <GridLayout row="0">   
         <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
                 <CarouselItem>
-                    <Image src="res://mercado/mercado" stretch="fill" ></Image>
+                    <Image src="{{profile_id_selected[0].img1}}" stretch="fill" ></Image>
                 </CarouselItem>
                 <CarouselItem>
-                    <Image src="res://mercado/salmon" stretch="fill"></Image>
+                    <Image src="{{profile_id_selected[0].img2}}" stretch="fill"></Image>
                 </CarouselItem>
                 <CarouselItem>
-                    <Image src="res://mercado/interior" stretch="fill"></Image>
+                    <Image src="{{profile_id_selected[0].img3}}" stretch="fill"></Image>
                 </CarouselItem>
         </Carousel>
       </GridLayout>
@@ -28,7 +28,7 @@
                 <Label text="{{profile_id_selected[0].title}}"></Label>                
             </StackLayout>
             <StackLayout row="0" orientation="vertical" class="homemarker-description">
-                <Label text="{{profile_id_selected[0].descripcion}}"></Label>
+                <Label text="{{profile_id_selected[0].descripcion}}" textWrap="true" width="295" horizontalAlignment="left"></Label>
             </StackLayout>
             <StackLayout row="0" orientation="vertical" class="homemarker-line-layout">                
                 <Label text=" " class="homemarker-line"></Label>
@@ -36,10 +36,10 @@
         </GridLayout>
     </StackLayout>
     <!-- class="homemarker-follow-button" -->
-    <StackLayout horizontalAlignment="right" row="1" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
+<!--     <StackLayout horizontalAlignment="right" row="1" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
         <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
     </StackLayout>
-
+ -->
         <GridLayout row="2" class="homemarker-social-media">
           <ScrollView>  
             <StackLayout>
@@ -56,6 +56,9 @@
                     </StackLayout>
                     <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
                     </StackLayout>
+                    <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginLeft="60">                
+                        <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
+                    </StackLayout>
                 </StackLayout>
             <StackLayout class="homemarker-deals">
                 <Label text="Availables Deals"></Label>
@@ -68,8 +71,8 @@
             <StackLayout class="homemarker-deals-images" orientation="vertical" #myNgStack>    
             <!-- <StackLayout  orientation="vertical" #myNgStack> -->
                 <!-- <Image *ngFor="let element of images_descuentos" [src]="element.img" stretch="fill" (tap)="element.function"></Image>                 -->
-                <Image src="res://mercado/descuentom" stretch="fill" (tap)="onClickImga()"></Image>               
-                <Image src="res://mercado/descuentoa" stretch="fill" (tap)="onClickImgb()"></Image>               
+                <Image src="{{profile_id_selected[0].promos[0].img}}" stretch="fill" (tap)="onClickImga()"></Image> 
+                <!-- <Image src="res://mercado/descuentoa" stretch="fill" (tap)="onClickImgb()"></Image>                -->
             </StackLayout>    
          </StackLayout>  
       </ScrollView>
@@ -79,7 +82,7 @@
         <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
         <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
         <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
-        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps" (tap)="gologinview()"></Button>
     </StackLayout>
 
 
