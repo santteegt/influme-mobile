@@ -1,70 +1,72 @@
 <ActionBar title ="Filter"></ActionBar>
-<GridLayout rows="60,70,70,70,70,70,100" class="filter-layout">
-    <!-- <GridLayout rows="80,80,80,80,80" columns="*, *, *"> -->
-    <StackLayout row="0">
-        <Label text="Filter" class="title-layout"></Label>
-    </StackLayout>    
-    <GridLayout row="1" columns="*, *, *">    
-        <StackLayout row="0" col=0 orientation="vertical" class="options-menu" style="{{myItems[0].colorstack}}" opacity="{{myItems[0].opacityvalue}}" (tap)="onItemTap(0)">
-    		<IMAGE src="res://icons/filterA" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="0" col=1 orientation="vertical" class="options-menu" style="{{myItems[1].colorstack}}" opacity="{{myItems[1].opacityvalue}}" (tap)="onItemTap(1)">
-    		<IMAGE src="res://icons/filterB" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="0" col=2 orientation="vertical" class="options-menu" style="{{myItems[2].colorstack}}" opacity="{{myItems[2].opacityvalue}}" (tap)="onItemTap(2)">
-    		<IMAGE src="res://icons/filterC" class="img-style"></IMAGE>
-        </StackLayout>
-    </GridLayout>
-    
-    <GridLayout row="2" columns="*, *, *">    
-        <StackLayout row="1" col=0 orientation="vertical" class="options-menu" style="{{myItems[3].colorstack}}" opacity="{{myItems[3].opacityvalue}}" (tap)="onItemTap(3)">
-            <IMAGE src="res://icons/filterD" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="1" col=1 orientation="vertical" class="options-menu" style="{{myItems[4].colorstack}}" opacity="{{myItems[4].opacityvalue}}" (tap)="onItemTap(4)">
-            <IMAGE src="res://icons/filterE" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="1" col=2 orientation="vertical" class="options-menu" style="{{myItems[5].colorstack}}" opacity="{{myItems[5].opacityvalue}}" (tap)="onItemTap(5)">
-            <IMAGE src="res://icons/filterF" class="img-style"></IMAGE>
-        </StackLayout>
-    </GridLayout>
+<ScrollView>
+    <GridLayout rows="60,70,70,70,70,70,100" class="filter-layout">
+        <!-- <GridLayout rows="80,80,80,80,80,100" columns="*, *, *"> -->
+        <StackLayout row="0">
+            <Label text="Filter" class="title-layout"></Label>
+        </StackLayout>    
+        <GridLayout row="1" columns="*, *, *">    
+            <StackLayout row="0" col=0 orientation="vertical" class="options-menu" style="{{myItems[0].colorstack}}" opacity="{{myItems[0].opacityvalue}}" (tap)="onItemTap(0)">
+        		<IMAGE src="res://icons/filterA" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="0" col=1 orientation="vertical" class="options-menu" style="{{myItems[1].colorstack}}" opacity="{{myItems[1].opacityvalue}}" (tap)="onItemTap(1)">
+        		<IMAGE src="res://icons/filterB" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="0" col=2 orientation="vertical" class="options-menu" style="{{myItems[2].colorstack}}" opacity="{{myItems[2].opacityvalue}}" (tap)="onItemTap(2)">
+        		<IMAGE src="res://icons/filterC" class="img-style"></IMAGE>
+            </StackLayout>
+        </GridLayout>
+        
+        <GridLayout row="2" columns="*, *, *">    
+            <StackLayout row="1" col=0 orientation="vertical" class="options-menu" style="{{myItems[3].colorstack}}" opacity="{{myItems[3].opacityvalue}}" (tap)="onItemTap(3)">
+                <IMAGE src="res://icons/filterD" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="1" col=1 orientation="vertical" class="options-menu" style="{{myItems[4].colorstack}}" opacity="{{myItems[4].opacityvalue}}" (tap)="onItemTap(4)">
+                <IMAGE src="res://icons/filterE" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="1" col=2 orientation="vertical" class="options-menu" style="{{myItems[5].colorstack}}" opacity="{{myItems[5].opacityvalue}}" (tap)="onItemTap(5)">
+                <IMAGE src="res://icons/filterF" class="img-style"></IMAGE>
+            </StackLayout>
+        </GridLayout>
 
-    <GridLayout row="3" columns="*, *, *">    
-        <StackLayout row="2" col=0 orientation="vertical" class="options-menu" style="{{myItems[6].colorstack}}" opacity="{{myItems[6].opacityvalue}}" (tap)="onItemTap(6)">
-            <IMAGE src="res://icons/filterG" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="2" col=1 orientation="vertical" class="options-menu" style="{{myItems[7].colorstack}}" opacity="{{myItems[7].opacityvalue}}" (tap)="onItemTap(7)">
-            <IMAGE src="res://icons/filterH" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="2" col=2 orientation="vertical" class="options-menu" style="{{myItems[8].colorstack}}" opacity="{{myItems[8].opacityvalue}}" (tap)="onItemTap(8)">
-            <IMAGE src="res://icons/filterI" class="img-style"></IMAGE>
+        <GridLayout row="3" columns="*, *, *">    
+            <StackLayout row="2" col=0 orientation="vertical" class="options-menu" style="{{myItems[6].colorstack}}" opacity="{{myItems[6].opacityvalue}}" (tap)="onItemTap(6)">
+                <IMAGE src="res://icons/filterG" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="2" col=1 orientation="vertical" class="options-menu" style="{{myItems[7].colorstack}}" opacity="{{myItems[7].opacityvalue}}" (tap)="onItemTap(7)">
+                <IMAGE src="res://icons/filterH" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="2" col=2 orientation="vertical" class="options-menu" style="{{myItems[8].colorstack}}" opacity="{{myItems[8].opacityvalue}}" (tap)="onItemTap(8)">
+                <IMAGE src="res://icons/filterI" class="img-style"></IMAGE>
+            </StackLayout>
+        </GridLayout>
+
+        <GridLayout row="4" columns="*, *, *">    
+            <StackLayout row="3" col=0 orientation="vertical" class="options-menu" style="{{myItems[9].colorstack}}" opacity="{{myItems[9].opacityvalue}}" (tap)="onItemTap(9)">
+                <IMAGE src="res://icons/filterJ" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="3" col=1 orientation="vertical" class="options-menu" style="{{myItems[10].colorstack}}" opacity="{{myItems[10].opacityvalue}}" (tap)="onItemTap(10)">
+                <IMAGE src="res://icons/filterK" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="3" col=2 orientation="vertical" class="options-menu" style="{{myItems[11].colorstack}}" opacity="{{myItems[11].opacityvalue}}" (tap)="onItemTap(11)">
+                <IMAGE src="res://icons/filterM" class="img-style"></IMAGE>
+            </StackLayout>
+        </GridLayout>
+
+        <GridLayout row="5" columns="*, *, *">    
+            <StackLayout row="4" col=0 orientation="vertical" class="options-menu" style="{{myItems[12].colorstack}}" opacity="{{myItems[12].opacityvalue}}" (tap)="onItemTap(12)">
+                <IMAGE src="res://icons/filterN" class="img-style"></IMAGE>
+            </StackLayout>
+            <StackLayout row="4" col=1 orientation="vertical" class="options-menu" style="{{myItems[13].colorstack}}" opacity="{{myItems[13].opacityvalue}}" (tap)="onItemTap(13)">
+                <IMAGE src="res://icons/filterO" class="img-style"></IMAGE>
+            </StackLayout>
+        </GridLayout>
+
+        <StackLayout row="6" orientation="vertical" class="layout-button">
+            <BUTTON text="Save" class="save-button" (tap)="sendJSON()"></BUTTON>
         </StackLayout>
     </GridLayout>
-
-    <GridLayout row="4" columns="*, *, *">    
-        <StackLayout row="3" col=0 orientation="vertical" class="options-menu" style="{{myItems[9].colorstack}}" opacity="{{myItems[9].opacityvalue}}" (tap)="onItemTap(9)">
-            <IMAGE src="res://icons/filterJ" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="3" col=1 orientation="vertical" class="options-menu" style="{{myItems[10].colorstack}}" opacity="{{myItems[10].opacityvalue}}" (tap)="onItemTap(10)">
-            <IMAGE src="res://icons/filterK" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="3" col=2 orientation="vertical" class="options-menu" style="{{myItems[11].colorstack}}" opacity="{{myItems[11].opacityvalue}}" (tap)="onItemTap(11)">
-            <IMAGE src="res://icons/filterM" class="img-style"></IMAGE>
-        </StackLayout>
-    </GridLayout>
-
-    <GridLayout row="5" columns="*, *, *">    
-        <StackLayout row="4" col=0 orientation="vertical" class="options-menu" style="{{myItems[12].colorstack}}" opacity="{{myItems[12].opacityvalue}}" (tap)="onItemTap(12)">
-            <IMAGE src="res://icons/filterN" class="img-style"></IMAGE>
-        </StackLayout>
-        <StackLayout row="4" col=1 orientation="vertical" class="options-menu" style="{{myItems[13].colorstack}}" opacity="{{myItems[13].opacityvalue}}" (tap)="onItemTap(13)">
-            <IMAGE src="res://icons/filterO" class="img-style"></IMAGE>
-        </StackLayout>
-    </GridLayout>
-
-    <StackLayout row="6" orientation="vertical" class="layout-button">
-        <BUTTON text="Save" class="save-button" (tap)="sendJSON()"></BUTTON>
-    </StackLayout>
-</GridLayout>
+</ScrollView>
 <!--         <GridLayout rows="100">    
             <StackLayout row="0" orientation="vertical" class="layout-button">
                 <BUTTON text="Save" class="save-button"></BUTTON>
