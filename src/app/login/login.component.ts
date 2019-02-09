@@ -127,4 +127,15 @@ export class LoginComponent {
     //         });
     //     });
     // }
+    private routeMap() {
+        let empty_value = [];
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "DataList": JSON.stringify(empty_value)
+          }
+        };
+        
+        this._routerExtensions.navigate(["viewmap"], navigationExtras );
+
+  }
 }
