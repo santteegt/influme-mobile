@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationExtras } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";
 
 @Component({
@@ -15,11 +16,19 @@ export class FiltermapComponent implements OnInit {
   private colorstack: string;  
   private opacityvalue: string;
   
-  constructor(private _routerExtensions: RouterExtensions, private page: Page) { 
+  constructor(private _routerExtensions: RouterExtensions, private page: Page, private route: ActivatedRoute) { 
 
     this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;
 
+    let extrasfilter = "";
+
+    this.route.queryParams.subscribe(params => {
+        extrasfilter = params["FilterInitial"];
+    });
+
+    let myItemsAux: any = JSON.parse(extrasfilter); 
+  
     this.myItems = [
     {
         "id": "1", "type": "restaurant", "colorstack": "border-color: white;", "opacityvalue": "0.5", "status": 0},
@@ -49,7 +58,24 @@ export class FiltermapComponent implements OnInit {
         "id": "13", "type": "games", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
         "id": "14", "type": "hand", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0}    
-    ]
+    ];      
+
+    if(myItemsAux.length > 0){
+      
+      for(let i=0; i<myItemsAux.length; i++){
+            for(let j=0; j<this.myItems.length; j++){      
+              if(this.myItems[j]["id"] == myItemsAux[i]["id"])
+              {
+                this.myItems[j]["opacityvalue"] = "1";
+                this.myItems[j]["colorstack"] = "border-color: red;";
+                this.myItems[j]["status"] = 1;        
+                break;    
+              }
+            }        
+      }
+    }
+
+
   }
 
   ngOnInit() {
@@ -67,6 +93,16 @@ export class FiltermapComponent implements OnInit {
       this.myItems[args]["colorstack"]="border-color: white;";
       this.myItems[args]["opacityvalue"]="0.5";
     }
+  }
+
+  public clearFilter(){
+
+      for(var j=0; j<this.myItems.length ;j++){              
+          this.myItems[j]["opacityvalue"] = "0.5";
+          this.myItems[j]["colorstack"] = "border-color: white;";
+          this.myItems[j]["status"] = 0;            
+      }
+
   }
 
   public sendJSON(){

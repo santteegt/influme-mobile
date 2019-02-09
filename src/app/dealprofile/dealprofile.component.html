@@ -1,18 +1,19 @@
 <!-- <ScrollView> -->
 <!-- <Gridlayout rows="auto,auto, auto,150, auto, 45" class="main-layout-deal"> -->
+	<!-- * -->
 <Gridlayout rows="auto,auto, *" class="main-layout-deal"> -->
 	<StackLayout row="0" orientation="vertical" class="main-layout-deal-image">
 		<Image [src]="aux_marker[0].iddeal" stretch="fill" class="deal-image"></Image>
 	</StackLayout>
 	<StackLayout row="1" class="main-layout-deal-title">
-		<LABEL text="{{'terms_conditions' | L }}"></LABEL>
+		<LABEL text="{{'terms_conditions' | L }}" textWrap="true"></LABEL>
 	</StackLayout>	
 	<StackLayout row="2">
 		<ScrollView>	
-			<!-- <GridLayout row="2"rows="auto, 150, auto, 600">	 -->
-				<GridLayout row="2" rows="*, 150, *, 45">
+			<!-- <GridLayout row="2"rows="auto, 150, auto, 600">	45  -->
+				<GridLayout row="2" rows="auto, 150, *, 45">
 					<StackLayout row="0" orientation="vertical" class="main-layout-deal-subtitle">
-						<TextView text="{{'subtitle_terms_condictions' | L }}" editable="False"></TextView>
+						<Label textWrap="true" text="{{'subtitle_terms_condictions' | L }}" editable="False"></Label>
 					</StackLayout>
 					<StackLayout row="1" orientation="vertical" class="main-layout-deal-text">
 						<TextView [text]="aux_marker[0].condiciones" editable="False"></TextView>

@@ -39,14 +39,21 @@
 	border-bottom-right-radius: 17px;
 }
 
-.homemarker-title {
-	padding-top: 12;
+.main-layout-desprofile{
+    padding-top: 12;
     padding-left: 40;
+    padding-right: 40;  
 }
+
+.homemarker-title {
+/*	padding-top: 12;
+    padding-left: 40;
+    padding-right: 40;
+*/}
 
 .homemarker-description {
     padding-top: 5;
-    padding-left: 40;
+    /*padding-left: 40;*/
     font-size: 17px;
     color: #757171;
 }

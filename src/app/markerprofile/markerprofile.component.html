@@ -3,7 +3,8 @@
         <Label text="&#xf053;" font-family="FontAwesome"></Label>
     </ActionItem>
 </ActionBar> --> 
-<GridLayout rows="200,70,*,50" class="markerprofile-layout">
+<!-- 50 -->
+<GridLayout rows="200,auto,*,50" class="markerprofile-layout">
       <GridLayout row="0">   
         <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
                 <CarouselItem>
@@ -23,15 +24,14 @@
 
     
     <StackLayout row="1">
-        <GridLayout rows="70">
-            <StackLayout row="0" orientation="vertical" class="homemarker-title">
-                <Label text="{{profile_id_selected[0].title}}"></Label>                
-            </StackLayout>
-            <StackLayout row="0" orientation="vertical" class="homemarker-description">
-                <Label text="{{profile_id_selected[0].descripcion}}" textWrap="true" width="295" horizontalAlignment="left"></Label>
-            </StackLayout>
-            <StackLayout row="0" orientation="vertical" class="homemarker-line-layout">                
-                <Label text=" " class="homemarker-line"></Label>
+        <GridLayout rows="auto, auto">
+            <!-- <StackLayout row="0" orientation="vertical" class="homemarker-title"> -->
+                <!-- <Label text="{{profile_id_selected[0].title}}" textWrap="true"></Label>                 -->
+            <!-- </StackLayout> -->
+            <StackLayout row="1" orientation="vertical" class="homemarker-main-layout">
+                <Label text="{{profile_id_selected[0].title}}" textWrap="true"></Label>                
+                <Label textWrap="true" text="{{profile_id_selected[0].descripcion}}" horizontalAlignment="left" class="homemarker-description"></Label>
+                <Label text=" " class="homemarker-line" height="10"></Label>
             </StackLayout>
         </GridLayout>
     </StackLayout>

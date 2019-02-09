@@ -80,7 +80,7 @@ export class ViewmapComponent {
 
         this.marker_profile = [
                 { 
-                  "title" : "Mido",
+                  "title" : "Mido jkjkjk jkkj jsjs jue jj sdsd mck kj kuiu usu kjasu hs iusa",
                   "snippet" : "Sushi Restaurant",
                   "tipo": "restaurant", 
                   "lat": "52.501346",
@@ -127,11 +127,11 @@ export class ViewmapComponent {
                 {
                     "title": "Aquadom & Sealife Berlin",
                     "snippet" : "Aquarium",
-                    "tipo": "type3",
+                    "tipo": "hand",
                     "lat": "52.520339",
                     "lon": "13.403782",
                     "picturehome": "res://asb/1",
-                    "icontype": "res://icons/filterC"
+                    "icontype": "res://icons/filterO"
                 },
                 {
                     "title": "Berliner Fernsehturm",
@@ -234,7 +234,14 @@ export class ViewmapComponent {
     }
 
     gofilter() {
-        this._routerExtensions.navigate(["filtermap"])
+
+        let navigationExtras: NavigationExtras = {
+            queryParams: {
+                "FilterInitial": JSON.stringify(this.optionsFilter)
+              }
+        };
+
+        this._routerExtensions.navigate(["filtermap"], navigationExtras)
         // {
         //     clearHistory: true,
         //     animated: true,

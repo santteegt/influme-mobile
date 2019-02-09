@@ -37,6 +37,7 @@
 	font-weight: bold;
 	background-color: #EE185F;
 	border-radius: 5;
+	font-size: 17;
 }
 
 .layout-button{
@@ -51,4 +52,16 @@
     padding-left: 30;
     padding-top: 10;
     color: white;
+}
+
+.main-layout-filter-button-back {
+	padding-top: 10;
+}
+
+.filter-button-back{
+	font-size: 17;
+	width: 100;
+	height: 35;
+	color: white;
+	font-weight: bold;
 }

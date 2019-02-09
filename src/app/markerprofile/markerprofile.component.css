@@ -33,14 +33,22 @@
 /*.summary-layout {
 }*/
 
-.homemarker-title {
-	padding-top: 12;
+.homemarker-main-layout{
+    padding-top: 15;
+    padding-right: 40;
     padding-left: 40;
 }
 
-.homemarker-description {
-    padding-top: 40;
+/*.homemarker-title {
+	padding-top: 12;
     padding-left: 40;
+    padding-right: 40;    
+
+    font-size: 25px;
+}*/
+
+.homemarker-description {
+
     font-size: 17px;
     color: #757171;
 }
@@ -71,13 +79,13 @@
 
 }
 
-.homemarker-line-layout {
+/*.homemarker-line-layout {
     padding-top: 40;
     padding-left: 40;
     padding-right: 40;
 
 }
-
+*/
 .homemarker-line-layout-a {
     padding-top: 5;
     padding-right: 40;
