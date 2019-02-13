@@ -16,25 +16,31 @@
 }
 
 .main-layout-deal-title {
+	font-family: "SFProDisplay-Bold";
+	font-weight: bold;
 	padding-top: 15;
 	text-align: center;
-	font-weight: bold;
-    font-size: 25px;
+	color: black;
+	/*font-weight: bold;*/
+    font-size: 24;
 
 }
 
 .main-layout-deal-subtitle {
 	padding-top: 10;
 	/*text-align: justify-all;*/
+	/*font-weight: bold;*/
+	color: black;
+    font-size: 14;
+    font-family: "SFProDisplay-Medium";
 	font-weight: bold;
-    font-size: 18px;
-	
 }
 
 .main-layout-deal-text {
 	padding-top: 8;
 	/*text-align: justify-all;*/
-    
+	font-family: "SFProDisplay-Light";
+	color: black;
     font-size: 14px;
 }
 
@@ -50,14 +56,22 @@
 	width: 175;
 	height: 46;
 	color: white;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	background-color: #EE185F;
 	border-radius: 5;
+	font-family: "SFProDisplay-Bold"
+	font-weight: bold;
+	font-size: 15;
+
 }
 
 .deal-button-back{
 	width: 100;
 	height: 35;
-	color: #EE185F;
+	/*color: #EE185F;*/
+	/*font-weight: bold;*/
+	color: #F13657;
+	font-family: "SFProDisplay-Bold";
 	font-weight: bold;
+	font-size: 15;
 }
