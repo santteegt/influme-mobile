@@ -18,28 +18,34 @@
     /*padding-top: 10px;*/
 /*    padding-left: 70px;
     padding-right: 70px;
-*/    background-color: white;
+*/
+    background-color: white;
     vertical-align: middle;
-    width: 350;
-    height: 350;
-    border-radius: 75px;
+    width: 355;
+    height: 310;
+    border-radius: 13;
     border-style: solid;
     font-family: "Times New Roman", Times, serif;
     font-size: 25px;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .summary-layout-description{
-    color: #757171;
-    font-size: 18px;
+    color: #111111;
+    /*color: #000000;*/
+    /*font-size: 18px;*/
 }
 
 .homemarker-title {
-    padding-top: 40px;
+    padding-top: 20;
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 0px;
     vertical-align: middle;
+    font-family: "SFProDisplay-Bold";
+    font-weight: bold;
+    font-size: 22;
+    color: #111111;
 }
 
 .homemarker-description {
@@ -48,17 +54,23 @@
     padding-right: 40px;
     padding-bottom: 0px;
     vertical-align: middle;
+    font-family: "SFProDisplay-Light";
+    font-size: 15;
 }
 
 .homemarker-icon {
-    /*padding-top: 1px;
-    padding-left: 550px;
-    padding-right: 40px;
-    padding-bottom: 0px; */
-    vertical-align: middle;
+/*    padding-top: 2;
+    padding-left: 2;
+    padding-right: 2;
+    padding-bottom: 2; 
+*/    /*vertical-align: middle;*/
     height: 30;
     width: 30;
-    background-color: black;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    /*background-color: black;*/
+
 
 }
 
@@ -71,19 +83,24 @@
 }
 
 .homemarker-button {
-    padding-top: 50px;
+    padding-top: 65px;
     padding-left: 40px;
     padding-right: 40px;
     padding-bottom: 25px;
     vertical-align: middle;
 }
 .button-home-marker{
-    border-radius: 25px;
+    width: 290;
+    height: 50;
+    border-radius: 8;
     height: 70;
-    background-color: #EE185F; 
-    font-size: 20px;    
+    background-color: #EE185F;         
+    /*font-weight: bold;*/
+    color: #FFFFFF;
+    font-family: "SFProDisplay-Bold";
     font-weight: bold;
-    color: white;
+    font-size: 15;
+    
 }
 .filter-menu{
     width: 40;

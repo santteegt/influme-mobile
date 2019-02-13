@@ -72,11 +72,19 @@ export class ViewmapComponent {
         this.optionsFilter = [];
         let extrasfilter = "";
 
-        this.route.queryParams.subscribe(params => {
-            extrasfilter = params["DataList"];
-        });
+        // **** NEW *****
 
-        this.optionsFilter = JSON.parse(extrasfilter);
+        if(localstorage.getItem('Options_Filter') != null){
+            extrasfilter = localstorage.getItem('Options_Filter');
+            this.optionsFilter = JSON.parse(extrasfilter);
+        }
+        // this.route.queryParams.subscribe(params => {
+        //     extrasfilter = params["DataList"];
+        // });
+
+        // this.optionsFilter = JSON.parse(extrasfilter);
+
+        // **************
 
         this.marker_profile = [
                 { 
@@ -206,15 +214,15 @@ export class ViewmapComponent {
         this.myNativeStack.removeChildren();
         this.newImage = new Image();
         this.newImage.src = img_marker_selected;
-        this.newImage.stretch = "fill";
+        this.newImage.stretch = "aspectFill";
         this.myNativeStack.addChild(this.newImage);
 
         this.myNativeStack1.removeChildren();
         this.newImage = new Image();
         this.newImage.src = icon_type;
-        this.newImage.stretch = "fill";
-        this.newImage.width = 25;
-        this.newImage.height = 25;
+        this.newImage.stretch = "aspectFit";
+        this.newImage.width = 18;
+        this.newImage.height = 22;
         // this.newImage.style.color = "black";
         this.myNativeStack1.addChild(this.newImage);
 
@@ -235,13 +243,17 @@ export class ViewmapComponent {
 
     gofilter() {
 
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "FilterInitial": JSON.stringify(this.optionsFilter)
-              }
-        };
+        // **** new ****
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "FilterInitial": JSON.stringify(this.optionsFilter)
+        //       }
+        // };
 
-        this._routerExtensions.navigate(["filtermap"], navigationExtras)
+        // this._routerExtensions.navigate(["filtermap"], navigationExtras)
+        this._routerExtensions.navigate(["filtermap"]);
+
+        // ********************
         // {
         //     clearHistory: true,
         //     animated: true,
@@ -266,15 +278,20 @@ export class ViewmapComponent {
     }
 
     goviewmap() {
+        // **** New 
 
-        let empty_value = []
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "DataList": JSON.stringify(empty_value)
-          }
-        };
+        // let empty_value = []
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "DataList": JSON.stringify(empty_value)
+        //   }
+        // };
         
-        this._routerExtensions.navigate(["viewmap"], navigationExtras );
+        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+
+        this._routerExtensions.navigate(["viewmap"]);
+
+        // *** 
     }
 
     gologinview() {

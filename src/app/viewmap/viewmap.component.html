@@ -17,8 +17,8 @@
     <GridLayout rows=auto marginTop="50" marginRight="25" width="50" verticalAlignment="top" horizontalAlignment="right">                  
         <BUTTON left="1" top="10" text="&#xf0c9;" class="filter-menu" (tap)="gofilter()"></BUTTON>
     </GridLayout>
-
-    <StackLayout row="0" orientation="vertical" verticalAlignment="bottom" class="summary-layout" visibility="{{ showDetails }}">
+<!--  -->
+    <StackLayout row="0" orientation="vertical" verticalAlignment="bottom" class="summary-layout" visibility="{{ showDetails }}" marginBottom="10">
         <GridLayout rows="auto,30,150,90">
             <StackLayout row="0" orientation="vertical" class="homemarker-title">
                 <Label [text]="title_marker_selected" textWrap="true"></Label>                
@@ -27,7 +27,7 @@
             <StackLayout row="1" orientation="vertical" class="homemarker-description">
                 <Label [text]="des_marker_selected" class="summary-layout-description"></Label>
             </StackLayout>
-            <StackLayout row="1" orientation="horizontal" horizontalAlignment="center" class="homemarker-icon" marginLeft="238" marginTop="5" #myNgStack1 id="myStackId1">                                
+            <StackLayout row="1" orientation="horizontal" horizontalAlignment="center" verticalAlignment="center" class="homemarker-icon" marginLeft="250" marginTop="5" #myNgStack1 id="myStackId1">                                
                 <!-- <Image [src]="icon_type"></Image> -->
                 <!-- <Label text="&#xf000;" textWrap="true" class="font-awesome"></Label>                 -->
             </StackLayout>
