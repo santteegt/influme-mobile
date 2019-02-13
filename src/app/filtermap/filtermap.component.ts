@@ -3,6 +3,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationExtras } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";
+import * as localstorage from "nativescript-localstorage";
 
 @Component({
   selector: 'filtermap',
@@ -23,11 +24,24 @@ export class FiltermapComponent implements OnInit {
 
     let extrasfilter = "";
 
-    this.route.queryParams.subscribe(params => {
-        extrasfilter = params["FilterInitial"];
-    });
+    // **** NEW ********** 
+    // this.route.queryParams.subscribe(params => {
+    //     extrasfilter = params["FilterInitial"];
+    // });
 
-    let myItemsAux: any = JSON.parse(extrasfilter); 
+    // let myItemsAux: any = JSON.parse(extrasfilter);
+    
+    let myItemsAux: any;
+
+    if(localstorage.getItem('Options_Filter') != null){
+        extrasfilter = localstorage.getItem('Options_Filter');
+        myItemsAux = JSON.parse(extrasfilter);
+    } else
+    {
+         myItemsAux = []; 
+    }
+
+    //******************
   
     this.myItems = [
     {
@@ -97,6 +111,8 @@ export class FiltermapComponent implements OnInit {
 
   public clearFilter(){
 
+      this.cleanLocalStorage();
+
       for(var j=0; j<this.myItems.length ;j++){              
           this.myItems[j]["opacityvalue"] = "0.5";
           this.myItems[j]["colorstack"] = "border-color: white;";
@@ -108,12 +124,25 @@ export class FiltermapComponent implements OnInit {
   public sendJSON(){
     let selectitem = this.myItems.filter(d => d.status === 1);
 
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "DataList": JSON.stringify(selectitem)
-          }
-    };
-    this._routerExtensions.navigate(["viewmap"], navigationExtras)
+    // *** New *******
+    
+    this.cleanLocalStorage();
+
+
+    console.log("[*] DEBUG: Storage Filter: "+ selectitem);
+    localstorage.setItem('Options_Filter', JSON.stringify(selectitem));
+
+    // let navigationExtras: NavigationExtras = {
+    //     queryParams: {
+    //         "DataList": JSON.stringify(selectitem)
+    //       }
+    // };
+
+    // this._routerExtensions.navigate(["viewmap"], navigationExtras)
+    this._routerExtensions.navigate(["viewmap"]);
+
+    // *************
+
     //{
     //     clearHistory: true,
     //     animated: true,
@@ -124,7 +153,14 @@ export class FiltermapComponent implements OnInit {
     //     }
     // });
 
-    console.log(selectitem);
+  }
+
+  public cleanLocalStorage(){
+
+    if (localStorage.getItem('Options_Filter') != null){
+        console.log("[*] DEBUG: Storage Remove");
+        localStorage.removeItem('Options_Filter');
+    }
   }
 
 }
