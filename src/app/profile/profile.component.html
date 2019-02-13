@@ -22,7 +22,7 @@
 <!-- <GridLayout rows="60,200,70,*,50" class="markerprofile-layout"> -->
   <!-- 50 -->
 <GridLayout rows="60,*,50" class="markerprofile-layout">
-  <GridLayout rows="60" columns="200, 200" marginLeft="10" marginRight="30">
+  <GridLayout rows="60" columns="200, 125" marginLeft="10" marginRight="30">
     <StackLayout row="0" col="0" class="title-layout">
       <LABEL text="{{'profile' | L}}"></LABEL>
     </StackLayout>
@@ -36,7 +36,8 @@
   <StackLayout>
     <GridLayout rows="200">
      <StackLayout row="0">
-      <Image stretch="fill" [src]="urlImage"></Image>        
+      <!-- <Image stretch="fill" [src]="urlImage"></Image>         -->
+      <Image stretch="fill" src="res://profilePicture"></Image>
      </StackLayout>
       <StackLayout row="0">
         <LABEL text="{{120}}" verticalAlignment="top" marginTop="30" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
@@ -56,7 +57,7 @@
 <!--     </StackLayout> -->
 <GridLayout rows="auto">
     <StackLayout row="0" orientation="vertical" class="main-layout-desprofile">
-        <Label [text]="nameUser" textWrap="true"></Label>                
+        <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                
     <!-- </StackLayout> -->
     <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
         <Label [text]="cityUser" class="homemarker-description"></Label>
@@ -88,13 +89,13 @@
             <Label text=" " class="homemarker-line "></Label>
         </StackLayout>
 
-        <StackLayout class="homemarker-deals-images">
-          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
+        <StackLayout class="homemarker-deals-images" marginBottom="25">
+          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="150" width="100%">
                   <CarouselItem>
-                      <Image src="res://mercado/descuentom" stretch="fill" ></Image>
+                      <Image src="res://mido/CouponMido" stretch="fill" ></Image>
                   </CarouselItem>
                   <CarouselItem>
-                      <Image src="res://mercado/descuentoa" stretch="fill"></Image>
+                      <Image src="res://sonsofmana/CouponSOM" stretch="fill"></Image>
                   </CarouselItem>
           </Carousel>    
         </StackLayout>   

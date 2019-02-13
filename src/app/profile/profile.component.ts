@@ -59,15 +59,17 @@ constructor(private route: ActivatedRoute, private page: Page,
   }
 
   private routeMap() {
-    let empty_value = [];
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "DataList": JSON.stringify(empty_value)
-      }
-    };
+    // ****** NEW *******
+    // let empty_value = [];
+    // let navigationExtras: NavigationExtras = {
+    //     queryParams: {
+    //         "DataList": JSON.stringify(empty_value)
+    //   }
+    // };
     
-    this._routExt.navigate(["viewmap"], navigationExtras );
-
+    // this._routExt.navigate(["viewmap"], navigationExtras );
+    this._routExt.navigate(["viewmap"]);
+    // *****
   }
 
   logoutUser() {
