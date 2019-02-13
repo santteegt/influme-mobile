@@ -46,11 +46,12 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
     this.marker_profile = [
       { 
         "title" : "Mido",
-        "descripcion": "Best quality sushi & vietnamese cuisine since 1999",
+        "descripcion": "Sushi Restaurant",
         "web": "www.mido.berlin",
         "seguidores": "120",
+        "dir": "Wilmersdorfer Str. 94",
         "img1": "res://mido/1",
-        "img2": "res://mido/2",
+        "img2": "res://mido/6",
         "img3": "res://mido/3",        
         "promos": [
           {
@@ -64,9 +65,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "808 Club Berlin",
-        "descripcion": "Friday & Saturday from 11pm, HEARTBREAK every Friday",
+        "descripcion": "Night Club",
         "web": "www.808.berlin",
         "seguidores": "200",
+        "dir": "Budapester Str. 38-50",
         "img1": "res://808/1",
         "img2": "res://808/2",
         "img3": "res://808/3",
@@ -78,9 +80,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "Zola",
-        "descripcion": "Neapolitan wood-fired pizza",
+        "descripcion": "Pizza Restaurant",
         "web": "www.zola.com",
         "seguidores": "240",
+        "dir": "Paul-Lincke-Ufer 39-40",
         "img1": "res://zola/1",
         "img2": "res://zola/2",
         "img3": "res://zola/3",        
@@ -92,9 +95,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "Sons of Mana",
-        "descripcion": "Hawaiian Poké & Avocado Bowls",
+        "descripcion": "Hawaiian Cuisine",
         "web": "www.sonsofmana.de",
         "seguidores": "540",
+        "dir": "Alte Schönhauser Str. 7-8",
         "img1": "res://sonsofmana/1",
         "img2": "res://sonsofmana/2",
         "img3": "res://sonsofmana/3",        
@@ -106,9 +110,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "Bar Tausend",
-        "descripcion": "Subtly lit bar with an easygoing dress code, live music shows plus Asian & Ibero-American cuisine",
+        "descripcion": "Cocktails - Music - Dining",
         "web": "www.tausendberlin.com",
         "seguidores": "290",
+        "dir": "G9CM+8W Berlín, Alemania",
         "img1": "res://tausend/1",
         "img2": "res://tausend/2",
         "img3": "res://tausend/3",                
@@ -120,9 +125,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "Aquadom & Sealife Berlin",
-        "descripcion": "Family-friendly exhibits with a variety of sea creatures (most offer play areas & group packages)",
+        "descripcion": "Aquarium",
         "web": "www.visitsealife.com",
         "seguidores": "390",
+        "dir": "Spandauer Str. 3",
         "img1": "res://asb/1",
         "img2": "res://asb/2",
         "img3": "res://asb/3",                        
@@ -134,9 +140,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       },
       { 
         "title" : "Berliner Fernsehturm",
-        "descripcion": "368m-tall tower, opened in 1969, with a viewing gallery at 203m and revolving restaurant at 207m",
+        "descripcion": "Television Tower",
         "web": "www.tv-turm.de",
         "seguidores": "790",
+        "dir": "GCC5+8Q Berlín, Alemania",
         "img1": "res://berliner/1",
         "img2": "res://berliner/2",
         "img3": "res://berliner/3",
@@ -222,16 +229,17 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 }
 
   goviewmap() {
-
-      let empty_value = []
-      let navigationExtras: NavigationExtras = {
-          queryParams: {
-              "DataList": JSON.stringify(empty_value)
-        }
-      };
+      // **** NEW ****
+      // let empty_value = []
+      // let navigationExtras: NavigationExtras = {
+      //     queryParams: {
+      //         "DataList": JSON.stringify(empty_value)
+      //   }
+      // };
       
-      this._routerExtensions.navigate(["viewmap"], navigationExtras );
-
+      // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+      this._routerExtensions.navigate(["viewmap"]);
+      // *********
   }
 
       gologinview() {

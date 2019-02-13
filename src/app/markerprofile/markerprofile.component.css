@@ -3,31 +3,34 @@
 .markerprofile-layout {
     font-family: "Times New Roman", Times, serif;
     font-size: 25px;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 .followers-style-number{
-    padding-top: 30px;
-	width:65;
-	height: 45; 
+    padding-top: 23px;
+	width:60;
+	height: 30; 
 	background-color: black;
 	color: white;
-	font-weight: 700;
-	font-size: 30px;
+	/*font-weight: 700;*/
+	font-size: 24;
 	text-align: center;
-	border-top-left-radius: 17px;
-	border-top-right-radius: 17px;
+	border-top-left-radius: 5;
+	border-top-right-radius: 5;
+    font-family: "SFProDisplay-Bold";
+    font-weight: bold;
 }
 
 .followers-style-text{
 	padding-top: 0;
-	width:65;
+	width:60;
 	height: 30; 
 	background-color: black;
 	color: white;
-	font-size: 12px;
+	font-size: 10;
+    font-family: "SFProDisplay-Light";
     text-align: center;
-	border-bottom-left-radius: 17px;
-	border-bottom-right-radius: 17px;
+	border-bottom-left-radius: 5;
+	border-bottom-right-radius: 5;
 }
 
 /*.summary-layout {
@@ -39,18 +42,17 @@
     padding-left: 40;
 }
 
-/*.homemarker-title {
-	padding-top: 12;
-    padding-left: 40;
-    padding-right: 40;    
-
-    font-size: 25px;
-}*/
+.homemarker-title {
+    font-family: "SFProDisplay-Bold";
+    font-size: 22;
+    color: black;
+    font-weight: bold;
+}
 
 .homemarker-description {
-
-    font-size: 17px;
-    color: #757171;
+    font-family: "SFProDisplay-Light";
+    font-size: 15;
+    color: black;
 }
 
 .homemarker-follow-button-layout {
@@ -60,16 +62,18 @@
 }
 
 .homemarker-follow-button {
-    width: 85;
-    height: 30;
+    width: 60;
+    height: 35;
     padding-top: 2;
     padding-bottom: 2;
     padding-left: 4;
     padding-right: 4;
-    border-radius: 5;
+    border-radius: 8;
     background-color: #EE185F;
     color: white;
-    font-size: 14px;
+    font-size: 12;
+    font-family: "SFProDisplay-Bold";
+    font-weight: bold;
 }
 
 .homemarker-line {
@@ -98,15 +102,17 @@
 }
 
 .homemarker-description-social {
-    color: #757171;
-    font-size: 15px;
+    color: black;
+    font-size: 12;
+    font-family: "SFProDisplay-Light";
 }
 
 .homemarker-description-web {
     color: black;
-    font-size: 13px;
+    font-size: 12;
     font-style: normal;
     padding-top: 5; 
+    font-family: "SFProDisplay-Medium";
 }
 
 .homemarker-deals-images{
@@ -117,27 +123,29 @@
 
 .homemarker-deals {
     color: black;
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 16;
+    /*font-weight: bold;*/
     padding-top: 10; 
+    font-family: "SFProDisplay-Bold";
+    font-weight: bold;
 }
 
 .homemarker-facebook {
     width: 35;
     height: 35;
-    border-radius: 5;
+    border-radius: 4;
 }
 
 .homemarker-twitter {
     width: 35;
     height: 35;
-    border-radius: 5;
+    border-radius: 4;
 }
 
 .homemarker-instagram {
     width: 35;
     height: 35;
-    border-radius: 5;
+    border-radius: 4;
 }
 .bottom-menu-maps {
     background-color: black;
