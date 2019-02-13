@@ -2,7 +2,9 @@
 /* Login */
 
 .main-container{
-    background-color: #fa5641;
+    /*background-color: #fa5641;*/
+    background-image: url("res://splash/rectangle");
+    background-repeat: no-repeat;
 }
 
 .stack-login{
