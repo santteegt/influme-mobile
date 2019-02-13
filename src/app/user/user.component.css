@@ -1,17 +1,25 @@
 /* Add mobile styles for the component here.  */
 /* Add mobile styles for the component here.  */
 .pageUser {
-    background-color: #fa5641;
+    background-image: url("res://splash/rectangle");
+    background-repeat: no-repeat;
     color: #ffffff;
     flex-direction: column;
     /*align-items: center;*/
 }
+
+.style-appicon{
+    width: 150;
+    height: 32.1
+}
+
 .img {
 	border-radius: 50%;
 }
 
 .company-name-container2 {
-    height: 13%;
+    /*height: 13%;*/
+    margin-top: 75;
 }
 .company-name2{
     margin-top: 40;
@@ -32,23 +40,29 @@
 }
 
 .btn-continue {
-    color: #EE185F;
+    color: #F13657;
     background-color: #ffffff;
-    width: 50%;
-    height: 40;
-    border-radius: 5;
+    width: 200;
+    height: 50;
+    border-radius: 8;
+    font-family: "SFProDisplay-Bold";
+    font-size: 15;
+    font-weight: bold;
 }
 
 .btn3 {
     color: #ffffff;
-    background-color: #fa5641;
+    /*background-color: #fa5641;*/
     
 }
 
 .btn-goback {
-    color: #ffffff;
-    background-color: #fa5641;
+    color: white;
+    /*background-color: #fa5641;*/
     width: 50%;
+    font-family: "SFProDisplay-Bold";
+    font-size: 15;
+    font-weight: bold;
 }
 
 .txt {
@@ -69,4 +83,12 @@
     padding-bottom: 0;
     border-width: 0 0 2 0;
     border-bottom-color: white;
+    font-family: "SFProDisplay-Regular";
+    font-size: 15;
+    color: white;
+}
+.label-switch{
+    font-family: "SFProDisplay-Regular";
+    font-size: 15;
+    color: white;   
 }

@@ -1,10 +1,11 @@
 <FlexboxLayout class="pageUser">
 
 <ScrollView>
-	<GridLayout rows="80,150,45,45,45,45,40,70,55" marginLeft="40" marginRight="40" marginBottom="10">
+	<GridLayout rows="auto,150,45,45,45,45,40,70,55" marginLeft="40" marginRight="40" marginBottom="10">
 
     <StackLayout row="0" class="flexbox-item2 company-name-container2">
-        <Label class="t-30 company-name2" text="{{ 'app.name' | L }}"></Label>
+        <!-- <Label class="t-30 company-name2" text="{{ 'app.name' | L }}"></Label> -->
+        <Image src="res://appicon" class="style-appicon"></Image>
     </StackLayout>
   
     <StackLayout marginLeft="20" marginRight="20" row="1" class="p-20">
@@ -39,7 +40,7 @@
       <GridLayout columns="*, *">        
           <StackLayout orientation="vertical" col="0" verticalAlignment="center">
             <!-- class="t-15 switch" -->
-        	   <Label class="t-15 c-white" text="Influencer account" textWrap="true"></Label>            
+        	   <Label class="t-15 c-white label-switch" text="Influencer account" textWrap="true"></Label>            
           </StackLayout>
           <StackLayout orientation="vertical" col="1" verticalAlignment="center" horizontalAlignment="right">
           	<Switch checked="false" (checkedChange)="onFirstChecked($event)"></Switch>
