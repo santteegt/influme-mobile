@@ -4,8 +4,8 @@
         "target": "es5",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-        "noEmitHelpers": true,
-        "noEmitOnError": true,
+        "noEmitHelpers": false,
+        "noEmitOnError": false,
         "lib": [
             "es6",
             "dom",

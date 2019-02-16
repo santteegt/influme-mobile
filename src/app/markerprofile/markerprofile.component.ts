@@ -69,12 +69,12 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         "web": "www.808.berlin",
         "seguidores": "200",
         "dir": "Budapester Str. 38-50",
-        "img1": "res://808/1",
-        "img2": "res://808/2",
-        "img3": "res://808/3",
+        "img1": "res://clubberlin/1",
+        "img2": "res://clubberlin/2",
+        "img3": "res://clubberlin/3",
         "promos": [
           {
-            "img": "res://808/Coupon808", "function": "onClickImga()"
+            "img": "res://clubberlin/Coupon808", "function": "onClickImga()"
           }
         ]
       },

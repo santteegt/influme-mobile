@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
-// import { Kinvey, User } from 'kinvey-nativescript-sdk';
 import { RouterExtensions } from "nativescript-angular/router";
 import { Page } from "tns-core-modules/ui/page"
 import { EventData } from "tns-core-modules/data/observable";
@@ -21,27 +20,10 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // Kinvey.User.me()
-        //     .then((user: User) => {
-        //         this.loggedUser = user.data['_socialIdentity'].kinveyAuth.id
-        //     });
         this.loggedUser = 'influme';
     }
 
     logout() {
-        // Kinvey.User.logout()
-        //     .then(() => {
-        //         this._routerExtensions.navigate(["login"],
-        //             {
-        //                 clearHistory: true,
-        //                 animated: true,
-        //                 transition: {
-        //                     name: "slideBottom",
-        //                     duration: 350,
-        //                     curve: "ease"
-        //                 }
-        //             });
-        //     });
         this._routerExtensions.navigate(["login"], {
             clearHistory: true,
             animated: true,

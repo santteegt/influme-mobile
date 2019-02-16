@@ -41,7 +41,7 @@ export class DealprofileComponent implements OnInit {
         "condiciones": "- Lorem1 Ipsum is simply dummy text of the printing and typesetting industry. &#xA; - Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. &#xA; - It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. &#xA; - It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
       },
       { 
-        "iddeal" : "res://808/Coupon808",
+        "iddeal" : "res://clubberlin/Coupon808",
         "condiciones": "- Lorem2 Ipsum is simply dummy text of the printing and typesetting industry. &#xA; - Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. &#xA; - It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. &#xA; - It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
       },
       { 

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { CanLoad } from "@angular/router";
-// import { Kinvey } from "kinvey-nativescript-sdk";
 import { RouterExtensions } from "nativescript-angular/router";
 import { NavigationExtras } from "@angular/router";
 
@@ -26,9 +25,6 @@ export class LoggedInLazyLoadGuard implements CanLoad {
 
     		this.firstTime = true;
     	}
-        // if (!Kinvey.User.getActiveUser()) {
-        //     this._routerExtensions.navigate(["login"], { clearHistory: true });
-        // }
         return true;
     }
 }

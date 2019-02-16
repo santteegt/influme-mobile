@@ -5,7 +5,7 @@
       "version": "5.0.0"
     },
     "tns-ios": {
-      "version": "5.0.0"
+      "version": "5.2.0"
     }
   },
   "name": "influme-mobile",
@@ -28,7 +28,6 @@
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
     "jwt-decode": "^2.2.0",
-    "kinvey-nativescript-sdk": "3.12.3",
     "nativescript-angular": "~7.0.0",
     "nativescript-auth0": "^2.1.0",
     "nativescript-barcodescanner": "^3.0.0",

@@ -102,7 +102,7 @@ export class ViewmapComponent {
                     "tipo": "health",
                     "lat": "52.505766",
                     "lon": "13.338038",
-                    "picturehome": "res://808/1",
+                    "picturehome": "res://clubberlin/1",
                     "icontype": "res://icons/filterG"
                 },
                 {
