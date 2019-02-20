@@ -11,6 +11,13 @@ refer to http://docs.nativescript.org/ui/theme.
 */
 @import '~nativescript-theme-core/css/core.light.css';
 
+.style-main-titles{
+    font-family: "SFProDisplay-Bold";
+    font-size: 35;
+    color: black;
+    font-weight: bold;
+}
+
 /* Common */
 /*.fa {
     font-family: "FontAwesome";
