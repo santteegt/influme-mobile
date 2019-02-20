@@ -7,8 +7,10 @@ import { Observable } from "tns-core-modules/data/observable";
 import { ActivatedRoute } from "@angular/router";
 import { Image } from "tns-core-modules/ui/image";
 import { NavigationExtras } from "@angular/router";
+import * as localstorage from "nativescript-localstorage";
 
 import { UserapiService } from "../shared/api/user/userapi.service";
+
 
 @Component({
   selector: 'user',
@@ -18,12 +20,12 @@ import { UserapiService } from "../shared/api/user/userapi.service";
 })
 export class UserComponent implements OnInit {
 
-  private token: string;
   private lnname: string;
   private lname: string;
   private imageurl: string; 
   private UserLogData: any;
-  private jsonDataUser: any;
+  private lcity: string;
+  // private jsonDataUser: any;
 
 
   constructor(private route: ActivatedRoute, private _routerExt: RouterExtensions, private page: Page,
@@ -33,10 +35,11 @@ export class UserComponent implements OnInit {
  //  this.page.backgroundSpanUnderStatusBar = true;
         
   // this._routerExtensions.params.forEach((params) => { this.token = params["info"]; });
-  this.route.queryParams.subscribe(params => { this.token = params["info"]; });
+  // this.route.queryParams.subscribe(params => { this.token = params["info"]; });
 
-  console.log(this.token);
-  this.UserLogData = JSON.parse(this.token);
+  let infoUser = localStorage.getItem('ResultLogin');
+
+  this.UserLogData = JSON.parse(infoUser);
        
    const vm = new Observable();
       //this.lnname = UserLogData["nickname"];
@@ -59,13 +62,32 @@ export class UserComponent implements OnInit {
 
   	this.lnname = this.UserLogData["nickname"];
   	this.lname = this.UserLogData["name"];
-  	this.imageurl = this.UserLogData["picture"];
+  	this.imageurl = this.UserLogData["pictureURL"];
 
-    this.jsonDataUser = {
-      "nameU": this.lname,
-      "cityU": "Cuenca, Ecuador",
-      "imageU": this.imageurl
-    }
+    // this.jsonDataUser = {
+    //   "nameU": this.lname,
+    //   "cityU": "Cuenca, Ecuador",
+    //   "imageU": this.imageurl
+    // }
+
+    this.UserLogData["name"] = this.lname;
+    this.UserLogData["pictureURL"] = this.imageurl;
+    this.UserLogData["city"] = this.lcity;
+
+    // this.UserLogData = {
+    //   "name": result.name,
+    //   "nickname": result.nickname,
+    //   "pictureURL": result.pictureURL,
+    //   "city": "",
+    //   "accessToken": res['accessToken'],
+    //   "idToken": res['idToken']
+
+
+
+    //   "nameU": this.lname,
+    //   "cityU": "Cuenca, Ecuador",
+    //   "imageU": this.imageurl
+    // }
 
   }
 
@@ -73,7 +95,7 @@ export class UserComponent implements OnInit {
   }
 
   continue() {
-      this.navigateProfile();
+      this.navigateInterest();
       console.log("aqui continue");
   }
 
@@ -81,25 +103,17 @@ export class UserComponent implements OnInit {
     this._routerExt.back();    
   }
 
-	private navigateProfile() {
-      // this.zone.run(() => {
-      let navigationExtras: NavigationExtras = {
-          queryParams: {
-              // "info": JSON.stringify(this.UserLogData)
-              "info": JSON.stringify(this.jsonDataUser)
-        }
-      };
+	private navigateInterest() {
 
-      this._routerExt.navigate(["profile"], navigationExtras);
-      // {
-      //     clearHistory: false,
-      //     animated: true,
-      //     transition: {
-      //         name: "slideTop",
-      //         duration: 350,
-      //         curve: "ease"
-      //     }
-      // });
-        // });
+    localStorage.removeItem('ResultLogin');
+    localstorage.setItem('ResultLogin', JSON.stringify(this.UserLogData));                        
+
+      // let navigationExtras: NavigationExtras = {
+      //     queryParams: {
+      //         "info": JSON.stringify(this.jsonDataUser)
+      //   }
+      // };      
+      // this._routerExt.navigate(["interest"], navigationExtras);
+      this._routerExt.navigate(["interest"]);
     }
 }
