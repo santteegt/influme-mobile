@@ -63,6 +63,7 @@ export class ViewmapComponent {
     constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
 
         this.page.actionBarHidden = true;
+
         // this.page.backgroundSpanUnderStatusBar = true;
 
         // if(jsonuseraux != null){
@@ -163,7 +164,15 @@ export class ViewmapComponent {
         
         console.log('Map Ready');
 
+        // var gMap = event.gMap;
+        // console.log(gMap);
+        // gMap.myLocationEnabled(true);
+
         this.mapView = event.object;
+        this.mapView.myLocationEnabled = true;
+        this.mapView.settings.myLocationButtonEnabled = true;
+
+        // this.mapView.myLocationEnabled(true);
 
         console.log("Setting a marker...");
 
@@ -196,7 +205,7 @@ export class ViewmapComponent {
 
 
     onCoordinateTapped(args) {
-        console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
+        // console.log("Coordinate Tapped, Lat: " + args.position.latitude + ", Lon: " + args.position.longitude, args);
         this.showDetails= "collapsed"
     }
 
@@ -221,8 +230,8 @@ export class ViewmapComponent {
         this.newImage = new Image();
         this.newImage.src = icon_type;
         this.newImage.stretch = "aspectFit";
-        this.newImage.width = 18;
-        this.newImage.height = 22;
+        this.newImage.width = 11.7;
+        this.newImage.height = 19.4;
         // this.newImage.style.color = "black";
         this.myNativeStack1.addChild(this.newImage);
 
@@ -305,18 +314,20 @@ export class ViewmapComponent {
         if( jsonuseraux == null)
             this._routerExtensions.navigate(["login"]);
         else{
-            let auxdata = JSON.parse(jsonuseraux);
-            jsonDataUser = {
-                "nameU": auxdata["profile"]["name"],
-                "cityU": "Cuenca, Ecuador",
-                "imageU": auxdata["profile"]["picture"]
-            };
-            let navigationExtras: NavigationExtras = {
-            queryParams: {
-                  "info": JSON.stringify(jsonDataUser)
-                }
-            };
-            this._routerExtensions.navigate(["profile"], navigationExtras);
+            // let auxdata = JSON.parse(jsonuseraux);
+            // jsonDataUser = {
+            //     "nameU": auxdata["profile"]["name"],
+            //     "cityU": "Cuenca, Ecuador",
+            //     "imageU": auxdata["profile"]["picture"]
+            // };
+            // let navigationExtras: NavigationExtras = {
+            // queryParams: {
+            //       "info": JSON.stringify(jsonDataUser)
+            //     }
+            // };
+            // this._routerExtensions.navigate(["profile"], navigationExtras);
+            this._routerExtensions.navigate(["profile"]);
+
         }
     }
 }

@@ -14,34 +14,33 @@
     color:white;
 }
 
-.summary-layout {
-    /*padding-top: 10px;*/
-/*    padding-left: 70px;
-    padding-right: 70px;
-*/
+.homemarker-main-title{
+    padding-top: 93;
+    padding-left: 24;
+    text-align: left;
     background-color: white;
-    vertical-align: middle;
+    /*verticalAlignment="top"*/
+}
+
+.summary-layout {
+    padding-left: 26;
+    padding-right: 26;
+    padding-bottom: 20;
+    background-color: white;
     width: 355;
     height: 310;
     border-radius: 13;
     border-style: solid;
-    font-family: "Times New Roman", Times, serif;
-    font-size: 25px;
-    /*font-weight: bold;*/
 }
 
-.summary-layout-description{
-    color: #111111;
-    /*color: #000000;*/
-    /*font-size: 18px;*/
-}
+/*.summary-layout-description{
 
+    color: #000000;
+    font-size: 18px;
+}
+*/
 .homemarker-title {
-    padding-top: 20;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 0px;
-    vertical-align: middle;
+    padding-top: 35;
     font-family: "SFProDisplay-Bold";
     font-weight: bold;
     font-size: 22;
@@ -49,51 +48,41 @@
 }
 
 .homemarker-description {
-    padding-top: 1px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 0px;
-    vertical-align: middle;
+    padding-top: 2;
     font-family: "SFProDisplay-Light";
     font-size: 15;
+    color: #111111;
 }
 
 .homemarker-icon {
-/*    padding-top: 2;
-    padding-left: 2;
-    padding-right: 2;
-    padding-bottom: 2; 
-*/    /*vertical-align: middle;*/
-    height: 30;
-    width: 30;
+    height: 29.1;
+    width: 29.1;
     border-style: solid;
     border-color: gray;
     border-width: 2px;
+    padding-top: 4.9;
+    padding-left: 8.7;
+    padding-right: 8.7;
+    padding-bottom: 4.9;
     /*background-color: black;*/
 
 
 }
 
 .homemarker-image {
-    padding-top: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 0px;
-    vertical-align: middle;
+    padding-top: 10;
 }
 
 .homemarker-button {
-    padding-top: 65px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-bottom: 25px;
-    vertical-align: middle;
+/*    width: 290;
+    height: 50;
+*/    padding-top: 20;
+/*    vertical-align: middle;*/
 }
 .button-home-marker{
     width: 290;
     height: 50;
     border-radius: 8;
-    height: 70;
     background-color: #EE185F;         
     /*font-weight: bold;*/
     color: #FFFFFF;

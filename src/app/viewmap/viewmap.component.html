@@ -14,27 +14,47 @@
          (cameraChanged)="onCameraChanged($event)"
          (cameraMove)="onCameraMove($event)">
     </MapView>
-    <GridLayout rows=auto marginTop="50" marginRight="25" width="50" verticalAlignment="top" horizontalAlignment="right">                  
+    <GridLayout rows=auto marginTop="150" marginRight="25" width="50" verticalAlignment="top" horizontalAlignment="right">                  
         <BUTTON left="1" top="10" text="&#xf0c9;" class="filter-menu" (tap)="gofilter()"></BUTTON>
     </GridLayout>
-<!--  -->
+    <!-- 140 -->
+    <StackLayout verticalAlignment="top" height="140" class="homemarker-main-title">
+        <Label text="{{'discover' | L}}" class="style-main-titles"></Label>
+    </StackLayout>
+
     <StackLayout row="0" orientation="vertical" verticalAlignment="bottom" class="summary-layout" visibility="{{ showDetails }}" marginBottom="10">
-        <GridLayout rows="auto,30,150,90">
-            <StackLayout row="0" orientation="vertical" class="homemarker-title">
-                <Label [text]="title_marker_selected" textWrap="true"></Label>                
+        <GridLayout rows="auto,150,80">
+            <StackLayout row="0" orientation="vertical">
+                <Label [text]="title_marker_selected" textWrap="true" class="homemarker-title"></Label>
+                <Label [text]="des_marker_selected" class="homemarker-description"></Label>                            
             </StackLayout>
+            <StackLayout row="0" marginTop="35" horizontalAlignment="right" class="homemarker-icon" #myNgStack1 id="myStackId1"></StackLayout>
+<!--             <StackLayout row="1">                
+                
+            </StackLayout> -->
+
+<!--             <StackLayout row="0">
+                <Label [text]="title_marker_selected" textWrap="true" class="homemarker-title"></Label>                
+            </StackLayout>
+            <StackLayout row="1">                
+                <Label [text]="des_marker_selected" class="homemarker-description"></Label>
+            </StackLayout>
+            <StackLayout marginTop="35" horizontalAlignment="right" class="homemarker-icon" #myNgStack1 id="myStackId1">
+                
+            </StackLayout> -->
+
             <!-- <StackLayout row="0" orientation="vertical" class="homemarker-icon" marginLeft="260" marginTop="25" #myNgStack1 id="myStackId1">                 -->
-            <StackLayout row="1" orientation="vertical" class="homemarker-description">
-                <Label [text]="des_marker_selected" class="summary-layout-description"></Label>
-            </StackLayout>
-            <StackLayout row="1" orientation="horizontal" horizontalAlignment="center" verticalAlignment="center" class="homemarker-icon" marginLeft="250" marginTop="5" #myNgStack1 id="myStackId1">                                
+            <!-- <StackLayout row="1" orientation="vertical" class="homemarker-description"> -->
+                <!-- <Label [text]="des_marker_selected" class="homemarker-description"></Label> -->
+            <!-- </StackLayout> -->
+            <!-- <StackLayout row="1" orientation="horizontal" horizontalAlignment="center" verticalAlignment="center" class="homemarker-icon" marginLeft="250" marginTop="5" #myNgStack1 id="myStackId1"> -->                                
                 <!-- <Image [src]="icon_type"></Image> -->
                 <!-- <Label text="&#xf000;" textWrap="true" class="font-awesome"></Label>                 -->
-            </StackLayout>
-            <StackLayout row="2" orientation="vertical" class="homemarker-image" #myNgStack id="myStackId">
+            <!-- </StackLayout> -->
+            <StackLayout row="1" orientation="vertical" class="homemarker-image" #myNgStack id="myStackId">
                 <!-- <Image [src]="img_marker_selected" stretch="fill"></Image> -->
             </StackLayout>
-            <StackLayout row="3" orientation="vertical" class="homemarker-button">
+            <StackLayout row="2" orientation="vertical" class="homemarker-button">
                 <Button class="button-home-marker" text="{{'1_available_deal' | L}}" (tap)="gomarkerprofile()"></Button>
             </StackLayout>
         </GridLayout>    

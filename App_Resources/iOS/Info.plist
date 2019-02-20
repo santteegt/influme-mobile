@@ -67,5 +67,7 @@
     <string>UIStatusBarStyleBlackContent</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use.</string>
   </dict>
 </plist>
