@@ -22,5 +22,7 @@ module.exports = {
 	"following": "following",
 	"follow": "follow",
 	"deals_redeemed":"Deals redeemed",
-	"filter": "Filter"
+	"filter": "Filter",
+	"discover": "Discover",
+	"location": "Berlin, Germany"
 };

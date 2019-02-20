@@ -22,5 +22,7 @@ module.exports = {
 	"following": "folgend",
 	"follow": "Folgen",
 	"deals_redeemed":"Angebote eingelöst",
-	"filter": "Filter"
+	"filter": "Filter",
+	"discover": "Entdecken",
+	"location": "Berlin, Deutschland"
 };
