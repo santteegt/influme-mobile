@@ -1,8 +1,8 @@
-<!-- <ActionBar>
+<ActionBar>
     <ActionItem android.position="actionBar" ios.position="left" (tap)="onProfileButtonTap()">
-        <Label text="&#xf053;" font-family="FontAwesome"></Label>
+        <!-- <Label text="&#xf053;" font-family="FontAwesome"></Label> -->
     </ActionItem>
-</ActionBar> --> 
+</ActionBar> 
 <!-- 50 -->
 <GridLayout rows="200,auto,*,50" class="markerprofile-layout">
       <GridLayout row="0">   
@@ -20,8 +20,8 @@
       </GridLayout>
     <LABEL text="{{profile_id_selected[0].seguidores}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
-    <LABEL verticalAlignment="top" marginTop="50" marginRight="20" horizontalAlignment="right" text="followers" class="followers-style-text"></LABEL>
-    <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="61" height="36" marginTop="15" marginRight="20">                
+    <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="followers" class="followers-style-text"></LABEL>
+    <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" marginTop="15" marginRight="20">                
         <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
     </StackLayout>
 
@@ -50,7 +50,7 @@
                     <Label text="{{profile_id_selected[0].dir}}"></Label>
                 </StackLayout>
                 <StackLayout class="homemarker-description-web">   
-                    <Label text="{{profile_id_selected[0].web}}"></Label>
+                    <Label text="{{profile_id_selected[0].web}}" (tap)="openURLMarker();"></Label>
                 </StackLayout>
                 <StackLayout orientation="horizontal" marginTop="5">
                     <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">

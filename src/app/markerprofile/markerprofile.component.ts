@@ -11,6 +11,7 @@ import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import { GestureEventData, GestureTypes } from "tns-core-modules/ui/gestures";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
+import * as utils from "tns-core-modules/utils/utils";
 
 // registerElement('Carousel', () => Carousel);
 // registerElement('CarouselItem', () => CarouselItem);
@@ -38,7 +39,7 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
 
-    this.page.actionBarHidden = true;
+    // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;  
 
     let titleSearch = ""; 
@@ -253,19 +254,26 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         if( jsonuseraux == null)
             this._routerExtensions.navigate(["login"]);
         else{
-            let auxdata = JSON.parse(jsonuseraux);
-            jsonDataUser = {
-                "nameU": auxdata["profile"]["name"],
-                "cityU": "Cuenca, Ecuador",
-                "imageU": auxdata["profile"]["picture"]
-            };
-            let navigationExtras: NavigationExtras = {
-            queryParams: {
-                  "info": JSON.stringify(jsonDataUser)
-                }
-            };
-            this._routerExtensions.navigate(["profile"], navigationExtras);
+            // let auxdata = JSON.parse(jsonuseraux);
+            // jsonDataUser = {
+            //     "nameU": auxdata["profile"]["name"],
+            //     "cityU": "Cuenca, Ecuador",
+            //     "imageU": auxdata["profile"]["picture"]
+            // };
+            // let navigationExtras: NavigationExtras = {
+            // queryParams: {
+            //       "info": JSON.stringify(jsonDataUser)
+            //     }
+            // };
+            // this._routerExtensions.navigate(["profile"], navigationExtras);
+            this._routerExtensions.navigate(["profile"]);
+
         }
+    }
+
+    openURLMarker(){
+
+        utils.openUrl("http://" + this.profile_id_selected[0]["web"]);
     }
 
 

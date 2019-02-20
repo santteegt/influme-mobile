@@ -7,8 +7,8 @@
 }
 .followers-style-number{
     padding-top: 23px;
-	width:60;
-	height: 30; 
+	width:83;
+	height: 35; 
 	background-color: black;
 	color: white;
 	/*font-weight: 700;*/
@@ -22,8 +22,8 @@
 
 .followers-style-text{
 	padding-top: 0;
-	width:60;
-	height: 30; 
+	width:83;
+	height: 25; 
 	background-color: black;
 	color: white;
 	font-size: 10;
@@ -62,7 +62,7 @@
 }
 
 .homemarker-follow-button {
-    width: 60;
+    width: 83;
     height: 35;
     padding-top: 2;
     padding-bottom: 2;
