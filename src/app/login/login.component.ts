@@ -68,73 +68,60 @@ export class LoginComponent {
     private navigateUser(res) {
 
         // this.auth0.getUserInfo(res['accessToken']).then((result) => {            
-        //     alert(JSON.stringify(result));
-        //     // console.log("[***] Informacion de Usuario " + result);
-        //     // console.log("[***] Informacion de Usuario " + result.pictureURL);
-        //     // console.log("[***] Informacion de Usuario " + result.name);
-        //     // console.log("[***] Informacion de Usuario " + result.nickname);
-        //     // console.log("[***] Informacion de Usuario " + result.counts);
-        //     // console.log("[***] Informacion de Usuario " + result.follows);
-        // }).catch((e: Error) => console.log(e, e.stack));        
-
-        console.log('[*] Access Token: ' + res['accessToken']);
+        //     // console.log("[*] Promise "+ result.nickname);
+        //     this.jsonFinal = {
+        //         "name": result.name,
+        //         "nickname": result.nickname,
+        //         "pictureURL": result.pictureURL,
+        //         "city": "",
+        //         "accessToken": res['accessToken'],
+        //         "idToken": res['idToken'],
+        //         "intereses": []
+        //     };            
+        //     // console.log('[****] JSON DATA '+ JSON.stringify(this.jsonFinal));
         
-        console.log('[*] Todo el resultado: ' + JSON.stringify(res));
+        // }).catch((e: Error) => console.log(e, e.stack));        
         
         const usuario: string = jwt(res['idToken']);
-        // const usuario: string = "";
+        console.log("{***} " + JSON.stringify(usuario));
 
-        //console.log("luego del decode");
-        // console.log ("[*] Data res[idToken]: " + JSON.stringify(usuario));
-        // this.zone.run(() => {
+        // let usuarioJson: any = JSON.parse(usuario);
+
 
         this.jsonFinal = {
-            "profile": usuario,
-            "security": res
-        }
-
-        localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                        
-
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "info": JSON.stringify(usuario)
-          }
+            "name": usuario["name"],
+            "nickname": usuario["nickname"],
+            "pictureURL": usuario["picture"],
+            "city": "",
+            "accessToken": res['accessToken'],
+            "idToken": res['idToken'],
+            "intereses": []
         };
 
-        this._routerExtensions.navigate(["user"], navigationExtras );
-            // {
-            //     clearHistory: false,
-            //     animated: true,
-            //     transition: {
-            //         name: "slideTop",
-            //         duration: 350,
-            //         curve: "ease"
-            //     }
-            // });
-        // });
+        localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                       
+
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "info": JSON.stringify(usuario)
+        //   }
+        // };
+
+        // this._routerExtensions.navigate(["user"], navigationExtras );
+        this._routerExtensions.navigate(["user"] );
+
     }
-    // private navigateHome() {
-    //     this.zone.run(() => {
-    //         this._routerExtensions.navigate(["home"], {
-    //             clearHistory: true,
-    //             animated: true,
-    //             transition: {
-    //                 name: "slideTop",
-    //                 duration: 350,
-    //                 curve: "ease"
-    //             }
-    //         });
-    //     });
-    // }
+
     private routeMap() {
-        let empty_value = [];
-        let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "DataList": JSON.stringify(empty_value)
-          }
-        };
+        // let empty_value = [];
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "DataList": JSON.stringify(empty_value)
+        //   }
+        // };
         
-        this._routerExtensions.navigate(["viewmap"], navigationExtras );
+        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+        this._routerExtensions.navigate(["viewmap"]);
+
 
   }
 }
