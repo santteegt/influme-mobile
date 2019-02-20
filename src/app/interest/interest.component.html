@@ -1,0 +1,156 @@
+<ScrollView>
+	<GridLayout rows="135, 55, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 35, 51, 70" class="page-interests">
+		<StackLayout row="0" orientation="vertical" class="main-title-layout">
+			<Label text="choose at least 4 interest" textWrap="true" width="115" height="36" class="main-title"></Label>
+		</StackLayout>
+		<Stacklayout row="1" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="2" columns="*, 45, *, 45, *" class="options-layout">			
+            <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[0].colorstack}}" opacity="{{myItems[0].opacityvalue}}" (tap)="onItemTap(0)">
+        		<IMAGE src="res://icons/filterA" width="17.5" height="29.1"></IMAGE>
+            </StackLayout>
+<!--             <StackLayout row=0 col=0 width="44" height="44" class="stack-label-option">
+        		<Label text="foodie" class="label-option"></Label>
+            </StackLayout>-->
+	        <StackLayout row="0" col=2 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[1].colorstack}}" opacity="{{myItems[1].opacityvalue}}" (tap)="onItemTap(1)">
+        		<IMAGE src="res://icons/filterB" width="29.1" height="29.1"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=4 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[2].colorstack}}" opacity="{{myItems[2].opacityvalue}}" (tap)="onItemTap(2)">
+        		<IMAGE src="res://icons/filterC" width="15.5" height="29.1"></IMAGE>
+            </StackLayout>
+		</GridLayout>
+		<Stacklayout row="3" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="4" columns="44, 39, 55, 39, 44" class="options-layout">			
+             <StackLayout row="0" col=0 heigth="14">
+        		<Label text="foodie" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=2 heigth="14">
+        		<Label text="night fun" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=4 heigth="14">
+        		<Label text="tech" class="label-option"></Label>
+            </StackLayout>            
+		</GridLayout>
+		<Stacklayout row="5" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="6" columns="*, 45, *, 45, *" class="options-layout">			
+            <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[3].colorstack}}" opacity="{{myItems[3].opacityvalue}}" (tap)="onItemTap(3)">
+        		<IMAGE src="res://icons/filterD" width="29.1" height="27.5"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=2 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[4].colorstack}}" opacity="{{myItems[4].opacityvalue}}" (tap)="onItemTap(4)">
+        		<IMAGE src="res://icons/filterE" width="29.1" height="13.6"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=4 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[5].colorstack}}" opacity="{{myItems[5].opacityvalue}}" (tap)="onItemTap(5)">
+        		<IMAGE src="res://icons/filterF" width="17.6" height="29.1"></IMAGE>
+            </StackLayout>
+		</GridLayout>
+		<Stacklayout row="7" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="8" columns="44, 45, 44, 45, 44" class="options-layout">			
+             <StackLayout row="0" col=0 heigth="14">
+        		<Label text="fashion" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=2 heigth="14">
+        		<Label text="sports" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=4 heigth="14">
+        		<Label text="beauty" class="label-option"></Label>
+            </StackLayout>            
+		</GridLayout>				
+		<Stacklayout row="9" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="10" columns="*, 45, *, 45, *" class="options-layout">			
+            <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[6].colorstack}}" opacity="{{myItems[6].opacityvalue}}" (tap)="onItemTap(6)">
+        		<IMAGE src="res://icons/filterG" width="29.1" height="25.5"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=2 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[7].colorstack}}" opacity="{{myItems[7].opacityvalue}}" (tap)="onItemTap(7)">
+        		<IMAGE src="res://icons/filterH" width="29.1" height="29.1"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=4 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[8].colorstack}}" opacity="{{myItems[8].opacityvalue}}" (tap)="onItemTap(8)">
+        		<IMAGE src="res://icons/filterI" width="29.1" height="29.1"></IMAGE>
+            </StackLayout>
+		</GridLayout>
+		<Stacklayout row="11" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="12" columns="44, 45, 44, 37, 60" class="options-layout">			
+             <StackLayout row="0" col=0 heigth="14">
+        		<Label text="health" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=2 heigth="14">
+        		<Label text="travel" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=4 heigth="14">
+        		<Label text="adventure" class="label-option"></Label>
+            </StackLayout>            
+		</GridLayout>
+		<Stacklayout row="13" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="14" columns="*, 45, *, 45, *" class="options-layout">			
+            <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[9].colorstack}}" opacity="{{myItems[9].opacityvalue}}" (tap)="onItemTap(9)">
+        		<IMAGE src="res://icons/filterJ" width="21.4" height="29.1"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=2 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[10].colorstack}}" opacity="{{myItems[10].opacityvalue}}" (tap)="onItemTap(10)">
+        		<IMAGE src="res://icons/filterK" width="29.1" height="22.9"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=4 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[11].colorstack}}" opacity="{{myItems[11].opacityvalue}}" (tap)="onItemTap(11)">
+        		<IMAGE src="res://icons/filterM" width="22.5" height="23.9"></IMAGE>
+            </StackLayout>
+		</GridLayout>
+		<Stacklayout row="15" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="16" columns="44, 45, 44, 45, 44" class="options-layout">			
+             <StackLayout row="0" col=0 heigth="14">
+        		<Label text="music" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=2 heigth="14">
+        		<Label text="film" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=4 heigth="14">
+        		<Label text="art" class="label-option"></Label>
+            </StackLayout>            
+		</GridLayout>
+		<Stacklayout row="17" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="18" columns="*, 45, *, 45, *" class="options-layout">			
+            <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[12].colorstack}}" opacity="{{myItems[12].opacityvalue}}" (tap)="onItemTap(12)">
+        		<IMAGE src="res://icons/filterN" width="29.1" height="14.7"></IMAGE>
+            </StackLayout>
+	        <StackLayout row="0" col=2 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[13].colorstack}}" opacity="{{myItems[13].opacityvalue}}" (tap)="onItemTap(13)">
+        		<IMAGE src="res://icons/filterO" width="20.3" height="29.9"></IMAGE>
+            </StackLayout>
+		</GridLayout>
+		<Stacklayout row="19" orientation="vertical">
+			
+		</Stacklayout>
+		<GridLayout row="20" columns="44, 45, 44, 45, 44" class="options-layout">			
+             <StackLayout row="0" col=0 heigth="14">
+        		<Label text="gaming" class="label-option"></Label>
+            </StackLayout>
+             <StackLayout row="0" col=2 heigth="14">
+        		<Label text="causes" class="label-option"></Label>
+            </StackLayout>
+		</GridLayout>
+		<StackLayout row="21"></StackLayout>
+		<StackLayout row="22">
+			<Button text="create my account" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
+		</StackLayout>
+		<StackLayout row="23">
+			<Button text="go back" class="button-back" verticalAlignment="center" horizontalAlignment="center" ></Button>
+		</StackLayout>
+
+
+
+
+
+	</GridLayout>
+</ScrollView>

@@ -1,0 +1,58 @@
+/* Add mobile styles for the component here.  */
+.page-interests {
+    background-image: url("res://splash/rectangle");
+    background-repeat: no-repeat;
+    color: #ffffff;
+/*    flex-direction: column;*/
+}
+
+.main-title-layout{
+	padding-top: 99;
+}
+.main-title{
+	text-align: center;
+	font-family: "SFProDisplay-Bold";
+	font-size: 15;
+	font-weight: bold;
+}
+
+.options-layout{
+	padding-left: 76;
+	padding-right: 77;
+}
+.options-menu{
+	/*padding-left: 76;*/
+	width: 44;
+	height: 44;
+	border-width: 1;
+	border-color: gray;
+	border-radius: 5;
+	opacity: 0.5;
+}
+.label-option{
+	font-family: "SFProDisplay-Regular";
+	font-size: 12;
+	text-align: center;
+}
+
+.button-create{
+	border-radius: 8;
+	background-color: white;
+	width: 200;
+	height: 50;
+	font-family: "SFProDisplay-Bold";
+	font-size: 15;
+	font-weight: bold;
+	color: #f13657;
+	text-align: center;
+}
+
+.button-back{
+	width: 250;
+	height: 49;
+	font-family: "SFProDisplay-Bold";
+	font-size: 15;
+	font-weight: bold;
+	color: white;
+	text-align: center;
+}
