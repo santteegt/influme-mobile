@@ -21,13 +21,13 @@
 
 <!-- <GridLayout rows="60,200,70,*,50" class="markerprofile-layout"> -->
   <!-- 50 -->
-<GridLayout rows="60,*,50" class="markerprofile-layout">
-  <GridLayout rows="60" columns="200, 125" marginLeft="10" marginRight="30">
-    <StackLayout row="0" col="0" class="title-layout">
+<GridLayout rows="auto,*,50">
+  <GridLayout rows="44" class="markerprofile-layout">
+    <StackLayout row="0" class="title-layout">
       <LABEL text="{{'profile' | L}}"></LABEL>
     </StackLayout>
-    <StackLayout row="0" col="1">
-      <Image height="35" width="35" src="res://icons/setting" marginTop="10"></Image>
+    <StackLayout row="0" class="icon-settings">
+      <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right"></Image>
     </StackLayout>
   </GridLayout>
 
@@ -40,16 +40,16 @@
       <Image stretch="fill" src="res://profilePicture"></Image>
      </StackLayout>
       <StackLayout row="0">
-        <LABEL text="{{120}}" verticalAlignment="top" marginTop="30" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        <LABEL text="{{120}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
       </StackLayout>
       <StackLayout row="0">
-        <LABEL verticalAlignment="top" marginTop="75" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
+        <LABEL verticalAlignment="top" marginTop="55" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
       </StackLayout>
       <StackLayout row="0">
-        <LABEL text="{{28}}" verticalAlignment="top" marginTop="30" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        <LABEL text="{{28}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
       </StackLayout>
       <StackLayout row="0">
-        <LABEL verticalAlignment="top" marginTop="75" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
+        <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
       </StackLayout>
  <!-- </StackLayout> -->
     </GridLayout> 
@@ -60,7 +60,8 @@
         <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                
     <!-- </StackLayout> -->
     <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
-        <Label [text]="cityUser" class="homemarker-description"></Label>
+        <!-- <Label [text]="cityUser" class="homemarker-description"></Label> {{'profile' | L}}-->
+        <Label text="{{'location' | L}}" class="homemarker-description"></Label>        
     <!-- </StackLayout> -->
     <!-- <StackLayout row="0" orientation="vertical" class="homemarker-line-layout" height="5">                 -->
         <Label text=" " class="homemarker-line" height="10"></Label>
@@ -90,7 +91,7 @@
         </StackLayout>
 
         <StackLayout class="homemarker-deals-images" marginBottom="25">
-          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="150" width="100%">
+          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
                   <CarouselItem>
                       <Image src="res://mido/CouponMido" stretch="fill" ></Image>
                   </CarouselItem>

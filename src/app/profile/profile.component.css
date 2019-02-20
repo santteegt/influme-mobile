@@ -2,24 +2,29 @@
 /* Add mobile styles for the component here.  */
 
 .markerprofile-layout {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 25px;
+    padding-top: 93;
+    padding-left: 24;
+    text-align: left;
+    /*background-color: black;*/
     /*font-weight: bold;*/
 }
 
 .title-layout {
-    padding-left: 30;
-    padding-top: 10;
     font-family: "SFProDisplay-Bold";
     font-size: 35;
     font-weight: bold;
     color: black;
 }
 
+.icon-settings{
+    padding-right: 24;
+    vertical-align: middle;
+}
+
 .followers-style-number{
     padding-top: 30px;
-	width:65;
-	height: 45; 
+	width:60;
+	height: 35; 
 	background-color: black;
 	color: white;
 /*	font-weight: 700;
@@ -34,8 +39,8 @@
 
 .followers-style-text{
 	padding-top: 0;
-	width:65;
-	height: 30; 
+	width:60;
+	height: 25; 
 	background-color: black;
     text-align: center;
 	border-bottom-left-radius: 5;

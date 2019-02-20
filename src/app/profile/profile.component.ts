@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   private nameUser: string;
   private cityUser: string;
   private confImage: string;
+  private UserLogData: any;
 
 constructor(private route: ActivatedRoute, private page: Page,
                 private userApiService: UserapiService, private _routExt: RouterExtensions) { 
@@ -38,15 +39,26 @@ constructor(private route: ActivatedRoute, private page: Page,
     // this._routerExtensions.params.forEach((params) => { this.urlImage = params["info"]; });
     // this._routerExtensions.params.forEach((params) => { token = params["info"]; });
   
-    this.route.queryParams.subscribe(params => { token = params["info"]; });
+    // this.route.queryParams.subscribe(params => { token = params["info"]; });
 
-    let UserLogData = JSON.parse(token);
-    this.urlImage = UserLogData["imageU"];
-    this.nameUser = UserLogData["nameU"];
-    this.cityUser = UserLogData["cityU"];
+    // let UserLogData = JSON.parse(token);
+    // this.urlImage = UserLogData["imageU"];
+    // this.nameUser = UserLogData["nameU"];
+    // this.cityUser = UserLogData["cityU"];
 
     //this.page.getViewById("stackLayoutId").backgroundImage = this.urlImage;
     // this.confImage = "conf.png";
+
+    let infoUser = localStorage.getItem('ResultLogin');
+
+    this.UserLogData = JSON.parse(infoUser);
+
+    console.log("[**] LOG INTERESES "+ JSON.stringify(this.UserLogData["intereses"]));
+
+    this.urlImage = this.UserLogData["pictureURL"];
+    this.nameUser = this.UserLogData["name"];
+    this.cityUser = this.UserLogData["city"];
+
   }
 
   ngOnInit() {
