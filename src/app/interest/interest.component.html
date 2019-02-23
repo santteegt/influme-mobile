@@ -1,7 +1,7 @@
 <ScrollView>
-	<GridLayout rows="135, 55, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 35, 51, 70" class="page-interests">
+	<GridLayout rows="135, 50, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 35, 51, 80" class="page-interests">
 		<StackLayout row="0" orientation="vertical" class="main-title-layout">
-			<Label text="choose at least 4 interest" textWrap="true" width="115" height="36" class="main-title"></Label>
+			<Label text="{{ 'title_interest' | L }}" textWrap="true" width="115" height="36" class="main-title"></Label>
 		</StackLayout>
 		<Stacklayout row="1" orientation="vertical">
 			
@@ -23,15 +23,15 @@
 		<Stacklayout row="3" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="4" columns="44, 39, 55, 39, 44" class="options-layout">			
+		<GridLayout row="4" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="foodie" class="label-option"></Label>
+        		<Label text="{{ 'foodie' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="night fun" class="label-option"></Label>
+        		<Label text="{{ 'night_fun' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="tech" class="label-option"></Label>
+        		<Label text="{{ 'tech' | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="5" orientation="vertical">
@@ -51,15 +51,15 @@
 		<Stacklayout row="7" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="8" columns="44, 45, 44, 45, 44" class="options-layout">			
+		<GridLayout row="8" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="fashion" class="label-option"></Label>
+        		<Label text="{{ 'fashion' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="sports" class="label-option"></Label>
+        		<Label text="{{ 'sports' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="beauty" class="label-option"></Label>
+        		<Label text="{{ 'beauty' | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>				
 		<Stacklayout row="9" orientation="vertical">
@@ -79,15 +79,15 @@
 		<Stacklayout row="11" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="12" columns="44, 45, 44, 37, 60" class="options-layout">			
+		<GridLayout row="12" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="health" class="label-option"></Label>
+        		<Label text="{{ 'health' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="travel" class="label-option"></Label>
+        		<Label text="{{ 'travel' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="adventure" class="label-option"></Label>
+        		<Label text="{{ 'adventure' | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="13" orientation="vertical">
@@ -107,15 +107,15 @@
 		<Stacklayout row="15" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="16" columns="44, 45, 44, 45, 44" class="options-layout">			
+		<GridLayout row="16" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="music" class="label-option"></Label>
+        		<Label text="{{ 'music' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="film" class="label-option"></Label>
+        		<Label text="{{ 'film' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="art" class="label-option"></Label>
+        		<Label text="{{ 'art' | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="17" orientation="vertical">
@@ -132,20 +132,20 @@
 		<Stacklayout row="19" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="20" columns="44, 45, 44, 45, 44" class="options-layout">			
+		<GridLayout row="20" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="gaming" class="label-option"></Label>
+        		<Label text="{{ 'gaming' | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="causes" class="label-option"></Label>
+        		<Label text="{{ 'causes' | L }}" class="label-option"></Label>
             </StackLayout>
 		</GridLayout>
 		<StackLayout row="21"></StackLayout>
 		<StackLayout row="22">
-			<Button text="create my account" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
+			<Button text="{{ 'create_account' | L }}" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
 		</StackLayout>
-		<StackLayout row="23">
-			<Button text="go back" class="button-back" verticalAlignment="center" horizontalAlignment="center" ></Button>
+		<StackLayout row="23" class="layout-button-back">
+			<Button text="{{ 'go_back' | L }}" class="button-back" verticalAlignment="center" horizontalAlignment="center" ></Button>
 		</StackLayout>
 
 

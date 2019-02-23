@@ -20,6 +20,12 @@
 	padding-left: 76;
 	padding-right: 77;
 }
+
+.options-layout-label{
+	padding-left: 66.5;
+	padding-right: 66.5;
+}
+
 .options-menu{
 	/*padding-left: 76;*/
 	width: 44;
@@ -47,6 +53,9 @@
 	text-align: center;
 }
 
+.layout-button-back{
+	padding-top: 10;
+}
 .button-back{
 	width: 250;
 	height: 49;

@@ -4,11 +4,14 @@ import { InterestRoutingModule } from './interest-routing.module';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { InterestComponent } from './interest.component';
 
+import { SharedModule } from "../shared/shared.module";
+
 @NgModule({
   declarations: [InterestComponent],
   imports: [
     InterestRoutingModule,
-    NativeScriptCommonModule
+    NativeScriptCommonModule,
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

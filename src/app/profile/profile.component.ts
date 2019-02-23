@@ -27,12 +27,16 @@ export class ProfileComponent implements OnInit {
   private cityUser: string;
   private confImage: string;
   private UserLogData: any;
+  private lintereses: any;
+  private linteresesDown: any;
+  private linteresesUp: any;
 
 constructor(private route: ActivatedRoute, private page: Page,
                 private userApiService: UserapiService, private _routExt: RouterExtensions) { 
 
     let token="";
-
+    this.linteresesDown = [];
+    this.linteresesUp = [];
 		this.page.actionBarHidden = true;
   //   this.page.backgroundSpanUnderStatusBar = true;
         
@@ -58,6 +62,15 @@ constructor(private route: ActivatedRoute, private page: Page,
     this.urlImage = this.UserLogData["pictureURL"];
     this.nameUser = this.UserLogData["name"];
     this.cityUser = this.UserLogData["city"];
+    this.lintereses = this.UserLogData["intereses"];
+
+    for(var i=0; i<this.lintereses.length; i++){
+      if(i > 8 ){
+        this.linteresesUp.push(this.lintereses[i])  
+      } else{
+        this.linteresesDown.push(this.lintereses[i])
+      }
+    }
 
   }
 

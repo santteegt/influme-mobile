@@ -27,7 +27,7 @@
       <LABEL text="{{'profile' | L}}"></LABEL>
     </StackLayout>
     <StackLayout row="0" class="icon-settings">
-      <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right"></Image>
+      <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right" (tap)="logoutUser()"></Image>
     </StackLayout>
   </GridLayout>
 
@@ -51,6 +51,22 @@
       <StackLayout row="0">
         <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
       </StackLayout>
+      <GridLayout marginTop="150" marginRight="10">
+        <StackLayout orientation="horizontal" horizontalAlignment="right">
+          <StackLayout *ngFor="let itemInt of linteresesDown" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
+            <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
+          </StackLayout>
+        </StackLayout>        
+      </GridLayout>
+      <!-- PARA DOBLE 9 -->
+      <GridLayout marginTop="80" marginRight="10">
+        <StackLayout orientation="horizontal" horizontalAlignment="right">
+          <StackLayout *ngFor="let itemInt of linteresesUp" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
+            <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
+          </StackLayout>
+        </StackLayout>        
+      </GridLayout>      
+
  <!-- </StackLayout> -->
     </GridLayout> 
 

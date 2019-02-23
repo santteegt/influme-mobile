@@ -191,6 +191,14 @@
     /*padding-left: 40;*/
 }
 
+.auto-interest{
+    width: 26.3;
+    height: 26;
+    border-radius: 4;
+    border-color: white;
+    border-width: 1;
+}
+
 /*.imagebackground{
 	height: 30%;
 	width: 100%;

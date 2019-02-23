@@ -4,11 +4,14 @@ import { MarkerprofileRoutingModule } from './markerprofile-routing.module';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { MarkerprofileComponent } from './markerprofile.component';
 
+import { SharedModule } from "../shared/shared.module";
+
 @NgModule({
   declarations: [MarkerprofileComponent],
   imports: [
     MarkerprofileRoutingModule,
-    NativeScriptCommonModule
+    NativeScriptCommonModule,
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

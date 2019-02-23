@@ -20,9 +20,9 @@
       </GridLayout>
     <LABEL text="{{profile_id_selected[0].seguidores}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
-    <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="followers" class="followers-style-text"></LABEL>
+    <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="{{ 'followers' | L }}" class="followers-style-text"></LABEL>
     <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" marginTop="15" marginRight="20">                
-        <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
+        <BUTTON text="{{ 'follow' | L }}" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
     </StackLayout>
 
     
@@ -64,7 +64,7 @@
                     </StackLayout> -->
                 </StackLayout>
             <StackLayout class="homemarker-deals">
-                <Label text="Availables Deals"></Label>
+                <Label text="{{ 'availables_deals' | L }}"></Label>
                 <!-- <Label text="{{'availables_deals' | L}}"></Label> -->
             </StackLayout>
             <StackLayout height="10" class="homemarker-line-layout-a">                
