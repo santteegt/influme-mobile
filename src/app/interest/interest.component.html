@@ -142,10 +142,11 @@
 		</GridLayout>
 		<StackLayout row="21"></StackLayout>
 		<StackLayout row="22">
-			<Button text="{{ 'create_account' | L }}" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
+            <!-- {{ 'create_account' | L }}" -->
+			<Button [text]="label_button" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
 		</StackLayout>
 		<StackLayout row="23" class="layout-button-back">
-			<Button text="{{ 'go_back' | L }}" class="button-back" verticalAlignment="center" horizontalAlignment="center" ></Button>
+			<Button text="{{ 'go_back' | L }}" class="button-back" verticalAlignment="center" horizontalAlignment="center" visibility="{{ showDetails }}"></Button>
 		</StackLayout>
 
 

@@ -2,6 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
+import { localize } from "nativescript-localize";
+import { ActivatedRoute } from "@angular/router";
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: 'ns-interest',
@@ -14,10 +19,30 @@ export class InterestComponent implements OnInit {
 	
   public myItems: any;
   public UserLogData: any;
+  private feedback: Feedback;
+  private label_button: string;
+  private showDetails: string;
+  private menuOption: any;
 
-  constructor(private page: Page, private _routerExtensions: RouterExtensions) { 
+  constructor(private route: ActivatedRoute, private page: Page, private _routerExtensions: RouterExtensions) { 
+
+    this.feedback = new Feedback();
     
     this.page.actionBarHidden = true;
+
+    this.route.queryParams.subscribe(params => {
+          this.menuOption = params["menuOption"];
+    });
+
+    if(this.menuOption == 1){
+      this.label_button = localize("edit");
+      this.showDetails = "collapsed";
+
+    }else if(this.menuOption == 0){
+      this.label_button = localize("create_account");
+      this.showDetails = "visible";
+
+    }    
 
     let infoUser = localStorage.getItem('ResultLogin');
 
@@ -53,6 +78,22 @@ export class InterestComponent implements OnInit {
     {
         "id": "14", "img":"res://icons/filterO", "pw":"10.9", "ph":"18", "type": "hand", "colorstack": "border-color: gray;", "opacityvalue": "0.5",  "status": 0}    
     ];
+
+
+    if(this.UserLogData['intereses'].length > 0){
+      for(let i=0; i<this.UserLogData['intereses'].length; i++){
+        for(let j=0; j<this.myItems.length; j++){
+          if(this.myItems[j]['img'] == this.UserLogData['intereses'][i]['img']){
+
+            this.myItems[j]['status'] = 1;
+            this.myItems[j]['colorstack'] = "border-color: white;";
+            this.myItems[j]['opacityvalue'] = "1";
+
+          }
+        }
+      }
+    }
+
 }
 
   ngOnInit() {
@@ -70,6 +111,13 @@ export class InterestComponent implements OnInit {
 	      this.myItems[args]["colorstack"]="border-color: gray;";
 	      this.myItems[args]["opacityvalue"]="0.5";
     }
+
+    // let selectitem = this.myItems.filter(d => d.status === 1);
+
+    // if(selectitem.length > 6){
+    //   this.printError("Choose 6 interests at most..");
+    // }
+
 	}
 
   public goProfile(){
@@ -79,25 +127,49 @@ export class InterestComponent implements OnInit {
 
     let selectitem = this.myItems.filter(d => d.status === 1);
 
-    for(var i=0; i<selectitem.length; i++){   
-      subIntereses = {};
-      subIntereses["img"] = selectitem[i]["img"];
-      subIntereses["width"] = selectitem[i]["pw"];
-      subIntereses["height"] = selectitem[i]["ph"];
-      intereses.push(subIntereses);      
+    if(selectitem.length > 6){
+      this.printError("error_interest_atmost");
+    }else 
+    if(selectitem.length < 4 ){
+      this.printError("error_interest_atleast");
+    }else{
+
+      for(var i=0; i<selectitem.length; i++){   
+        subIntereses = {};
+        subIntereses["img"] = selectitem[i]["img"];
+        subIntereses["width"] = selectitem[i]["pw"];
+        subIntereses["height"] = selectitem[i]["ph"];
+        intereses.push(subIntereses);      
+      }
+      
+      this.UserLogData["intereses"] = intereses;
+
+      localStorage.removeItem('ResultLogin');
+
+      localstorage.setItem('ResultLogin', JSON.stringify(this.UserLogData));
+
+      this._routerExtensions.navigate(["profile"]);
     }
-    
-    this.UserLogData["intereses"] = intereses;
-
-    localStorage.removeItem('ResultLogin');
-
-    localstorage.setItem('ResultLogin', JSON.stringify(this.UserLogData));
-
-    this._routerExtensions.navigate(["profile"]);
   }
 
   goBack(){
     this._routerExtensions.navigate(["user"] );
+  }
+
+  printError(textError){
+      this.feedback.show({
+            title: "Error Selection",
+            message: localize(textError),
+            duration: 1400,
+            titleFont: "SFProDisplay-Bold",
+            titleSize: 16,
+            messageFont: "SFProDisplay-Regular",
+            messageSize: 13,
+            type: FeedbackType.Error,
+            onTap: () => {
+              console.log("showError tapped");
+            }
+          });
   }
 
 }
