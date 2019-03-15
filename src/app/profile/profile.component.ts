@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { RouterExtensions } from "nativescript-angular/router";
 import { Page } from "tns-core-modules/ui/page";
 // import { NgZone } from "@angular/core";
@@ -20,7 +22,7 @@ import * as localstorage from "nativescript-localstorage";
   styleUrls: ['./profile.component.css'],
   moduleId: module.id,
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements AfterViewInit, OnInit {
 
   private urlImage: string;
   private nameUser: string;
@@ -31,8 +33,13 @@ export class ProfileComponent implements OnInit {
   private linteresesDown: any;
   private linteresesUp: any;
 
+ @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
+  private drawer: RadSideDrawer;
+
+
 constructor(private route: ActivatedRoute, private page: Page,
-                private userApiService: UserapiService, private _routExt: RouterExtensions) { 
+                private userApiService: UserapiService, private _routExt: RouterExtensions, 
+                private _changeDetectionRef: ChangeDetectorRef) { 
 
     let token="";
     this.linteresesDown = [];
@@ -72,6 +79,11 @@ constructor(private route: ActivatedRoute, private page: Page,
       }
     }
 
+  }
+
+  ngAfterViewInit() {
+        this.drawer = this.drawerComponent.sideDrawer;
+        this._changeDetectionRef.detectChanges();
   }
 
   ngOnInit() {
@@ -122,4 +134,35 @@ constructor(private route: ActivatedRoute, private page: Page,
  //        });
  //    });
  // }
+
+    public openDrawer() {
+        this.drawer.showDrawer();
+    }
+
+    public onCloseDrawerTap() {
+        this.drawer.closeDrawer();
+    }
+
+    public goEditProfile(){
+      let editOption = 1;
+      let navigationExtras: NavigationExtras = {
+          queryParams: {
+              "menuOption": editOption
+        }
+      };
+      
+      this._routExt.navigate(["user"], navigationExtras);
+    }
+
+    public goEditInterests(){
+      let editOption = 1;
+      let navigationExtras: NavigationExtras = {
+          queryParams: {
+              "menuOption": editOption
+        }
+      };
+      
+      this._routExt.navigate(["interest"], navigationExtras);
+    }
+
 }

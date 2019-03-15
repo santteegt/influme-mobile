@@ -21,112 +21,152 @@
 
 <!-- <GridLayout rows="60,200,70,*,50" class="markerprofile-layout"> -->
   <!-- 50 -->
-<GridLayout rows="auto,*,50">
-  <GridLayout rows="44" class="markerprofile-layout">
-    <StackLayout row="0" class="title-layout">
-      <LABEL text="{{'profile' | L}}"></LABEL>
+<RadSideDrawer tkExampleTitle tkToggleNavButton>
+    <StackLayout tkDrawerContent class="sideStackLayout">
+        <StackLayout class="sideTitleStackLayout" height="auto">
+            <Label text="{{'settings' | L}}"></Label>
+        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+              <GridLayout rows="50, 50, 50">
+                <StackLayout row="0" marginLeft="10" verticalAlignment="center">
+                  <Label text="&#xf007;" class="font-awesome icons-menu-side"></Label>
+                </StackLayout>
+                <StackLayout row="0" marginLeft="50" verticalAlignment="center">
+                  <Label text="{{'edit_profile' | L}}" class="sideLabel" (tap)='goEditProfile()'></Label>
+                </StackLayout>
+                <StackLayout row="1" marginLeft="10" verticalAlignment="center">
+                  <Label text="&#xf044;" class="font-awesome icons-menu-side"></Label>
+                </StackLayout>
+                <StackLayout row="1" marginLeft="50" verticalAlignment="center">
+                  <Label text="{{'edit_interest' | L}}" class="sideLabel" (tap)='goEditInterests()'></Label>
+                </StackLayout>                
+                <StackLayout row="2" marginLeft="10" verticalAlignment="center">
+                  <Label text="&#xf1c6;" class="font-awesome icons-menu-side"></Label>
+                </StackLayout>
+                <StackLayout row="2" marginLeft="50" verticalAlignment="center">
+                  <Label text="{{'logout' | L}}" class="sideLabel" (tap)="logoutUser()"></Label>
+                </StackLayout>
+              </GridLayout>
+<!--                 <Label text="Promotions" class="sideLabel"></Label>
+                <Label text="Labels" class="sideLabel sideLightGrayLabel"></Label>
+                <Label text="Important" class="sideLabel"></Label>
+                <Label text="Starred" class="sideLabel"></Label>
+                <Label text="Sent Mail" class="sideLabel"></Label>
+                <Label text="Drafts" class="sideLabel"></Label>
+                <Label text="Close Drawer" color="lightgray" padding="10" style="horizontal-align: center" (tap)="onCloseDrawerTap()"></Label> -->
+            </StackLayout>
+        </ScrollView>
     </StackLayout>
-    <StackLayout row="0" class="icon-settings">
-      <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right" (tap)="logoutUser()"></Image>
+<StackLayout tkMainContent>      
+  <GridLayout rows="auto,*,50">
+    <GridLayout rows="44" class="markerprofile-layout">
+      <StackLayout row="0" class="title-layout">
+        <LABEL text="{{'profile' | L}}"></LABEL>
+      </StackLayout>
+      <StackLayout row="0" class="icon-settings">
+        <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right" (tap)="openDrawer()"></Image>
+      </StackLayout>
+    </GridLayout>
+
+  <GridLayout row="1">    
+  <ScrollView>
+    <StackLayout>
+      <GridLayout rows="200">
+       <StackLayout row="0">
+        <!-- <Image stretch="fill" [src]="urlImage"></Image>         -->
+        <Image stretch="fill" src="res://profilePicture"></Image>
+       </StackLayout>
+        <StackLayout row="0">
+          <LABEL text="{{120}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        </StackLayout>
+        <StackLayout row="0">
+          <LABEL verticalAlignment="top" marginTop="55" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
+        </StackLayout>
+        <StackLayout row="0">
+          <LABEL text="{{28}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        </StackLayout>
+        <StackLayout row="0">
+          <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
+        </StackLayout>
+        <GridLayout marginTop="150" marginRight="10">
+          <StackLayout orientation="horizontal" horizontalAlignment="right">
+            <StackLayout *ngFor="let itemInt of linteresesDown" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
+              <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
+            </StackLayout>
+          </StackLayout>        
+        </GridLayout>
+        <!-- PARA DOBLE 9 -->
+        <GridLayout marginTop="80" marginRight="10">
+          <StackLayout orientation="horizontal" horizontalAlignment="right">
+            <StackLayout *ngFor="let itemInt of linteresesUp" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
+              <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
+            </StackLayout>
+          </StackLayout>        
+        </GridLayout>      
+
+   <!-- </StackLayout> -->
+      </GridLayout> 
+
+  <!--     </StackLayout> -->
+  <GridLayout rows="auto">
+      <StackLayout row="0" orientation="vertical" class="main-layout-desprofile">
+          <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                
+      <!-- </StackLayout> -->
+      <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
+          <!-- <Label [text]="cityUser" class="homemarker-description"></Label> {{'profile' | L}}-->
+          <Label text="{{'location' | L}}" class="homemarker-description"></Label>        
+      <!-- </StackLayout> -->
+      <!-- <StackLayout row="0" orientation="vertical" class="homemarker-line-layout" height="5">                 -->
+          <Label text=" " class="homemarker-line" height="10"></Label>
+      </StackLayout>
+  </GridLayout>
+      <GridLayout row="1" class="homemarker-social-media">
+        <StackLayout>
+          <StackLayout orientation="horizontal" marginTop="5">
+              <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
+              </StackLayout>
+              <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
+              </StackLayout>
+              <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
+              </StackLayout>
+                  <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
+          <BUTTON text="{{'follow' | L}}" class="homemarker-follow-button"></BUTTON>
+              </StackLayout>
+
+          </StackLayout>
+          
+          <StackLayout class="homemarker-deals">
+              <Label text="{{'deals_redeemed' | L}}"></Label>
+          </StackLayout>
+
+          <StackLayout height="10" class="homemarker-line-layout-a">                
+              <Label text=" " class="homemarker-line "></Label>
+          </StackLayout>
+
+          <StackLayout class="homemarker-deals-images" marginBottom="25">
+            <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
+                    <CarouselItem>
+                        <Image src="res://mido/CouponMido" stretch="fill" ></Image>
+                    </CarouselItem>
+                    <CarouselItem>
+                        <Image src="res://sonsofmana/CouponSOM" stretch="fill"></Image>
+                    </CarouselItem>
+            </Carousel>    
+          </StackLayout>   
+        </StackLayout>  
+      </GridLayout>
     </StackLayout>
+  </ScrollView>
   </GridLayout>
 
-<GridLayout row="1">    
-<ScrollView>
-  <StackLayout>
-    <GridLayout rows="200">
-     <StackLayout row="0">
-      <!-- <Image stretch="fill" [src]="urlImage"></Image>         -->
-      <Image stretch="fill" src="res://profilePicture"></Image>
-     </StackLayout>
-      <StackLayout row="0">
-        <LABEL text="{{120}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+      <StackLayout row="3" orientation="horizontal">
+          <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
+          <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
+          <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
+          <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
       </StackLayout>
-      <StackLayout row="0">
-        <LABEL verticalAlignment="top" marginTop="55" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
-      </StackLayout>
-      <StackLayout row="0">
-        <LABEL text="{{28}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
-      </StackLayout>
-      <StackLayout row="0">
-        <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
-      </StackLayout>
-      <GridLayout marginTop="150" marginRight="10">
-        <StackLayout orientation="horizontal" horizontalAlignment="right">
-          <StackLayout *ngFor="let itemInt of linteresesDown" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
-            <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
-          </StackLayout>
-        </StackLayout>        
-      </GridLayout>
-      <!-- PARA DOBLE 9 -->
-      <GridLayout marginTop="80" marginRight="10">
-        <StackLayout orientation="horizontal" horizontalAlignment="right">
-          <StackLayout *ngFor="let itemInt of linteresesUp" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
-            <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
-          </StackLayout>
-        </StackLayout>        
-      </GridLayout>      
 
- <!-- </StackLayout> -->
-    </GridLayout> 
-
-<!--     </StackLayout> -->
-<GridLayout rows="auto">
-    <StackLayout row="0" orientation="vertical" class="main-layout-desprofile">
-        <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                
-    <!-- </StackLayout> -->
-    <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
-        <!-- <Label [text]="cityUser" class="homemarker-description"></Label> {{'profile' | L}}-->
-        <Label text="{{'location' | L}}" class="homemarker-description"></Label>        
-    <!-- </StackLayout> -->
-    <!-- <StackLayout row="0" orientation="vertical" class="homemarker-line-layout" height="5">                 -->
-        <Label text=" " class="homemarker-line" height="10"></Label>
-    </StackLayout>
-</GridLayout>
-    <GridLayout row="1" class="homemarker-social-media">
-      <StackLayout>
-        <StackLayout orientation="horizontal" marginTop="5">
-            <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
-            </StackLayout>
-            <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
-            </StackLayout>
-            <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
-            </StackLayout>
-                <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
-        <BUTTON text="{{'follow' | L}}" class="homemarker-follow-button"></BUTTON>
-            </StackLayout>
-
-        </StackLayout>
-        
-        <StackLayout class="homemarker-deals">
-            <Label text="{{'deals_redeemed' | L}}"></Label>
-        </StackLayout>
-
-        <StackLayout height="10" class="homemarker-line-layout-a">                
-            <Label text=" " class="homemarker-line "></Label>
-        </StackLayout>
-
-        <StackLayout class="homemarker-deals-images" marginBottom="25">
-          <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
-                  <CarouselItem>
-                      <Image src="res://mido/CouponMido" stretch="fill" ></Image>
-                  </CarouselItem>
-                  <CarouselItem>
-                      <Image src="res://sonsofmana/CouponSOM" stretch="fill"></Image>
-                  </CarouselItem>
-          </Carousel>    
-        </StackLayout>   
-      </StackLayout>  
-    </GridLayout>
-  </StackLayout>
-</ScrollView>
-</GridLayout>
-
-    <StackLayout row="3" orientation="horizontal">
-        <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
-        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
-        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
-        <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
-    </StackLayout>
-
-</GridLayout>
+  </GridLayout>
+</StackLayout>
+</RadSideDrawer>
