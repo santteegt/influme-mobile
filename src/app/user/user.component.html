@@ -49,12 +49,12 @@
     </StackLayout>
 
     <StackLayout row="7" class="flexbox-item3">
-      <Button class="btn2 btn-continue font-weight-bold t-15" (tap)="continue()" text="{{'button.continue' | L}}"></Button>
+      <Button class="btn2 btn-continue font-weight-bold t-15" (tap)="continue()" [text]="label_button"></Button>
       <!-- <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}"></Button> -->
     </StackLayout>
     <StackLayout row="8" class="flexbox-item3">
       <!-- <Button class="btn2 btn-continue font-weight-bold t-15" (tap)="continue()" text="{{'button.continue' | L}}"></Button> -->
-      <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}"></Button>
+      <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}" visibility="{{ showDetails }}"></Button>
     </StackLayout>    
 
   </GridLayout>
