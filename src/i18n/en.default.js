@@ -42,5 +42,12 @@ module.exports = {
 	"film": "film",
 	"art": "art",
 	"gaming": "gaming",
-	"causes": "causes"	
+	"causes": "causes",	
+	"error_interest_atleast": "Choose at least 4 interests.",
+	"error_interest_atmost": "Choose 6 interests at most.",
+	"edit_profile": "Edit Profile",
+	"logout": "Logout",
+	"edit_interest": "Edit interest",
+	"edit": "edit"
+
 };

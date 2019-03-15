@@ -1,3 +1,9 @@
+"edit" = "edit";
+"edit_interest" = "Edit interest";
+"logout" = "Logout";
+"edit_profile" = "Edit Profile";
+"error_interest_atmost" = "Choose 6 interests at most.";
+"error_interest_atleast" = "Choose at least 4 interests.";
 "causes" = "causes";
 "gaming" = "gaming";
 "art" = "art";

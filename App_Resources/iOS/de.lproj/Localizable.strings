@@ -1,3 +1,9 @@
+"edit" = "bearbeiten";
+"edit_interest" = "Interesse bearbeiten";
+"logout" = "Ausloggen";
+"edit_profile" = "Profil bearbeiten";
+"error_interest_atmost" = "Wählen Sie höchstens 6 Interessen.";
+"error_interest_atleast" = "Wählen Sie mindestens 4 Interessen.";
 "causes" = "verursacht";
 "gaming" = "gaming";
 "art" = "kunst";
