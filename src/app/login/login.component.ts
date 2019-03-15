@@ -107,7 +107,14 @@ export class LoginComponent {
         // };
 
         // this._routerExtensions.navigate(["user"], navigationExtras );
-        this._routerExtensions.navigate(["user"] );
+
+          let editOption = 0;
+          let navigationExtras: NavigationExtras = {
+          queryParams: {
+              "menuOption": editOption
+          }
+         };
+        this._routerExtensions.navigate(["user"], navigationExtras );
 
     }
 
