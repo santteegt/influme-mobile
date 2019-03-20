@@ -1,0 +1,19 @@
+
+<GridLayout rows="auto, 6, 51, auto" class="main-layout-search">
+	<StackLayout row="0" class="main-layout-title">
+		<Label text="{{'search' | L }}" class="main-title"></Label>
+	</StackLayout>
+	<StackLayout row="1">
+
+	</StackLayout>
+    <StackLayout row="2">
+        <SearchBar hint="Search" (textChange)="onTextChange($event)" (loaded)="searchBarLoaded($event)" (submit)="onSubmit($event)" class="search-bar"></SearchBar>
+    </StackLayout>
+
+            
+        <StackLayout row="3" #myNgStack class="label-search">
+          
+        </StackLayout>
+                
+</GridLayout>
+
