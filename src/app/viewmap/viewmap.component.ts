@@ -11,6 +11,13 @@ import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
 
+// import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
+import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
+import { Dealsprofile } from "../shared/models/dealsprofile.model";
+
+import { localize } from "nativescript-localize";
+
+
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -25,6 +32,7 @@ registerElement('MapView', () => MapView);
 export class ViewmapComponent {
 
     private jsonuser: any;
+    private prefixImagePath = "res://";
 
     // Para coger un StackLayout y agregar elementos
     @ViewChild("myNgStack") stackRef: ElementRef;
@@ -56,12 +64,21 @@ export class ViewmapComponent {
     lastCamera: String;
 
     // JSON con datos de los locales
-    marker_profile: any;
+    // dealsprofilecontent: Dealsprofile;
+    // dealsprofilecontent = {} as Dealsprofile;
+    marker_profile: Dealsprofile[];
+    markerSelectOnMap:  Dealsprofile[] = [];
+    // marker_profile: Dealsprofile = [];
+    // marker_profile: Dealsprofile;
     // Variable JSON que contiene los parametros de busqueda
     optionsFilter: any;
 
-    constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
+    messagefreebutton: string;
 
+
+    constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
+        private dealsprofileService: DealsprofileService) {
+    
         this.page.actionBarHidden = true;
 
         // this.page.backgroundSpanUnderStatusBar = true;
@@ -73,90 +90,86 @@ export class ViewmapComponent {
         this.optionsFilter = [];
         let extrasfilter = "";
 
-        // **** NEW *****
-
         if(localstorage.getItem('Options_Filter') != null){
             extrasfilter = localstorage.getItem('Options_Filter');
             this.optionsFilter = JSON.parse(extrasfilter);
         }
-        // this.route.queryParams.subscribe(params => {
-        //     extrasfilter = params["DataList"];
-        // });
 
-        // this.optionsFilter = JSON.parse(extrasfilter);
 
-        // **************
+        // this.availableMarkers();
+        // console.log("[*] Marker " + JSON.stringify(this.marker_profile));
 
-        this.marker_profile = [
-                { 
-                  "title" : "Mido",
-                  "snippet" : "Sushi Restaurant",
-                  "tipo": "restaurant", 
-                  "lat": "52.501346",
-                  "lon": "13.307921",
-                  "picturehome": "res://mido/1",
-                  "icontype": "res://icons/filterA"
-                },
-                {
-                    "title": "808 Club Berlin",
-                    "snippet" : "Night Club",
-                    "tipo": "health",
-                    "lat": "52.505766",
-                    "lon": "13.338038",
-                    "picturehome": "res://clubberlin/1",
-                    "icontype": "res://icons/filterG"
-                },
-                {
-                    "title": "Zola",
-                    "snippet" : "Pizza Restaurant",
-                    "tipo": "restaurant",
-                    "lat": "52.496335",
-                    "lon": "13.422261",
-                    "picturehome": "res://zola/1",
-                    "icontype": "res://icons/filterA"
-                },
-                {
-                    "title": "Sons of Mana",
-                    "snippet" : "Hawaiian Cuisine",
-                    "tipo": "restaurant",
-                    "lat": "52.527582",
-                    "lon": "13.408219",
-                    "picturehome": "res://sonsofmana/1",
-                    "icontype": "res://icons/filterA"
-                },
-                {
-                    "title": "Bar Tausend",
-                    "snippet" : "Cocktails-Music-Dining",
-                    "tipo": "bar",
-                    "lat": "52.521061",
-                    "lon": "13.384872",
-                    "picturehome": "res://tausend/2",
-                    "icontype": "res://icons/filterB"
-                },
-                {
-                    "title": "Aquadom & Sealife Berlin",
-                    "snippet" : "Aquarium",
-                    "tipo": "hand",
-                    "lat": "52.520339",
-                    "lon": "13.403782",
-                    "picturehome": "res://asb/1",
-                    "icontype": "res://icons/filterO"
-                },
-                {
-                    "title": "Berliner Fernsehturm",
-                    "snippet" : "Television Tower",
-                    "tipo": "painting",
-                    "lat": "52.521030",
-                    "lon": "13.409430",
-                    "picturehome": "res://berliner/5",
-                    "icontype": "res://icons/filterM"
-                }                
-                ]
+        // this.marker_profile = [
+        //         { 
+        //           "title" : "Mido",
+        //           "snippet" : "Sushi Restaurant",
+        //           "tipo": "restaurant", 
+        //           "lat": "52.501346",
+        //           "lon": "13.307921",
+        //           "picturehome": "res://mido/1",
+        //           "icontype": "res://icons/filterA"
+        //         },
+        //         {
+        //             "title": "808 Club Berlin",
+        //             "snippet" : "Night Club",
+        //             "tipo": "health",
+        //             "lat": "52.505766",
+        //             "lon": "13.338038",
+        //             "picturehome": "res://clubberlin/1",
+        //             "icontype": "res://icons/filterG"
+        //         },
+        //         {
+        //             "title": "Zola",
+        //             "snippet" : "Pizza Restaurant",
+        //             "tipo": "restaurant",
+        //             "lat": "52.496335",
+        //             "lon": "13.422261",
+        //             "picturehome": "res://zola/1",
+        //             "icontype": "res://icons/filterA"
+        //         },
+        //         {
+        //             "title": "Sons of Mana",
+        //             "snippet" : "Hawaiian Cuisine",
+        //             "tipo": "restaurant",
+        //             "lat": "52.527582",
+        //             "lon": "13.408219",
+        //             "picturehome": "res://sonsofmana/1",
+        //             "icontype": "res://icons/filterA"
+        //         },
+        //         {
+        //             "title": "Bar Tausend",
+        //             "snippet" : "Cocktails-Music-Dining",
+        //             "tipo": "bar",
+        //             "lat": "52.521061",
+        //             "lon": "13.384872",
+        //             "picturehome": "res://tausend/2",
+        //             "icontype": "res://icons/filterB"
+        //         },
+        //         {
+        //             "title": "Aquadom & Sealife Berlin",
+        //             "snippet" : "Aquarium",
+        //             "tipo": "hand",
+        //             "lat": "52.520339",
+        //             "lon": "13.403782",
+        //             "picturehome": "res://asb/1",
+        //             "icontype": "res://icons/filterO"
+        //         },
+        //         {
+        //             "title": "Berliner Fernsehturm",
+        //             "snippet" : "Television Tower",
+        //             "tipo": "painting",
+        //             "lat": "52.521030",
+        //             "lon": "13.409430",
+        //             "picturehome": "res://berliner/5",
+        //             "icontype": "res://icons/filterM"
+        //         }                
+        //         ]
     }
 
     ngOnInit() {
         this.myNativeStack = this.stackRef.nativeElement;
         this.myNativeStack1 = this.stackRef1.nativeElement;
+        // this.dealsprofilecontent = [];
     }
 
     //Map events
@@ -164,43 +177,53 @@ export class ViewmapComponent {
         
         console.log('Map Ready');
 
-        // var gMap = event.gMap;
-        // console.log(gMap);
-        // gMap.myLocationEnabled(true);
+        this.availableMarkers().then(dataM => {
 
-        this.mapView = event.object;
-        this.mapView.myLocationEnabled = true;
-        this.mapView.settings.myLocationButtonEnabled = true;
+            // this.dealsprofilecontent = dataM;
+            // console.log("[*] Marker final " + this.dealsprofilecontent.);        
 
-        // this.mapView.myLocationEnabled(true);
+            this.marker_profile = dataM;
 
-        console.log("Setting a marker...");
+            // var gMap = event.gMap;
+            // console.log(gMap);
+            // gMap.myLocationEnabled(true);
 
-        if(this.optionsFilter.length > 0){
-            for(var j = 0; j < this.optionsFilter.length; j++){
+            this.mapView = event.object;
+            this.mapView.myLocationEnabled = true;
+            this.mapView.settings.myLocationButtonEnabled = true;
 
-                let onlyMarker = this.marker_profile.filter(d => d.tipo == this.optionsFilter[j]["type"]);
+            // this.mapView.myLocationEnabled(true);
 
-                for ( var i = 0; i < onlyMarker.length; i++) {
-                        var marker = new Marker();
-                        marker.position = Position.positionFromLatLng(onlyMarker[i]["lat"],onlyMarker[i]["lon"] );
-                        marker.title = onlyMarker[i]["title"];
-                        marker.snippet = onlyMarker[i]["snippet"];
+            console.log("Setting a marker...");
+
+            if(this.optionsFilter.length > 0){
+
+                for(var j = 0; j < this.optionsFilter.length; j++){
+                    var onlyMarker: Dealsprofile[];
+                    onlyMarker = this.marker_profile.filter(d => d.markerid.type.description == this.optionsFilter[j]["type"]);
+
+                    for ( var i = 0; i < onlyMarker.length; i++) {
+
+                        var marker =  new Marker();
+                        marker.position = Position.positionFromLatLng(onlyMarker[i].markerid.lat, onlyMarker[i].markerid.lon);
+                        marker.title = onlyMarker[i].markerid.title;
+                        marker.snippet = onlyMarker[i].markerid.shortdescription;
                         marker.userData = {index: 1};
                         this.mapView.addMarker(marker);
-                }            
+                    }            
+                }
+            }else
+            {
+                for ( var i = 0; i < this.marker_profile.length; i++) {
+                    var marker = new Marker();
+                    marker.position = Position.positionFromLatLng(this.marker_profile[i].markerid.lat, this.marker_profile[i].markerid.lon);
+                    marker.title = this.marker_profile[i].markerid.title;
+                    marker.snippet = this.marker_profile[i].markerid.shortdescription;
+                    marker.userData = {index: 1};
+                    this.mapView.addMarker(marker);
+                }
             }
-        }else
-        {
-            for ( var i = 0; i < this.marker_profile.length; i++) {
-                var marker = new Marker();
-                marker.position = Position.positionFromLatLng(this.marker_profile[i]["lat"],this.marker_profile[i]["lon"] );
-                marker.title = this.marker_profile[i]["title"];
-                marker.snippet = this.marker_profile[i]["snippet"];
-                marker.userData = {index: 1};
-                this.mapView.addMarker(marker);
-            }
-        }
+        });
     }
 
 
@@ -211,12 +234,23 @@ export class ViewmapComponent {
 
     onMarkerEvent(args) {
 
+        this.markerSelectOnMap = [];
+
+        let ticketsfree: number = 0;
+
         this.title_marker_selected = args.marker.title;
         this.des_marker_selected = args.marker.snippet;
         
-        let jsonAuxSelect = this.marker_profile.filter(d => d.title == args.marker.title);
-        let img_marker_selected = jsonAuxSelect[0]["picturehome"];
-        let icon_type = jsonAuxSelect[0]["icontype"];
+        this.markerSelectOnMap = this.marker_profile.filter(d => d.markerid.title == args.marker.title);
+
+        let img_marker_selected = this.prefixImagePath + this.markerSelectOnMap[0].markerid.picturehome;
+        let icon_type = this.prefixImagePath + this.markerSelectOnMap[0].markerid.type.icontype;
+        for(var i=0; i<this.markerSelectOnMap.length; i++){
+            ticketsfree = ticketsfree + (this.markerSelectOnMap[i].total_tickets - this.markerSelectOnMap[i].used_tickets);
+            this.messagefreebutton = ticketsfree + " " + localize("available_deal");
+        }
+        
+
 
         //console.log("Icono " + icon_type);
         
@@ -278,7 +312,7 @@ export class ViewmapComponent {
 
     let navigationExtras: NavigationExtras = {
         queryParams: {
-            "Titleid": this.title_marker_selected
+            "MarkerProfile": JSON.stringify(this.markerSelectOnMap[0].markerid)
           }
     };
     this._routerExtensions.navigate(["markerprofile"], navigationExtras);
@@ -302,6 +336,23 @@ export class ViewmapComponent {
 
         // *** 
     }
+
+    gosearch() {
+        // **** New 
+
+        // let empty_value = []
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "DataList": JSON.stringify(empty_value)
+        //   }
+        // };
+        
+        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+
+        this._routerExtensions.navigate(["search"]);
+
+        // *** 
+    }    
 
     gologinview() {
 
@@ -330,4 +381,53 @@ export class ViewmapComponent {
 
         }
     }
+    async availableMarkers() {
+
+        try {
+            // const marker_ids: Dealsprofile = await this.dealsprofileService.getMarkerWithDealsAvailable();
+            const dealsprofilecontent: Dealsprofile[] = await this.dealsprofileService.getMarkerWithDealsAvailable();
+            // typeof(marker_ids);
+            // console.log("[*] DEBUG " + typeof(marker_ids));
+            // this.dealsprofilecontent = <Dealsprofile> marker_ids; 
+            // dealsprofilecontent = marker_ids
+            // this.dealsprofilecontent = marker_ids;
+            // console.log("{*} Deals Content" + this.dealsprofilecontent.conditions);
+            // var dealsprofilecontent: any = JSON.parse(marker_ids); 
+            // var dealsprofilecontent: any = dealsprofilecontent = JSON.parse(marker_ids); 
+            // let dealsprofilecontent: any = dealsprofilecontent = JSON.parse(marker_ids);            
+            // for(var i=0; i< dealsprofilecontent.length; i++){
+            //     const marker_profile_string = await this.markerprofileService.getMarkerprofile(dealsprofilecontent[i]["markerid"]);
+            //     let individualMarkerprofile = JSON.parse(marker_profile_string);
+            //     marker_profile_intern.push(individualMarkerprofile);
+            //     // console.log("[*] Marker AUX" + JSON.stringify(this.marker_profile));     
+            // }
+            return dealsprofilecontent;
+        } catch(err) {
+            console.log(err);
+        }
+
+        // this.dealsprofileService.getMarkerWithDealsAvailable().then((data) => {
+        //     this.dealsprofilecontent = JSON.parse(data);
+        //     for(var i=0; i< this.dealsprofilecontent.length; i++){
+        //         this.initialMarkers(this.dealsprofilecontent[i]["markerid"]);       
+        //     }
+        // }).catch((error) => alert(error));
+        
+    }
+    // async initialMarkers(paramId) {
+    //     try {
+    //         const marker_profile_string = await this.markerprofileService.getMarkerprofile(paramId);
+    //         let individualMarkerprofile = JSON.parse(marker_profile_string);
+    //         this.marker_profile.push(individualMarkerprofile);
+    //         console.log("[*] Marker AUX" + JSON.stringify(this.marker_profile));
+    //     } catch(err) {
+    //         console.log(err);
+    //     }
+
+    //     // this.markerprofileService.getMarkerprofile(paramId).then((data) => {
+    //     //     let individualMarkerprofile = JSON.parse(data);
+    //     //     this.marker_profile.push(individualMarkerprofile);
+    //     //     console.log("[*] Marker AUX" + JSON.stringify(this.marker_profile));
+    //     // }).catch((error) => alert(error));        
+    // }    
 }
