@@ -37,7 +37,8 @@ export class UserComponent implements OnInit {
   private label_button: string;
   private showDetails: string;
   private menuOption: any;
-  
+  private showDetails1: string;
+
   locations = [];
 
 
@@ -58,10 +59,13 @@ export class UserComponent implements OnInit {
       if(this.menuOption == 1){
         this.label_button = localize("edit");
         this.showDetails = "collapsed";
+        this.showDetails1 = "visible";
+
 
       }else if(this.menuOption == 0){
         this.label_button = localize("button.continue");
         this.showDetails = "visible";
+        this.showDetails1 = "collapsed";
 
       }
 
@@ -172,6 +176,11 @@ export class UserComponent implements OnInit {
           console.log("Error: " + (e.message || e));
       });
   }
+
+  goBackProfile(){
+       this._routerExt.navigate(["profile"]); 
+  }
+  
 
   public buttonGetLocationTap() {
       // let that = this;

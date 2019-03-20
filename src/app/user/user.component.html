@@ -57,6 +57,11 @@
       <Button class="btn3 btn-goback font-weight-bold t-15" (tap)="goback()" text="{{'go_back' | L}}" visibility="{{ showDetails }}"></Button>
     </StackLayout>    
 
+      <AbsoluteLayout width="100" horizontalAlignment="right" verticalAlignment="top" marginTop="20" height="100">
+        <Image src="res://icons/close" width="35" height="35" (tap)="goBackProfile()" marginLeft="35" visibility="{{ showDetails1 }}"></Image>
+      </AbsoluteLayout>        
+
+
   </GridLayout>
 
 </ScrollView>

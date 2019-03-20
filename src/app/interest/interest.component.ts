@@ -22,6 +22,7 @@ export class InterestComponent implements OnInit {
   private feedback: Feedback;
   private label_button: string;
   private showDetails: string;
+  private showDetails1: string;
   private menuOption: any;
 
   constructor(private route: ActivatedRoute, private page: Page, private _routerExtensions: RouterExtensions) { 
@@ -37,10 +38,12 @@ export class InterestComponent implements OnInit {
     if(this.menuOption == 1){
       this.label_button = localize("edit");
       this.showDetails = "collapsed";
+      this.showDetails1 = "visible";
 
     }else if(this.menuOption == 0){
       this.label_button = localize("create_account");
       this.showDetails = "visible";
+      this.showDetails1 = "collapsed";
 
     }    
 
@@ -154,6 +157,10 @@ export class InterestComponent implements OnInit {
 
   goBack(){
     this._routerExtensions.navigate(["user"] );
+  }
+
+  goBackProfile(){
+       this._routerExtensions.navigate(["profile"]); 
   }
 
   printError(textError){
