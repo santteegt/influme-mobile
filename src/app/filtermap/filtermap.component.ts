@@ -45,33 +45,33 @@ export class FiltermapComponent implements OnInit {
   
     this.myItems = [
     {
-        "id": "1", "type": "restaurant", "colorstack": "border-color: white;", "opacityvalue": "0.5", "status": 0},
+        "id": "1", "type": "Foodie", "colorstack": "border-color: white;", "opacityvalue": "0.5", "status": 0},
     {
-        "id": "2", "type": "bar", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "2", "type": "Night Fun", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "3", "type": "type3", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "3", "type": "Tech", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "4", "type": "type4", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "4", "type": "Fashion", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "5", "type": "gym", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "5", "type": "Sports", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "6", "type": "type6", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "6", "type": "Beauty", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "7", "type": "health", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "7", "type": "Health", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "8", "type": "airport", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "8", "type": "Travel", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "9", "type": "climbing", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "9", "type": "Adventure", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "10", "type": "music", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "10", "type": "Music", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "11", "type": "movies", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "11", "type": "Film", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "12", "type": "painting", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "12", "type": "Art", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "13", "type": "games", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
+        "id": "13", "type": "Gaming", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0},
     {
-        "id": "14", "type": "hand", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0}    
+        "id": "14", "type": "Causes", "colorstack": "border-color: white;", "opacityvalue": "0.5",  "status": 0}    
     ];      
 
     if(myItemsAux.length > 0){
