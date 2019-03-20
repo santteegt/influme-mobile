@@ -5,6 +5,9 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { NavigationExtras } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";  
+
+import { Markerprofile } from "../shared/models/markerprofile.model";
+import { Dealsprofile } from "../shared/models/dealsprofile.model";
   
 
 @Component({
@@ -15,16 +18,19 @@ import { Page } from "tns-core-modules/ui/page";
 })
 export class ReadqrComponent implements OnInit {
 
-  extrastitle: string;
+  deal_profile: Dealsprofile[];
+  marker_profile: Markerprofile;
+
 
   constructor(private barcodeScanner: BarcodeScanner, private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) { 
         
     this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;
 
-    this.extrastitle = "";
+    // this.extrastitle = "";
     this.route.queryParams.subscribe(params => {
-            this.extrastitle = params["Titleid"];
+            this.deal_profile = JSON.parse(params["DealMarker"]);
+            this.marker_profile = JSON.parse(params["MarkerProfile"]);
         });
 }
 
@@ -53,7 +59,7 @@ export class ReadqrComponent implements OnInit {
 
       let navigationExtras: NavigationExtras = {
         queryParams: {
-            "Titleid": this.extrastitle
+            "MarkerProfile": JSON.stringify(this.marker_profile)
           }
       };
       this._routerExtensions.navigate(["markerprofile"], navigationExtras)
