@@ -11,7 +11,7 @@ module.exports = {
 	"news": "Nachrichten",
 	"favorites": "Favoriten",
 	"settings": "die Einstellungen",
-	"1_available_deal" :"1 verfügbares Angebot",
+	"available_deal" :"verfügbares Angebot",
 	"followers": "Anhänger",
 	"terms_conditions": "Allgemeine Geschäftsbedingungen",
 	"subtitle_terms_condictions": "Um auf den Rabatt zuzugreifen, muss ich den folgenden Bedingungen zustimmen.",
@@ -48,5 +48,6 @@ module.exports = {
 	"edit_profile": "Profil bearbeiten",
 	"logout": "Ausloggen",
 	"edit_interest": "Interesse bearbeiten",
-	"edit": "bearbeiten"
+	"edit": "aktualisieren",
+	"search": "Suche"
 };

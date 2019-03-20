@@ -11,7 +11,7 @@ module.exports = {
 	"news": "News",
 	"favorites": "Favorites",
 	"settings": "Settings",
-	"1_available_deal": "1 available deal",
+	"available_deal": "available deal",
 	"followers": "followers",
 	"terms_conditions": "Terms and Conditions",
 	"subtitle_terms_condictions": "To access the discount I must agree with the following terms.",
@@ -48,6 +48,7 @@ module.exports = {
 	"edit_profile": "Edit Profile",
 	"logout": "Logout",
 	"edit_interest": "Edit interest",
-	"edit": "edit"
+	"edit": "update",
+	"search": "Search"
 
 };

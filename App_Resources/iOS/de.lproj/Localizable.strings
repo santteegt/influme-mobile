@@ -1,4 +1,5 @@
-"edit" = "bearbeiten";
+"search" = "Suche";
+"edit" = "aktualisieren";
 "edit_interest" = "Interesse bearbeiten";
 "logout" = "Ausloggen";
 "edit_profile" = "Profil bearbeiten";
@@ -35,7 +36,7 @@
 "subtitle_terms_condictions" = "Um auf den Rabatt zuzugreifen, muss ich den folgenden Bedingungen zustimmen.";
 "terms_conditions" = "Allgemeine Geschäftsbedingungen";
 "followers" = "Anhänger";
-"_1_available_deal_dc5zj" = "1 verfügbares Angebot";
+"available_deal" = "verfügbares Angebot";
 "settings" = "die Einstellungen";
 "favorites" = "Favoriten";
 "news" = "Nachrichten";

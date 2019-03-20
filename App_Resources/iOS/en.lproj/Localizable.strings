@@ -1,4 +1,5 @@
-"edit" = "edit";
+"search" = "Search";
+"edit" = "update";
 "edit_interest" = "Edit interest";
 "logout" = "Logout";
 "edit_profile" = "Edit Profile";
@@ -35,7 +36,7 @@
 "subtitle_terms_condictions" = "To access the discount I must agree with the following terms.";
 "terms_conditions" = "Terms and Conditions";
 "followers" = "followers";
-"_1_available_deal_dc5zj" = "1 available deal";
+"available_deal" = "available deal";
 "settings" = "Settings";
 "favorites" = "Favorites";
 "news" = "News";
