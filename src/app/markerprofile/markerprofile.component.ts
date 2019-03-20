@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ElementRef, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ElementRef, ChangeDetectionStrategy, ViewChild, NgZone } from '@angular/core';
 // import { Carousel, IndicatorAnimation, CarouselItem } from 'nativescript-carousel';
 import { isAndroid } from 'tns-core-modules/platform';
 import { alert } from 'tns-core-modules/ui/dialogs';
@@ -12,6 +12,14 @@ import { GestureEventData, GestureTypes } from "tns-core-modules/ui/gestures";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
 import * as utils from "tns-core-modules/utils/utils";
+
+import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
+import { Markerprofile } from "../shared/models/markerprofile.model";
+import { Dealsprofile } from "../shared/models/dealsprofile.model";
+
+// export function onTap(args: GestureEventData){
+//     console.log(args.object.id);
+//   };
 
 // registerElement('Carousel', () => Carousel);
 // registerElement('CarouselItem', () => CarouselItem);
@@ -31,137 +39,155 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
   public newImage: Image;
   
-  marker_profile: any;
+  // marker_profile: any;
+  imagedescription_a: string;
+  imagedescription_b: string;
+  imagedescription_c: string;
 
-  profile_id_selected: any;
+  profile_id_selected: Markerprofile;
 
-  images_descuentos: any;
+  images_descuentos: Dealsprofile[];
 
-  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) {
+  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
+    private dealsprofileService: DealsprofileService, private ngZone: NgZone) {
 
     // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;  
 
-    let titleSearch = ""; 
+    let profileMarkerString = ""; 
 
-    this.marker_profile = [
-      { 
-        "title" : "Mido",
-        "descripcion": "Sushi Restaurant",
-        "web": "www.mido.berlin",
-        "seguidores": "120",
-        "dir": "Wilmersdorfer Str. 94",
-        "img1": "res://mido/1",
-        "img2": "res://mido/6",
-        "img3": "res://mido/3",        
-        "promos": [
-          {
-            "img": "res://mido/CouponMido", "function": "onClickImga()"
-          }
-          // ,
-          // {
-          //   "img": "res://mercado/descuentoa", "function": "onClickImgb()"
-          // }
-        ]
-      },
-      { 
-        "title" : "808 Club Berlin",
-        "descripcion": "Night Club",
-        "web": "www.808.berlin",
-        "seguidores": "200",
-        "dir": "Budapester Str. 38-50",
-        "img1": "res://clubberlin/1",
-        "img2": "res://clubberlin/2",
-        "img3": "res://clubberlin/3",
-        "promos": [
-          {
-            "img": "res://clubberlin/Coupon808", "function": "onClickImga()"
-          }
-        ]
-      },
-      { 
-        "title" : "Zola",
-        "descripcion": "Pizza Restaurant",
-        "web": "www.zola.com",
-        "seguidores": "240",
-        "dir": "Paul-Lincke-Ufer 39-40",
-        "img1": "res://zola/1",
-        "img2": "res://zola/2",
-        "img3": "res://zola/3",        
-        "promos": [
-          {
-            "img": "res://zola/CouponZola", "function": "onClickImga()"
-          }
-        ]
-      },
-      { 
-        "title" : "Sons of Mana",
-        "descripcion": "Hawaiian Cuisine",
-        "web": "www.sonsofmana.de",
-        "seguidores": "540",
-        "dir": "Alte Schönhauser Str. 7-8",
-        "img1": "res://sonsofmana/1",
-        "img2": "res://sonsofmana/2",
-        "img3": "res://sonsofmana/3",        
-        "promos": [
-          {
-            "img": "res://sonsofmana/CouponSOM", "function": "onClickImga()"
-          }
-        ]
-      },
-      { 
-        "title" : "Bar Tausend",
-        "descripcion": "Cocktails - Music - Dining",
-        "web": "www.tausendberlin.com",
-        "seguidores": "290",
-        "dir": "G9CM+8W Berlín, Alemania",
-        "img1": "res://tausend/1",
-        "img2": "res://tausend/2",
-        "img3": "res://tausend/3",                
-        "promos": [
-          {
-            "img": "res://tausend/CouponTausend", "function": "onClickImga()"
-          }
-        ]
-      },
-      { 
-        "title" : "Aquadom & Sealife Berlin",
-        "descripcion": "Aquarium",
-        "web": "www.visitsealife.com",
-        "seguidores": "390",
-        "dir": "Spandauer Str. 3",
-        "img1": "res://asb/1",
-        "img2": "res://asb/2",
-        "img3": "res://asb/3",                        
-        "promos": [
-          {
-            "img": "res://asb/CouponSealife", "function": "onClickImga()"
-          }
-        ]
-      },
-      { 
-        "title" : "Berliner Fernsehturm",
-        "descripcion": "Television Tower",
-        "web": "www.tv-turm.de",
-        "seguidores": "790",
-        "dir": "GCC5+8Q Berlín, Alemania",
-        "img1": "res://berliner/1",
-        "img2": "res://berliner/2",
-        "img3": "res://berliner/3",
-        "promos": [
-          {
-            "img": "res://berliner/CouponBerliner", "function": "onClickImga()"
-          }
-        ]
-      }      
-    ];
+    // this.marker_profile = [
+    //   { 
+    //     "title" : "Mido",
+    //     "descripcion": "Sushi Restaurant",
+    //     "web": "www.mido.berlin",
+    //     "seguidores": "120",
+    //     "dir": "Wilmersdorfer Str. 94",
+    //     "img1": "res://mido/1",
+    //     "img2": "res://mido/6",
+    //     "img3": "res://mido/3",        
+    //     "promos": [
+    //       {
+    //         "img": "res://mido/CouponMido", "function": "onClickImga()"
+    //       }
+    //       // ,
+    //       // {
+    //       //   "img": "res://mercado/descuentoa", "function": "onClickImgb()"
+    //       // }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "808 Club Berlin",
+    //     "descripcion": "Night Club",
+    //     "web": "www.808.berlin",
+    //     "seguidores": "200",
+    //     "dir": "Budapester Str. 38-50",
+    //     "img1": "res://clubberlin/1",
+    //     "img2": "res://clubberlin/2",
+    //     "img3": "res://clubberlin/3",
+    //     "promos": [
+    //       {
+    //         "img": "res://clubberlin/Coupon808", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "Zola",
+    //     "descripcion": "Pizza Restaurant",
+    //     "web": "www.zola.com",
+    //     "seguidores": "240",
+    //     "dir": "Paul-Lincke-Ufer 39-40",
+    //     "img1": "res://zola/1",
+    //     "img2": "res://zola/2",
+    //     "img3": "res://zola/3",        
+    //     "promos": [
+    //       {
+    //         "img": "res://zola/CouponZola", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "Sons of Mana",
+    //     "descripcion": "Hawaiian Cuisine",
+    //     "web": "www.sonsofmana.de",
+    //     "seguidores": "540",
+    //     "dir": "Alte Schönhauser Str. 7-8",
+    //     "img1": "res://sonsofmana/1",
+    //     "img2": "res://sonsofmana/2",
+    //     "img3": "res://sonsofmana/3",        
+    //     "promos": [
+    //       {
+    //         "img": "res://sonsofmana/CouponSOM", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "Bar Tausend",
+    //     "descripcion": "Cocktails - Music - Dining",
+    //     "web": "www.tausendberlin.com",
+    //     "seguidores": "290",
+    //     "dir": "G9CM+8W Berlín, Alemania",
+    //     "img1": "res://tausend/1",
+    //     "img2": "res://tausend/2",
+    //     "img3": "res://tausend/3",                
+    //     "promos": [
+    //       {
+    //         "img": "res://tausend/CouponTausend", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "Aquadom & Sealife Berlin",
+    //     "descripcion": "Aquarium",
+    //     "web": "www.visitsealife.com",
+    //     "seguidores": "390",
+    //     "dir": "Spandauer Str. 3",
+    //     "img1": "res://asb/1",
+    //     "img2": "res://asb/2",
+    //     "img3": "res://asb/3",                        
+    //     "promos": [
+    //       {
+    //         "img": "res://asb/CouponSealife", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   },
+    //   { 
+    //     "title" : "Berliner Fernsehturm",
+    //     "descripcion": "Television Tower",
+    //     "web": "www.tv-turm.de",
+    //     "seguidores": "790",
+    //     "dir": "GCC5+8Q Berlín, Alemania",
+    //     "img1": "res://berliner/1",
+    //     "img2": "res://berliner/2",
+    //     "img3": "res://berliner/3",
+    //     "promos": [
+    //       {
+    //         "img": "res://berliner/CouponBerliner", "function": "onClickImga()"
+    //       }
+    //     ]
+    //   }      
+    // ];
 
     this.route.queryParams.subscribe(params => {
-        titleSearch = params["Titleid"];
+        profileMarkerString = params["MarkerProfile"];
     });
 
-    this.profile_id_selected = this.marker_profile.filter(d => d.title === titleSearch);
+    this.profile_id_selected = JSON.parse(profileMarkerString); 
 
+    this.imagedescription_a = "res://" + this.profile_id_selected.images[0];
+    this.imagedescription_b = "res://" + this.profile_id_selected.images[1];
+    this.imagedescription_c = "res://" + this.profile_id_selected.images[2];
+
+
+    // this.profile_id_selected = this.marker_profile.filter(d => d.title === titleSearch);
+
+    // this.availableMarkers().then(dataM => {
+
+    //   // console.log("[*] Marker final " + this.dealsprofilecontent.);        
+    //   this.marker_profile = dataM;
+
+    //   
+    // }
   }
 
   ngOnInit() {
@@ -181,7 +207,38 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         // //   }, 5000);
         // }
 
-    // this.images_descuentos = this.profile_id_selected[0]["promos"];
+    this.getDealsMarkerProfile(this.profile_id_selected._id).then(dataResponse => {
+
+
+        this.images_descuentos = dataResponse;
+            // .profile_id_selected[0]["promos"];
+        this.myNativeStack = this.stackRef.nativeElement;
+
+        for (var i=0; i<this.images_descuentos.length; i++){
+
+          let valueimage = "res://" + this.images_descuentos[i].img;
+          this.newImage = new Image();          
+          this.newImage.src = valueimage
+          this.newImage.id = this.images_descuentos[i]._id;
+          this.newImage.style.margin = "5 0";
+          this.newImage.stretch = "fill";
+          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) {   
+            let widgetImage = <Image>args.object;
+            let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
+            let navigationExtras: NavigationExtras = {
+                queryParams: {
+                    "DealMarker": JSON.stringify(json_deal_selected),
+                    "MarkerProfile": JSON.stringify(this.profile_id_selected)
+                  }
+            };
+            // this._routerExtensions.navigate(["dealprofile"], navigationExtras);
+            this.ngZone.run(() => this._routerExtensions.navigate(['dealprofile'], navigationExtras)).then();
+          }, this);
+          
+          this.myNativeStack.addChild(this.newImage);
+        }
+
+    });
 
     // this.myNativeStack = this.stackRef.nativeElement;
 
@@ -198,28 +255,29 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
     //   }
   }
 
+  
 
-  onClickImga(){
+  // onClickImga(navigationExtras){
+  //   // QUITAR COMENTARIOS
+  //   // let jsonNextPage = {};
 
-    let jsonNextPage = {};
+  //   // console.log("[*] Image Deal "+ this.profile_id_selected[0]["promos"][0]["img"])
 
-    console.log("[*] Image Deal "+ this.profile_id_selected[0]["promos"][0]["img"])
-
-    jsonNextPage = {
-      "titulo": this.profile_id_selected[0]["title"], 
-      "dealId": this.profile_id_selected[0]["promos"][0]["img"]
-    }    
+  //   // jsonNextPage = {
+  //   //   "titulo": this.profile_id_selected[0]["title"], 
+  //   //   "dealId": this.profile_id_selected[0]["promos"][0]["img"]
+  //   // }    
 
 
 
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "infoDealMarker": JSON.stringify(jsonNextPage)
-          }
-    };
+  //   // let navigationExtras: NavigationExtras = {
+  //   //     queryParams: {
+  //   //         "infoDealMarker": JSON.stringify(jsonNextPage)
+  //   //       }
+  //   // };
 
-    this._routerExtensions.navigate(["dealprofile"], navigationExtras) 
-  }
+  //   this._routerExtensions.navigate(["dealprofile"], navigationExtras) 
+  // }
 
   onClickImgb(){
     alert("Press1")
@@ -273,8 +331,19 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
     openURLMarker(){
 
-        utils.openUrl("http://" + this.profile_id_selected[0]["web"]);
+        utils.openUrl("http://" + this.profile_id_selected.web);
     }
 
+    async getDealsMarkerProfile(markerid) {
+
+        try {
+            const deals_profile: Dealsprofile[] = await this.dealsprofileService.getDealsprofile(markerid);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return deals_profile;
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }
 
 }

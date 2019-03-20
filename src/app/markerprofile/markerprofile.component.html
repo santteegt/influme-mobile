@@ -8,17 +8,17 @@
       <GridLayout row="0">   
         <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
                 <CarouselItem>
-                    <Image src="{{profile_id_selected[0].img1}}" stretch="aspectFill" ></Image>
+                    <Image src="{{imagedescription_a}}" stretch="aspectFill" ></Image>
                 </CarouselItem>
                 <CarouselItem>
-                    <Image src="{{profile_id_selected[0].img2}}" stretch="aspectFill"></Image>
+                    <Image src="{{imagedescription_b}}" stretch="aspectFill"></Image>
                 </CarouselItem>
                 <CarouselItem>
-                    <Image src="{{profile_id_selected[0].img3}}" stretch="aspectFill"></Image>
+                    <Image src="{{imagedescription_c}}" stretch="aspectFill"></Image>
                 </CarouselItem>
         </Carousel>
       </GridLayout>
-    <LABEL text="{{profile_id_selected[0].seguidores}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+    <LABEL text="{{profile_id_selected.followers}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
     <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="{{ 'followers' | L }}" class="followers-style-text"></LABEL>
     <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" marginTop="15" marginRight="20">                
@@ -29,11 +29,11 @@
     <StackLayout row="1">
         <GridLayout rows="auto, auto">
             <!-- <StackLayout row="0" orientation="vertical" class="homemarker-title"> -->
-                <!-- <Label text="{{profile_id_selected[0].title}}" textWrap="true"></Label>                 -->
+                <!-- <Label text="{{profile_id_selected.title}}" textWrap="true"></Label>                 -->
             <!-- </StackLayout> -->
             <StackLayout row="1" orientation="vertical" class="homemarker-main-layout">
-                <Label text="{{profile_id_selected[0].title}}" textWrap="true" class="homemarker-title"></Label>                
-                <Label textWrap="true" text="{{profile_id_selected[0].descripcion}}" horizontalAlignment="left" class="homemarker-description"></Label>
+                <Label text="{{profile_id_selected.title}}" textWrap="true" class="homemarker-title"></Label>                
+                <Label textWrap="true" text="{{profile_id_selected.shortdescription}}" horizontalAlignment="left" class="homemarker-description"></Label>
                 <Label text=" " class="homemarker-line" height="10"></Label>
             </StackLayout>
         </GridLayout>
@@ -47,10 +47,10 @@
           <ScrollView>  
             <StackLayout>
                 <StackLayout class="homemarker-description-social">
-                    <Label text="{{profile_id_selected[0].dir}}"></Label>
+                    <Label text="{{profile_id_selected.address}}"></Label>
                 </StackLayout>
                 <StackLayout class="homemarker-description-web">   
-                    <Label text="{{profile_id_selected[0].web}}" (tap)="openURLMarker();"></Label>
+                    <Label text="{{profile_id_selected.web}}" (tap)="openURLMarker();"></Label>
                 </StackLayout>
                 <StackLayout orientation="horizontal" marginTop="5">
                     <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
@@ -74,7 +74,7 @@
             <StackLayout class="homemarker-deals-images" marginBottom="25" orientation="vertical" #myNgStack>    
             <!-- <StackLayout  orientation="vertical" #myNgStack> -->
                 <!-- <Image *ngFor="let element of images_descuentos" [src]="element.img" stretch="fill" (tap)="element.function"></Image>                 -->
-                <Image src="{{profile_id_selected[0].promos[0].img}}" stretch="fill" (tap)="onClickImga()"></Image> 
+<!-- <Image src="{{profile_id_selected.promos[0].img}}" stretch="fill" (tap)="onClickImga()"></Image>  -->
                 <!-- <Image src="res://mercado/descuentoa" stretch="fill" (tap)="onClickImgb()"></Image>                -->
             </StackLayout>    
          </StackLayout>  
