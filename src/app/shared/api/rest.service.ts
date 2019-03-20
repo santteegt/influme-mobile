@@ -22,7 +22,7 @@ export class RestService {
 
 			request(reqParams).then((response) => {
 			    // Argument (response) is HttpResponse
-			    resolve(response.content);
+			    resolve(response.content.toJSON());
 			}, (e) => {
 				console.log(e);
 				reject(e);
