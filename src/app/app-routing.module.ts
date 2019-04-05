@@ -16,7 +16,9 @@ const routes: Routes = [
     { path: "user", loadChildren: "~/app/user/user.module#UserModule" },
     { path: "profile", loadChildren: "~/app/profile/profile.module#ProfileModule" },    
     { path: "interest", loadChildren: "~/app/interest/interest.module#InterestModule" },
-    { path: "search", loadChildren: "~/app/search/search.module#SearchModule" }
+    { path: "search", loadChildren: "~/app/search/search.module#SearchModule" },
+    { path: "hotdeals", loadChildren: "~/app/hotdeals/hotdeals.module#HotdealsModule" }
+
 ];
 
 @NgModule({
