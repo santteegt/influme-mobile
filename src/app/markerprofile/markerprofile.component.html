@@ -22,7 +22,7 @@
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
     <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="{{ 'followers' | L }}" class="followers-style-text"></LABEL>
     <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" marginTop="15" marginRight="20">                
-        <BUTTON text="{{ 'follow' | L }}" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
+        <BUTTON text="{{labelfollowbutton}}" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
     </StackLayout>
 
     
@@ -83,8 +83,8 @@
 
     <StackLayout row="3" orientation="horizontal">
         <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
-        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps"></Button>
-        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps"></Button>
+        <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps" (tap)="gosearch()"></Button>
+        <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps" (tap)="goHotDeals()"></Button>
         <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps" (tap)="gologinview()"></Button>
     </StackLayout>
 

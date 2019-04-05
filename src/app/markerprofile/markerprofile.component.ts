@@ -12,10 +12,22 @@ import { GestureEventData, GestureTypes } from "tns-core-modules/ui/gestures";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
 import * as utils from "tns-core-modules/utils/utils";
+import { localize } from "nativescript-localize";
 
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
+import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
+import { UsersmarkerService } from "../shared/api/usersmarker/usersmarker.service";
+
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
+import { Usersmarker } from "../shared/models/usersmarker.model";
+
+// COMUN ***
+
+import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
+import { Usersinterests } from "../shared/models/usersinterests.model";
+
+//********
 
 // export function onTap(args: GestureEventData){
 //     console.log(args.object.id);
@@ -40,16 +52,20 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
   public newImage: Image;
   
   // marker_profile: any;
+  userIdentification: string = "5c96f09a6d69fdd962e49c19";
   imagedescription_a: string;
   imagedescription_b: string;
   imagedescription_c: string;
+  labelfollowbutton: string;
 
   profile_id_selected: Markerprofile;
-
   images_descuentos: Dealsprofile[];
 
+  responseUsersMarker: Usersmarker[];
+
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
-    private dealsprofileService: DealsprofileService, private ngZone: NgZone) {
+    private dealsprofileService: DealsprofileService, private ngZone: NgZone, 
+    private markerprofileService: MarkerprofileService, private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService) {
 
     // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;  
@@ -206,6 +222,21 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         // //     });
         // //   }, 5000);
         // }
+    this.isFollower(this.userIdentification, this.profile_id_selected._id).then(dataResponse => {
+
+      console.log("Revisa si esta siguiendo: " + dataResponse.length);
+
+      this.responseUsersMarker = dataResponse;
+
+      if(this.responseUsersMarker.length == 0){
+        this.labelfollowbutton = localize("follow");
+
+      }else if(this.responseUsersMarker.length > 0){
+        this.labelfollowbutton = localize("unfollow");
+      }
+
+    });
+
 
     this.getDealsMarkerProfile(this.profile_id_selected._id).then(dataResponse => {
 
@@ -284,7 +315,49 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 }
 
   onClickFollow(){
-    alert("Follow")
+
+    let objectUpdateMarker = {} as Markerprofile;
+    let objectUpdateFollowers = {} as Usersmarker;
+
+    console.log("[*] Debug tamano " + this.responseUsersMarker.length);
+
+    if(this.responseUsersMarker.length == 0){
+      this.labelfollowbutton = localize("unfollow");
+      objectUpdateMarker.followers = this.profile_id_selected.followers + 1;
+      //save table users_markers
+      objectUpdateFollowers.userid = this.userIdentification;
+      objectUpdateFollowers.markerid = this.profile_id_selected._id;
+      objectUpdateFollowers.status = true;
+      this.postUserMarkerFollower(objectUpdateFollowers).then(dataResponse => {
+        console.log("Save User_MArker " + JSON.stringify(dataResponse));
+        this.responseUsersMarker = [];
+        this.responseUsersMarker.push(dataResponse);
+      });
+    }else if(this.responseUsersMarker[0].status == false){
+      this.labelfollowbutton = localize("unfollow");
+      objectUpdateMarker.followers = this.profile_id_selected.followers + 1;
+      //update table users_markers
+      objectUpdateFollowers.status = true;
+      this.putUserMarkerFollower(this.userIdentification, this.profile_id_selected._id, objectUpdateFollowers).then(dataResponse => {
+        console.log("Update User_Marker " + JSON.stringify(dataResponse));
+        this.responseUsersMarker[0].status = dataResponse.status;
+      });      
+    }else if(this.responseUsersMarker[0].status == true){
+      this.labelfollowbutton = localize("follow");
+      objectUpdateMarker.followers = this.profile_id_selected.followers - 1;
+      //update table users_markers
+      objectUpdateFollowers.status = false;
+      this.putUserMarkerFollower(this.userIdentification, this.profile_id_selected._id, objectUpdateFollowers).then(dataResponse => {
+        console.log("Update User_Marker " + JSON.stringify(dataResponse));
+        this.responseUsersMarker[0].status = dataResponse.status;
+      });
+    }
+
+    this.putMarkerFollower(this.profile_id_selected._id, objectUpdateMarker).then(dataResponse => {
+      this.profile_id_selected.followers = dataResponse.followers;
+
+    });
+    
 }
 
   goviewmap() {
@@ -345,5 +418,184 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         }
         
     }
+
+    async putMarkerFollower(markerid, objectUpdate: Markerprofile) {
+
+        try {
+            const deals_profile: Markerprofile = await this.markerprofileService.updateFollowersMarker(markerid, objectUpdate);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return deals_profile;
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }
+
+    async isFollower(userid, markerid) {
+
+        try {
+            const countRecords: Usersmarker[] = await this.usersmarkerService.getRecordFollow(userid, markerid);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return countRecords;
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }        
+
+    async putUserMarkerFollower(userid, markerid, objectUpdate: Usersmarker) {
+
+        try {
+            const user_marker_profile: Usersmarker = await this.usersmarkerService.updateFollowersMarker(userid, markerid, objectUpdate);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return user_marker_profile;
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }
+
+    async postUserMarkerFollower(objectUpdate: Usersmarker) {
+
+        try {
+            const user_marker_profile: Usersmarker = await this.usersmarkerService.saveFollowersMarker(objectUpdate);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return user_marker_profile;
+        } catch(err) {
+            console.log(err);
+        }
+        
+    }    
+
+// COMUN ****
+
+    gosearch() {
+
+        this._routerExtensions.navigate(["search"]);
+    }    
+
+    goHotDeals() {
+
+        let myDataArray: Dealsprofile[];
+        let typesUserArray: any;
+        let markerIdentificators = [];
+        let myDeals: Dealsprofile[];
+        var strTypesUserArray = "";
+        var strMarkersId = "";
+        let arrayGroupBy: any = [];
+
+
+        this.getCurrentHotDeals().then(dataResponse => {
+
+            myDataArray = dataResponse;
+
+            this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+
+                typesUserArray = typeResponse.map(function(typeRes) {
+                  return typeRes.typeid;
+                });                
+
+                strTypesUserArray = typesUserArray.join(","); 
+
+                this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
+                    markerIdentificators = markersResponse.map(function(markerRes) {
+                      return markerRes._id;
+                    });
+
+                    strMarkersId = markerIdentificators.join(","); 
+
+                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                        myDeals = dealsResponse;
+                        let alltypes = [];
+
+                        alltypes = myDeals.map(function(typeList) {
+                          return typeList.markerid.type.description;;
+                        });     
+                        alltypes = alltypes.filter(function(elem, index, self) {
+                          return index === self.indexOf(elem);
+                        })
+                        
+                        let myDealsAgroup: Dealsprofile[];
+                        
+                        
+                        for(let i=0; i<alltypes.length; i++){
+                            let elementArray = {};
+                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                            elementArray[alltypes[i]] = myDealsAgroup;
+                            arrayGroupBy.push(elementArray);
+                                
+                        }
+
+                        let navigationExtras: NavigationExtras = {
+                            queryParams: {
+                                "InterestsDeals": JSON.stringify(arrayGroupBy),
+                                "HotDeals": JSON.stringify(myDataArray)
+                            }
+                        };
+
+                        this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+
+                    });
+                    
+                });
+
+            });
+
+        });    
+
+
+
+    }
+
+  async getCurrentHotDeals() {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getTrendingDeals();
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getTypesMarkerByUsers(idUser: string) {
+
+      try {
+          const user_type: Usersinterests[] = await this.usersinterestsService.getTypesFromUsers(idUser);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getMarkerByType(typeIds: string) {
+
+
+      try {
+          const marker_type: Markerprofile[] = await this.markerprofileService.getMarkerByType(typeIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return marker_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
+  async getUsersInterestsDeals(markersIds: string) {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getDealsprofile(markersIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
+//******
 
 }
