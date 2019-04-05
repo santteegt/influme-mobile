@@ -15,9 +15,27 @@ export class MarkerprofileService {
 	public getMarkerprofile(titlemarker: string): Promise<Markerprofile[]> {
   		let headers = null;
 
-  		let promise = this.restAPI.get(config.apiUrl + `/markerprofile/${titlemarker}`, headers);
+  		let promise = this.restAPI.get(config.apiUrl + `/markerprofile/search/${titlemarker}`, headers);
   		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
   		
 		return promise;
 	}
+
+  public getMarkerByType(idsTypes: string): Promise<Markerprofile[]> {
+
+      let headers = null;
+
+      let promise = this.restAPI.get(config.apiUrl + `/markerprofile/${idsTypes}`, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
+  }
+
+	public updateFollowersMarker(idMarker: string, bodyRequest: Markerprofile): Promise<Markerprofile> {
+  		let headers = { "Content-Type": "application/json" };
+
+  		let promise = this.restAPI.put(config.apiUrl + `/markerprofile/update/${idMarker}`, bodyRequest, headers);
+  		
+		return promise;
+	}		
 }
