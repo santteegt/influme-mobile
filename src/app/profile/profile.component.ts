@@ -11,6 +11,17 @@ import { NavigationExtras } from "@angular/router";
 import { UserapiService } from "../shared/api/user/userapi.service";
 import * as localstorage from "nativescript-localstorage";
 
+// COMUN ***
+
+import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
+import { Usersinterests } from "../shared/models/usersinterests.model";
+import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
+import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
+import { Markerprofile } from "../shared/models/markerprofile.model";
+import { Dealsprofile } from "../shared/models/dealsprofile.model";
+
+//********
+
 // import { registerElement } from 'nativescript-angular/element-registry';
 
 // registerElement('Carousel', () => Carousel);
@@ -24,6 +35,7 @@ import * as localstorage from "nativescript-localstorage";
 })
 export class ProfileComponent implements AfterViewInit, OnInit {
 
+  userIdentification: string = "5c96f09a6d69fdd962e49c19";
   private urlImage: string;
   private nameUser: string;
   private cityUser: string;
@@ -39,7 +51,8 @@ export class ProfileComponent implements AfterViewInit, OnInit {
 
 constructor(private route: ActivatedRoute, private page: Page,
                 private userApiService: UserapiService, private _routExt: RouterExtensions, 
-                private _changeDetectionRef: ChangeDetectorRef) { 
+                private _changeDetectionRef: ChangeDetectorRef, private dealsprofileService: DealsprofileService,
+                private markerprofileService: MarkerprofileService, private usersinterestsService: UsersinterestsService) { 
 
     let token="";
     this.linteresesDown = [];
@@ -164,5 +177,136 @@ constructor(private route: ActivatedRoute, private page: Page,
       
       this._routExt.navigate(["interest"], navigationExtras);
     }
+
+// COMUN ****
+
+    gosearch() {
+
+        this._routExt.navigate(["search"]);
+    }    
+
+    goHotDeals() {
+
+        let myDataArray: Dealsprofile[];
+        let typesUserArray: any;
+        let markerIdentificators = [];
+        let myDeals: Dealsprofile[];
+        var strTypesUserArray = "";
+        var strMarkersId = "";
+        let arrayGroupBy: any = [];
+
+
+        this.getCurrentHotDeals().then(dataResponse => {
+
+            myDataArray = dataResponse;
+
+            this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+
+                typesUserArray = typeResponse.map(function(typeRes) {
+                  return typeRes.typeid;
+                });                
+
+                strTypesUserArray = typesUserArray.join(","); 
+
+                this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
+                    markerIdentificators = markersResponse.map(function(markerRes) {
+                      return markerRes._id;
+                    });
+
+                    strMarkersId = markerIdentificators.join(","); 
+
+                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                        myDeals = dealsResponse;
+                        let alltypes = [];
+
+                        alltypes = myDeals.map(function(typeList) {
+                          return typeList.markerid.type.description;;
+                        });     
+                        alltypes = alltypes.filter(function(elem, index, self) {
+                          return index === self.indexOf(elem);
+                        })
+                        
+                        let myDealsAgroup: Dealsprofile[];
+                        
+                        
+                        for(let i=0; i<alltypes.length; i++){
+                            let elementArray = {};
+                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                            elementArray[alltypes[i]] = myDealsAgroup;
+                            arrayGroupBy.push(elementArray);
+                                
+                        }
+
+                        let navigationExtras: NavigationExtras = {
+                            queryParams: {
+                                "InterestsDeals": JSON.stringify(arrayGroupBy),
+                                "HotDeals": JSON.stringify(myDataArray)
+                            }
+                        };
+
+                        this._routExt.navigate(["hotdeals"], navigationExtras);                        
+
+                    });
+                    
+                });
+
+            });
+
+        });    
+
+
+
+    }
+
+  async getCurrentHotDeals() {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getTrendingDeals();
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getTypesMarkerByUsers(idUser: string) {
+
+      try {
+          const user_type: Usersinterests[] = await this.usersinterestsService.getTypesFromUsers(idUser);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getMarkerByType(typeIds: string) {
+
+
+      try {
+          const marker_type: Markerprofile[] = await this.markerprofileService.getMarkerByType(typeIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return marker_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
+  async getUsersInterestsDeals(markersIds: string) {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getDealsprofile(markersIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
+//******    
 
 }
