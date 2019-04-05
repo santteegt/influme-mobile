@@ -106,7 +106,8 @@ export class DealprofileComponent implements OnInit {
             "MarkerProfile": JSON.stringify(this.aux_marker)
           }
     };
-    this._routerExtensions.navigate(["markerprofile"], navigationExtras)
+    // this._routerExtensions.navigate(["markerprofile"], navigationExtras)
+    this._routerExtensions.back();
   
   //     this._routerExtensions.navigate(["markerprofile"], {
   //     clearHistory: true,
