@@ -15,8 +15,13 @@ import * as localstorage from "nativescript-localstorage";
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 
-import { localize } from "nativescript-localize";
+import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
+import { Markerprofile } from "../shared/models/markerprofile.model";
 
+import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
+import { Usersinterests } from "../shared/models/usersinterests.model";
+
+import { localize } from "nativescript-localize";
 
 
 
@@ -33,6 +38,7 @@ export class ViewmapComponent {
 
     private jsonuser: any;
     private prefixImagePath = "res://";
+    userIdentification: string = "5c96f09a6d69fdd962e49c19";
 
     // Para coger un StackLayout y agregar elementos
     @ViewChild("myNgStack") stackRef: ElementRef;
@@ -77,7 +83,8 @@ export class ViewmapComponent {
 
 
     constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
-        private dealsprofileService: DealsprofileService) {
+        private dealsprofileService: DealsprofileService, private usersinterestsService: UsersinterestsService,
+        private markerprofileService: MarkerprofileService) {
     
         this.page.actionBarHidden = true;
 
@@ -354,6 +361,80 @@ export class ViewmapComponent {
         // *** 
     }    
 
+    goHotDeals() {
+
+        let myDataArray: Dealsprofile[];
+        let typesUserArray: any;
+        let markerIdentificators = [];
+        let myDeals: Dealsprofile[];
+        var strTypesUserArray = "";
+        var strMarkersId = "";
+        let arrayGroupBy: any = [];
+
+
+        this.getCurrentHotDeals().then(dataResponse => {
+
+            myDataArray = dataResponse;
+
+            this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+
+                typesUserArray = typeResponse.map(function(typeRes) {
+                  return typeRes.typeid;
+                });                
+
+                strTypesUserArray = typesUserArray.join(","); 
+
+                this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
+                    markerIdentificators = markersResponse.map(function(markerRes) {
+                      return markerRes._id;
+                    });
+
+                    strMarkersId = markerIdentificators.join(","); 
+
+                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                        myDeals = dealsResponse;
+                        let alltypes = [];
+
+                        alltypes = myDeals.map(function(typeList) {
+                          return typeList.markerid.type.description;;
+                        });     
+                        alltypes = alltypes.filter(function(elem, index, self) {
+                          return index === self.indexOf(elem);
+                        })
+                        
+                        let myDealsAgroup: Dealsprofile[];
+                        
+                        
+                        for(let i=0; i<alltypes.length; i++){
+                            let elementArray = {};
+                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                            elementArray[alltypes[i]] = myDealsAgroup;
+                            arrayGroupBy.push(elementArray);
+                                
+                        }
+
+                        let navigationExtras: NavigationExtras = {
+                            queryParams: {
+                                "InterestsDeals": JSON.stringify(arrayGroupBy),
+                                "HotDeals": JSON.stringify(myDataArray)
+                            }
+                        };
+
+                        this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+
+                    });
+                    
+                });
+
+            });
+
+        });    
+
+
+
+    }
+
+
     gologinview() {
 
         let jsonuseraux = "";
@@ -430,4 +511,54 @@ export class ViewmapComponent {
     //     //     console.log("[*] Marker AUX" + JSON.stringify(this.marker_profile));
     //     // }).catch((error) => alert(error));        
     // }    
+
+  async getCurrentHotDeals() {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getTrendingDeals();
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getTypesMarkerByUsers(idUser: string) {
+
+      try {
+          const user_type: Usersinterests[] = await this.usersinterestsService.getTypesFromUsers(idUser);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async getMarkerByType(typeIds: string) {
+
+
+      try {
+          const marker_type: Markerprofile[] = await this.markerprofileService.getMarkerByType(typeIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return marker_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
+  async getUsersInterestsDeals(markersIds: string) {
+
+      try {
+          const user_marker_profile: Dealsprofile[] = await this.dealsprofileService.getDealsprofile(markersIds);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_marker_profile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
+
 }

@@ -1,5 +1,5 @@
 /* Add mobile styles for the component here.  */
-.bottom-menu-maps {
+/*.bottom-menu-maps {
     background-color: black;
     color: white;
     font-family: FontAwesome;
@@ -7,7 +7,7 @@
     vertical-align: middle;
     width: 25%;
     height: 50;
-}
+}*/
 
 .bottom-menu-maps:active {
     background-color: lightgray;
