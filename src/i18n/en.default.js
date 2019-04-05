@@ -49,6 +49,9 @@ module.exports = {
 	"logout": "Logout",
 	"edit_interest": "Edit interest",
 	"edit": "update",
-	"search": "Search"
+	"search": "Search",
+	"unfollow": "unfollow",
+	"hot_deals": "Hot Deals",
+	"trending": "Trending"
 
 };
