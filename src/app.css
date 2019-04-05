@@ -18,6 +18,31 @@ refer to http://docs.nativescript.org/ui/theme.
     font-weight: bold;
 }
 
+.main-layout{
+    padding-top: 93;
+
+}
+
+.main-layout-title{
+    padding-left: 24;
+}
+.main-title{
+    font-family: "SFProDisplay-Bold";
+    font-size: 35;
+    font-weight: bold;
+    color: black;
+}
+
+.bottom-menu-maps {
+    background-color: black;
+    color: white;
+    font-family: FontAwesome;
+    font-size: 24;
+    vertical-align: middle;
+    width: 25%;
+    height: 50;
+}
+
 /* Common */
 /*.fa {
     font-family: "FontAwesome";
