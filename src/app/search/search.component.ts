@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
   	private markerprofileService: MarkerprofileService, private ngZone: NgZone) { 
-		this.page.actionBarHidden = true;
+		// this.page.actionBarHidden = true;
 
   }
 
