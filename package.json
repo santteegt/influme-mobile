@@ -43,6 +43,7 @@
     "request-promise-native": "^1.0.7",
     "rxjs": "~6.3.0",
     "tns-core-modules": "~5.0.2",
+    "underscore": "^1.9.1",
     "zone.js": "~0.8.18"
   },
   "devDependencies": {
