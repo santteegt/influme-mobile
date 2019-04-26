@@ -6,6 +6,7 @@ import { NavigationExtras } from "@angular/router";
 import { Auth0 } from 'nativescript-auth0';
 import * as jwt from "jwt-decode";
 import * as localstorage from "nativescript-localstorage";
+import { User } from "../shared/models/user.model";
 
 @Component({
     selector: "Login",
@@ -19,6 +20,7 @@ export class LoginComponent {
     private auth0: Auth0;
     // private lstore: NLocalStorage;
     private jsonFinal: any;
+    // private userData: User;
 
     // constructor(private _routerExtensions: RouterExtensions, private zone: NgZone, private page: Page) {
     constructor(private _routerExtensions: RouterExtensions, private page: Page) {
@@ -83,18 +85,23 @@ export class LoginComponent {
         // }).catch((e: Error) => console.log(e, e.stack));        
         
         const usuario: string = jwt(res['idToken']);
-        console.log("{***} " + JSON.stringify(usuario));
 
         // let usuarioJson: any = JSON.parse(usuario);
 
+        let userData = {} as User;
+
+        userData.username = usuario["nickname"];
+        userData.name = usuario["name"];
+        userData.city = "";
+        userData.email = "";
+        userData.influencer = false;
+
 
         this.jsonFinal = {
-            "name": usuario["name"],
-            "nickname": usuario["nickname"],
+            "info": userData,
             "pictureURL": usuario["picture"],
-            "city": "",
-            "accessToken": res['accessToken'],
-            "idToken": res['idToken'],
+            "accessToken": res.accessToken,
+            "idToken": res.idToken,            
             "intereses": []
         };
 

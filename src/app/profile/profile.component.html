@@ -23,7 +23,7 @@
   <!-- 50 -->
 <RadSideDrawer tkExampleTitle tkToggleNavButton>
     <StackLayout tkDrawerContent class="sideStackLayout">
-        <StackLayout class="sideTitleStackLayout" height="auto">
+        <StackLayout #maintitlesettings class="sideTitleStackLayout" height="auto">
             <Label text="{{'settings' | L}}"></Label>
         </StackLayout>
         <ScrollView>
@@ -59,8 +59,8 @@
         </ScrollView>
     </StackLayout>
 <StackLayout tkMainContent>      
-  <GridLayout rows="auto,*,50">
-    <GridLayout rows="44" class="markerprofile-layout">
+  <GridLayout rows="auto,*,auto">
+    <GridLayout #maintitle rows="44" class="markerprofile-layout">
       <StackLayout row="0" class="title-layout">
         <LABEL text="{{'profile' | L}}"></LABEL>
       </StackLayout>
@@ -92,7 +92,7 @@
         <GridLayout marginTop="150" marginRight="10">
           <StackLayout orientation="horizontal" horizontalAlignment="right">
             <StackLayout *ngFor="let itemInt of linteresesDown" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
-              <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
+              <Image [src]="'res://'+itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
             </StackLayout>
           </StackLayout>        
         </GridLayout>
@@ -135,7 +135,7 @@
               </StackLayout>
 
           </StackLayout>
-          
+
           <StackLayout class="homemarker-deals">
               <Label text="{{'deals_redeemed' | L}}"></Label>
           </StackLayout>
@@ -145,22 +145,27 @@
           </StackLayout>
 
           <StackLayout class="homemarker-deals-images" marginBottom="25">
-            <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
+<!--             <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
                     <CarouselItem>
                         <Image src="res://mido/CouponMido" stretch="fill" ></Image>
                     </CarouselItem>
                     <CarouselItem>
                         <Image src="res://sonsofmana/CouponSOM" stretch="fill"></Image>
                     </CarouselItem>
-            </Carousel>    
+            </Carousel> -->    
+                  <Carousel #carouselO ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
+                  </Carousel>
+
           </StackLayout>   
+                                      <ActivityIndicator id="indicator" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+
         </StackLayout>  
-      </GridLayout>
+      </GridLayout>      
     </StackLayout>
   </ScrollView>
   </GridLayout>
 
-      <StackLayout row="3" orientation="horizontal">
+      <StackLayout row="4" orientation="horizontal">
           <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
           <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps" (tap)="gosearch()"></Button>
           <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps" (tap)="goHotDeals()"></Button>
