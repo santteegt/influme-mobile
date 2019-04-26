@@ -1,12 +1,12 @@
 <ScrollView>
 	<GridLayout rows="135, 50, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 20, auto, 10, auto, 35, 51, 80" class="page-interests">
-		<StackLayout row="0" orientation="vertical" class="main-title-layout">
+		<StackLayout #maintitle row="0" orientation="vertical" class="main-title-layout">
 			<Label text="{{ 'title_interest' | L }}" textWrap="true" width="115" height="36" class="main-title"></Label>
 		</StackLayout>
 		<Stacklayout row="1" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="2" columns="*, 45, *, 45, *" class="options-layout">			
+		<GridLayout row="2" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
             <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[0].colorstack}}" opacity="{{myItems[0].opacityvalue}}" (tap)="onItemTap(0)">
         		<IMAGE src="res://icons/filterA" width="17.5" height="29.1"></IMAGE>
             </StackLayout>
@@ -23,21 +23,21 @@
 		<Stacklayout row="3" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="4" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
+		<GridLayout  row="4" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label" *ngIf="isVisible"> 			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="{{ 'foodie' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[0].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="{{ 'night_fun' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[1].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="{{ 'tech' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[2].description | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="5" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="6" columns="*, 45, *, 45, *" class="options-layout">			
+		<GridLayout row="6" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
             <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[3].colorstack}}" opacity="{{myItems[3].opacityvalue}}" (tap)="onItemTap(3)">
         		<IMAGE src="res://icons/filterD" width="29.1" height="27.5"></IMAGE>
             </StackLayout>
@@ -51,21 +51,21 @@
 		<Stacklayout row="7" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="8" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
+		<GridLayout row="8"  columns="65, 23.5, 65, 23.5, 65" class="options-layout-label" *ngIf="isVisible">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="{{ 'fashion' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[3].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="{{ 'sports' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[4].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="{{ 'beauty' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[5].description | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>				
 		<Stacklayout row="9" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="10" columns="*, 45, *, 45, *" class="options-layout">			
+		<GridLayout row="10" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
             <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[6].colorstack}}" opacity="{{myItems[6].opacityvalue}}" (tap)="onItemTap(6)">
         		<IMAGE src="res://icons/filterG" width="29.1" height="25.5"></IMAGE>
             </StackLayout>
@@ -79,21 +79,21 @@
 		<Stacklayout row="11" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="12" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
+		<GridLayout row="12"  columns="65, 23.5, 65, 23.5, 65" class="options-layout-label" *ngIf="isVisible">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="{{ 'health' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[6].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="{{ 'travel' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[7].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="{{ 'adventure' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[8].description | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="13" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="14" columns="*, 45, *, 45, *" class="options-layout">			
+		<GridLayout row="14" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
             <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[9].colorstack}}" opacity="{{myItems[9].opacityvalue}}" (tap)="onItemTap(9)">
         		<IMAGE src="res://icons/filterJ" width="21.4" height="29.1"></IMAGE>
             </StackLayout>
@@ -107,21 +107,21 @@
 		<Stacklayout row="15" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="16" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
+		<GridLayout row="16"  columns="65, 23.5, 65, 23.5, 65" class="options-layout-label" *ngIf="isVisible">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="{{ 'music' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[9].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="{{ 'film' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[10].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=4 heigth="14">
-        		<Label text="{{ 'art' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[11].description | L }}" class="label-option"></Label>
             </StackLayout>            
 		</GridLayout>
 		<Stacklayout row="17" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="18" columns="*, 45, *, 45, *" class="options-layout">			
+		<GridLayout row="18" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
             <StackLayout row="0" col=0 orientation="vertical" verticalAlignment="center" horizontalAlignment="left" class="options-menu" style="{{myItems[12].colorstack}}" opacity="{{myItems[12].opacityvalue}}" (tap)="onItemTap(12)">
         		<IMAGE src="res://icons/filterN" width="29.1" height="14.7"></IMAGE>
             </StackLayout>
@@ -132,12 +132,12 @@
 		<Stacklayout row="19" orientation="vertical">
 			
 		</Stacklayout>
-		<GridLayout row="20" columns="65, 23.5, 65, 23.5, 65" class="options-layout-label">			
+		<GridLayout row="20"  columns="65, 23.5, 65, 23.5, 65" class="options-layout-label" *ngIf="isVisible">			
              <StackLayout row="0" col=0 heigth="14">
-        		<Label text="{{ 'gaming' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[12].description | L }}" class="label-option"></Label>
             </StackLayout>
              <StackLayout row="0" col=2 heigth="14">
-        		<Label text="{{ 'causes' | L }}" class="label-option"></Label>
+        		<Label text="{{ myItems[13].description | L }}" class="label-option"></Label>
             </StackLayout>
 		</GridLayout>
 		<StackLayout row="21"></StackLayout>
