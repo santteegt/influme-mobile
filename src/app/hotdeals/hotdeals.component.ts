@@ -9,6 +9,14 @@ import * as _ from 'underscore';
 import { RouterExtensions } from "nativescript-angular/router";
 import * as localstorage from "nativescript-localstorage";
 import { NavigationExtras } from "@angular/router";
+import * as nsPlatform from "nativescript-platform";
+import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
+import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
+import { Data } from "../providers/data/data";
+
+import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+import { Usersdeals } from "../shared/models/usersdeals.model";
+
 
 @Component({
   selector: 'ns-hotdeals',
@@ -26,7 +34,11 @@ export class HotdealsComponent implements OnInit {
   	// public newImage: Image;	
   	// public caruselItem: CarouselItem;	
 
+  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  titleNativeStack: GridLayout;    
+
   private jsonuser: any;
+  userIdentification: string;
 
 	
 	myDataArray: Dealsprofile[];
@@ -34,17 +46,39 @@ export class HotdealsComponent implements OnInit {
   keys: any;  
 
 	constructor(private page: Page, private route: ActivatedRoute,
-    private _routerExtensions: RouterExtensions) { 
+    private _routerExtensions: RouterExtensions, private data: Data, 
+    private usersdealsService: UsersdealsService) { 
     this.page.actionBarHidden = true;
 
-    this.route.queryParams.subscribe(params => {
-        this.myDataArray = JSON.parse(params["HotDeals"]);
-        this.categoryDeals = JSON.parse(params["InterestsDeals"]);   
-    });
+    // this.route.queryParams.subscribe(params => {
+    //     this.myDataArray = JSON.parse(params["HotDeals"]);
+    //     this.categoryDeals = JSON.parse(params["InterestsDeals"]);   
+    // });
+
+    this.myDataArray = this.data.storage_varb;
+    this.categoryDeals = this.data.storage_vara;
+
+
+    if(localstorage.getItem('ResultLogin') != null){
+        let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+        this.userIdentification = userLoginRecord.info._id;
+    }
 
   }
 
   ngOnInit() {
+
+    this.titleNativeStack = this.stackMainTitle.nativeElement;
+
+
+    if (nsPlatform.device.model.includes("11")){
+
+        this.titleNativeStack.paddingTop = 93;
+        
+    }else{
+        this.titleNativeStack.paddingTop = 49;
+        
+    }    
 
 
   }
@@ -93,12 +127,28 @@ export class HotdealsComponent implements OnInit {
 
 
     goviewmap() {
-        this._routerExtensions.navigate(["viewmap"]);
+        this._routerExtensions.navigate(["viewmap"], {animated: false});
     }
 
     gosearch() {
-        this._routerExtensions.navigate(["search"]);
+        this._routerExtensions.navigate(["search"], {animated: false});
     }
+
+    // gologinview() {
+
+    //     let jsonuseraux = "";
+    //     let jsonDataUser: any;
+    //     jsonuseraux = localstorage.getItem('ResultLogin');
+
+    //     console.log("[*] Storage Perfil " + jsonuseraux);
+
+    //     if( jsonuseraux == null)
+    //         this._routerExtensions.navigate(["login"]);
+    //     else{
+    //         this._routerExtensions.navigate(["profile"]);
+
+    //     }
+    // }     
 
     gologinview() {
 
@@ -109,12 +159,15 @@ export class HotdealsComponent implements OnInit {
         console.log("[*] Storage Perfil " + jsonuseraux);
 
         if( jsonuseraux == null)
-            this._routerExtensions.navigate(["login"]);
+            this._routerExtensions.navigate(["login"], {animated: false});
         else{
-            this._routerExtensions.navigate(["profile"]);
+            this.getDealsSubscribe(this.userIdentification).then(dealsResponse => {
+                this.data.storage_vara = dealsResponse;
+                this._routerExtensions.navigate(["profile"], {animated: false});                            
+            });
 
         }
-    }     
+    }
 
     goToDealImage(itemSelected: Dealsprofile){
 
@@ -135,5 +188,18 @@ export class HotdealsComponent implements OnInit {
       this._routerExtensions.navigate(['dealprofile'], navigationExtras);      
 
     }   
+
+  async getDealsSubscribe(userId: string) {
+
+      try {
+          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          console.log("******* " + JSON.stringify(users_deals));
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return users_deals;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
 
 }
