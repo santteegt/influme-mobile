@@ -4,6 +4,9 @@ import { NavigationExtras } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
+import * as nsPlatform from "nativescript-platform";
+import { ViewChild, ElementRef } from "@angular/core";
+import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 
 @Component({
   selector: 'filtermap',
@@ -13,6 +16,11 @@ import * as localstorage from "nativescript-localstorage";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FiltermapComponent implements OnInit {
+
+
+  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  titleNativeStack: GridLayout;
+
   public myItems: any;
   private colorstack: string;  
   private opacityvalue: string;
@@ -93,6 +101,14 @@ export class FiltermapComponent implements OnInit {
   }
 
   ngOnInit() {
+        this.titleNativeStack = this.stackMainTitle.nativeElement;
+
+        if (nsPlatform.device.model.includes("11")){
+
+            this.titleNativeStack.paddingTop = 93;
+        }else{
+            this.titleNativeStack.paddingTop = 49;
+        }    
   }
 
   public onItemTap(args) {
