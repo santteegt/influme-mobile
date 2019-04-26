@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { Page } from "tns-core-modules/ui/page";
 // import { NgZone } from "@angular/core";
@@ -9,15 +9,21 @@ import { Image } from "tns-core-modules/ui/image";
 import { NavigationExtras } from "@angular/router";
 import * as localstorage from "nativescript-localstorage";
 
-import { UserapiService } from "../shared/api/user/userapi.service";
-
 import * as geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 
 import { request, getFile, getImage, getJSON, getString } from "tns-core-modules/http";
 
 const localize = require("nativescript-localize");
+import { Switch } from "tns-core-modules/ui/switch";
+
+import { TextField } from "tns-core-modules/ui/text-field";
 // import * as request from "request-promise-native"
+import { UserapiService } from "../shared/api/user/userapi.service";
+import { User } from "../shared/models/user.model";
+import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
+import * as nsPlatform from "nativescript-platform";
+
 
 
 
@@ -29,11 +35,19 @@ const localize = require("nativescript-localize");
 })
 export class UserComponent implements OnInit {
 
-  private lnname: string;
-  private lname: string;
-  private imageurl: string; 
-  private UserLogData: any;
-  private lcity: string;
+  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  titleNativeStack: StackLayout;   
+
+  public lnname: string;
+  public lname: string;
+  public txtfieldcity: string;
+  public txtfieldmail: string;
+  public imageurl: string; 
+  
+  public turnInfluencer: boolean = false;
+  private userLogData: any;
+  private userProfile: User;
+  
   private label_button: string;
   private showDetails: string;
   private menuOption: any;
@@ -79,9 +93,12 @@ export class UserComponent implements OnInit {
       //     infoUser = localStorage.getItem('ResultLogin');         
       // }
 
-      this.UserLogData = JSON.parse(infoUser);
+      this.userLogData = JSON.parse(infoUser);
+      this.userProfile = this.userLogData.info;
+
+      console.log("Login.info -> user :" + JSON.stringify(this.userProfile));
        
-      const vm = new Observable();
+      // **const vm = new Observable();
       //this.lnname = UserLogData["nickname"];
       //console.log('entry');
       //console.log(jwt);
@@ -89,7 +106,7 @@ export class UserComponent implements OnInit {
       //  console.log("luego del decode");
     	// console.log (JSON.stringify(usuario));
     	//vm.set("imageurl", usuario['picture']);
-	    vm.set("lnname", this.UserLogData["nickname"]);
+	    // **vm.set("lnname", this.userLogData["nickname"]);
     	//vm.set("lname", usuario['name']);
     	
       //this.page.bindingContext = vm;   
@@ -100,9 +117,12 @@ export class UserComponent implements OnInit {
 
       //StackLayout.bindingContext = vm;
 
-    	this.lnname = this.UserLogData["nickname"];
-    	this.lname = this.UserLogData["name"];
-    	this.imageurl = this.UserLogData["pictureURL"];
+    	this.lnname = this.userProfile.username;
+    	this.lname = this.userProfile.name;
+    	this.imageurl = this.userLogData.pictureURL;
+      this.txtfieldcity = this.userProfile.city;
+      this.txtfieldmail = this.userProfile.email;
+
 
       // this.jsonDataUser = {
       //   "nameU": this.lname,
@@ -110,11 +130,11 @@ export class UserComponent implements OnInit {
       //   "imageU": this.imageurl
       // }
 
-      this.UserLogData["name"] = this.lname;
-      this.UserLogData["pictureURL"] = this.imageurl;
-      this.UserLogData["city"] = this.lcity;
+      // this.userLogData["name"] = this.lname;
+      // this.userLogData["pictureURL"] = this.imageurl;
 
-      // this.UserLogData = {
+
+      // this.userLogData = {
       //   "name": result.name,
       //   "nickname": result.nickname,
       //   "pictureURL": result.pictureURL,
@@ -130,9 +150,24 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.titleNativeStack = this.stackMainTitle.nativeElement;
+
+    if (nsPlatform.device.model.includes("11")){
+
+        this.titleNativeStack.paddingTop = 93;
+    }else{
+        this.titleNativeStack.paddingTop = 49;
+    }
+
   }
 
   continue() {
+
+      this.userProfile.city = this.txtfieldcity;
+      this.userProfile.email = this.txtfieldmail;
+      this.userProfile.influencer = this.turnInfluencer;
+      this.userLogData.info = this.userProfile;
       this.navigateInterest();
   }
 
@@ -143,7 +178,7 @@ export class UserComponent implements OnInit {
 	private navigateInterest() {
 
     localStorage.removeItem('ResultLogin');
-    localstorage.setItem('ResultLogin', JSON.stringify(this.UserLogData));                        
+    localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                        
 
       // let navigationExtras: NavigationExtras = {
       //     queryParams: {
@@ -152,6 +187,7 @@ export class UserComponent implements OnInit {
       // };      
       // this._routerExt.navigate(["interest"], navigationExtras);
       if(this.menuOption == 0){
+
         let editOption = 0;
         let navigationExtras: NavigationExtras = {
         queryParams: {
@@ -159,8 +195,14 @@ export class UserComponent implements OnInit {
         }};
         
         this._routerExt.navigate(["interest"], navigationExtras);
+
       }else if(this.menuOption == 1){
-        this._routerExt.navigate(["profile"]);
+          this.userProfile.city = this.txtfieldcity;
+          this.userProfile.email = this.txtfieldmail;
+          this.userProfile.influencer = this.turnInfluencer;
+          this.updateAccountUser(this.userProfile._id, this.userProfile).then(responseSaveUser => {
+            this._routerExt.navigate(["profile"]);
+          });
       }
     }
 
@@ -218,5 +260,44 @@ export class UserComponent implements OnInit {
           console.log("Error: " + (e.message || e));
       });
   }
+
+public onFirstChecked(args) {
+        let firstSwitch = <Switch>args.object;
+        if (firstSwitch.checked) {
+            this.turnInfluencer = true;
+        } else {
+            this.turnInfluencer = false;
+        }
+    }
+
+onBlurCity(args) {
+    // blur event will be triggered when the user leaves the TextField
+    let textField = <TextField>args.object;
+
+    this.txtfieldcity = textField.text;    
+}    
+
+onBlurEmail(args) {
+    // blur event will be triggered when the user leaves the TextField
+    let textField = <TextField>args.object;
+
+      this.txtfieldmail = textField.text;
+}    
+
+
+  async updateAccountUser(idUser: string, bodySave: User) {
+
+    console.log("Objeto User a actualizar " + JSON.stringify(bodySave));
+
+      try {
+          const userprofile: User = await this.userApiService.updateUser(idUser, bodySave);
+          console.log("Objeto de retorno de create Account " + JSON.stringify(userprofile));
+          return userprofile;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
 
 }

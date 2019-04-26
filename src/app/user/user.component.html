@@ -3,7 +3,7 @@
 <ScrollView>
 	<GridLayout rows="auto,150,45,45,45,45,40,70,55" marginLeft="40" marginRight="40" marginBottom="10">
 
-    <StackLayout row="0" class="flexbox-item2 company-name-container2">
+    <StackLayout #maintitle row="0" class="flexbox-item2 company-name-container2">
         <!-- <Label class="t-30 company-name2" text="{{ 'app.name' | L }}"></Label> -->
         <Image src="res://appicon" class="style-appicon"></Image>
     </StackLayout>
@@ -17,11 +17,11 @@
     </StackLayout>
     
     <StackLayout row="3">
-    	<TextField height="40" class="txt t-15 c-white border-stack" hint="City" [text]="lcity"></TextField>
+    	<TextField height="40" class="txt t-15 c-white border-stack" hint="City" [text]="txtfieldcity" (blur)="onBlurCity($event)"></TextField>
     </StackLayout>
     
     <StackLayout row="4">
-      <TextField height="40" class="txt t-15 c-white border-stack" hint="Email" [text]="lemail"></TextField>
+      <TextField height="40" class="txt t-15 c-white border-stack" hint="Email" [text]="txtfieldmail" (blur)="onBlurEmail($event)"></TextField>
     </StackLayout>
     
     <StackLayout row="5">
