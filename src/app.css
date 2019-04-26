@@ -18,10 +18,10 @@ refer to http://docs.nativescript.org/ui/theme.
     font-weight: bold;
 }
 
-.main-layout{
+/*.main-layout{
     padding-top: 93;
 
-}
+}*/
 
 .main-layout-title{
     padding-left: 24;
@@ -42,6 +42,13 @@ refer to http://docs.nativescript.org/ui/theme.
     width: 25%;
     height: 50;
 }
+
+.ext_loading{
+    background-color: black;
+    color: white;
+    border-radius: 10;
+}
+
 
 /* Common */
 /*.fa {

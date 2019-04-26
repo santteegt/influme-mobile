@@ -48,3 +48,8 @@ AIzaSyBD71DgYMShdu8PD0x7waGLBPBgZjAZKes
 * `ng generate module <module-name> --routing`
 * `ng generate component <component-name> --module <module-name>`
 * `ng generate service <service-name>`
+
+
+## Production deployment
+
+* `tns prepare ios --release --log trace`
