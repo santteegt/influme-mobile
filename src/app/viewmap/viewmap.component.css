@@ -15,7 +15,7 @@
 }
 
 .homemarker-main-title{
-    padding-top: 93;
+    /*padding-top: 93;*/
     padding-left: 24;
     text-align: left;
     background-color: white;
@@ -101,4 +101,3 @@
     font-family: FontAwesome;
 
 }
-

@@ -2,7 +2,8 @@
 <!--    <ActionItem android.position="actionBar" ios.position="left" (tap)="onProfileButtonTap()">
     </ActionItem> -->
 <!-- </ActionBar> -->
-
+<commonmenu></commonmenu>
+<!-- <ActionBar backgroundColor="green"></ActionBar> -->
 <GridLayout rows="*,50">
 
     <MapView #mapView [latitude]="latitude" [longitude]="longitude"
@@ -14,11 +15,13 @@
          (cameraChanged)="onCameraChanged($event)"
          (cameraMove)="onCameraMove($event)">
     </MapView>
+
+
     <GridLayout rows=auto marginTop="150" marginRight="25" width="50" verticalAlignment="top" horizontalAlignment="right">                  
         <BUTTON left="1" top="10" text="&#xf0c9;" class="filter-menu" (tap)="gofilter()"></BUTTON>
     </GridLayout>
     <!-- 140 -->
-    <StackLayout verticalAlignment="top" height="140" class="homemarker-main-title">
+    <StackLayout #maintitle verticalAlignment="top" class="homemarker-main-title">
         <Label text="{{'discover' | L}}" class="style-main-titles"></Label>
     </StackLayout>
 
@@ -59,6 +62,9 @@
             </StackLayout>
         </GridLayout>    
     </StackLayout>
+    
+    <ActivityIndicator id="indicator" row="0" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+
     
     <StackLayout row="1" orientation="horizontal">
         <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()" ></Button>

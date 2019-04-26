@@ -13,6 +13,8 @@ import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 import { Usersdeals } from "../shared/models/usersdeals.model";
 
+import * as localstorage from "nativescript-localstorage";
+
 
 
   
@@ -27,14 +29,14 @@ export class ReadqrComponent implements OnInit {
 
   deal_profile: Dealsprofile[];
   marker_profile: Markerprofile;
-  userIdentification: string = "5c96f09a6d69fdd962e49c19";
+  userIdentification: string;
 
 
   constructor(private barcodeScanner: BarcodeScanner, private _routerExtensions: RouterExtensions, 
     private route: ActivatedRoute, private page: Page, private usersdealsService: UsersdealsService,
     private dealsprofileService: DealsprofileService) { 
         
-    this.page.actionBarHidden = true;
+    // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;
 
     // this.extrastitle = "";
@@ -45,6 +47,10 @@ export class ReadqrComponent implements OnInit {
 }
 
   ngOnInit() {
+        if(localstorage.getItem('ResultLogin') != null){
+            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userIdentification = userLoginRecord.info._id;
+        }
   }
 
   public onScanResult(evt) {

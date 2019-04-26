@@ -7,6 +7,7 @@ import { NavigationExtras } from "@angular/router";
 import { ViewChild, ElementRef } from "@angular/core";
 // >> import-image-module
 import { Image } from "tns-core-modules/ui/image";
+import { fromResource }  from "tns-core-modules/image-source";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
@@ -23,6 +24,15 @@ import { Usersinterests } from "../shared/models/usersinterests.model";
 
 import { localize } from "nativescript-localize";
 
+import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
+// import { IOS } from "tns-core-modules/platform";
+
+import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+import { Usersdeals } from "../shared/models/usersdeals.model";
+
+import * as nsPlatform from "nativescript-platform";
+
+import { Data } from "../providers/data/data";
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -36,9 +46,11 @@ registerElement('MapView', () => MapView);
 })
 export class ViewmapComponent {
 
+    public isBusy = true;
     private jsonuser: any;
     private prefixImagePath = "res://";
-    userIdentification: string = "5c96f09a6d69fdd962e49c19";
+    // userIdentification: string = "5c96f09a6d69fdd962e49c19";
+    userIdentification: string;
 
     // Para coger un StackLayout y agregar elementos
     @ViewChild("myNgStack") stackRef: ElementRef;
@@ -47,6 +59,9 @@ export class ViewmapComponent {
     // @ViewChild("myNgStack1") stackRef1: ElementRef;
     @ViewChild("myNgStack1") stackRef1: ElementRef;
     myNativeStack1: StackLayout;
+
+    @ViewChild("maintitle") stackMainTitle: ElementRef;
+    titleNativeStack: StackLayout;    
 
     // >> creating-image-code
     public newImage: Image;
@@ -84,9 +99,17 @@ export class ViewmapComponent {
 
     constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
         private dealsprofileService: DealsprofileService, private usersinterestsService: UsersinterestsService,
-        private markerprofileService: MarkerprofileService) {
+        private markerprofileService: MarkerprofileService, private usersdealsService: UsersdealsService, 
+        private data: Data) {
     
         this.page.actionBarHidden = true;
+        this.isBusy = true;
+        // var UIActivityIndicatorViewStyle: any
+        
+        // const indicator = page.getViewById("indicator");
+        // accessing the native iOS API https://developer.apple.com/documentation/uikit/uiactivityindicatorviewstyle
+        // indicator.ios.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge;
+        // indicator.ios.color = new colorModule.Color("#FFFFFF").ios;
 
         // this.page.backgroundSpanUnderStatusBar = true;
 
@@ -101,6 +124,13 @@ export class ViewmapComponent {
             extrasfilter = localstorage.getItem('Options_Filter');
             this.optionsFilter = JSON.parse(extrasfilter);
         }
+
+        if(localstorage.getItem('ResultLogin') != null){
+            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userIdentification = userLoginRecord.info._id;
+        }
+
+        console.log("Model Device: "+ nsPlatform.device.model);
 
 
         // this.availableMarkers();
@@ -176,6 +206,18 @@ export class ViewmapComponent {
     ngOnInit() {
         this.myNativeStack = this.stackRef.nativeElement;
         this.myNativeStack1 = this.stackRef1.nativeElement;
+        this.titleNativeStack = this.stackMainTitle.nativeElement;
+
+
+        if (nsPlatform.device.model.includes("11")){
+
+            this.titleNativeStack.paddingTop = 93;
+            this.titleNativeStack.height = 140;
+        }else{
+            this.titleNativeStack.paddingTop = 49;
+            this.titleNativeStack.height = 96;
+        }
+
         // this.dealsprofilecontent = [];
     }
 
@@ -190,6 +232,8 @@ export class ViewmapComponent {
             // console.log("[*] Marker final " + this.dealsprofilecontent.);        
 
             this.marker_profile = dataM;
+            this.isBusy = false;
+
 
             // var gMap = event.gMap;
             // console.log(gMap);
@@ -208,7 +252,7 @@ export class ViewmapComponent {
                 for(var j = 0; j < this.optionsFilter.length; j++){
                     var onlyMarker: Dealsprofile[];
                     onlyMarker = this.marker_profile.filter(d => d.markerid.type.description == this.optionsFilter[j]["type"]);
-
+                    console.log("markers " + JSON.stringify(onlyMarker));
                     for ( var i = 0; i < onlyMarker.length; i++) {
 
                         var marker =  new Marker();
@@ -216,17 +260,27 @@ export class ViewmapComponent {
                         marker.title = onlyMarker[i].markerid.title;
                         marker.snippet = onlyMarker[i].markerid.shortdescription;
                         marker.userData = {index: 1};
+                        const imageIcon = new Image();
+                        const imageSource = fromResource(onlyMarker[i].markerid.type.iconimg);
+                        imageIcon.imageSource = imageSource;                        
+                        marker.icon = imageIcon;
                         this.mapView.addMarker(marker);
                     }            
                 }
             }else
             {
+
                 for ( var i = 0; i < this.marker_profile.length; i++) {
+
                     var marker = new Marker();
                     marker.position = Position.positionFromLatLng(this.marker_profile[i].markerid.lat, this.marker_profile[i].markerid.lon);
                     marker.title = this.marker_profile[i].markerid.title;
                     marker.snippet = this.marker_profile[i].markerid.shortdescription;
                     marker.userData = {index: 1};
+                    const imageIcon = new Image();
+                    const imageSource = fromResource(this.marker_profile[i].markerid.type.iconimg);
+                    imageIcon.imageSource = imageSource;                    
+                    marker.icon = imageIcon;       
                     this.mapView.addMarker(marker);
                 }
             }
@@ -293,75 +347,38 @@ export class ViewmapComponent {
 
     gofilter() {
 
-        // **** new ****
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "FilterInitial": JSON.stringify(this.optionsFilter)
-        //       }
-        // };
+        this._routerExtensions.navigate(["filtermap"], {animated: true});
 
-        // this._routerExtensions.navigate(["filtermap"], navigationExtras)
-        this._routerExtensions.navigate(["filtermap"]);
-
-        // ********************
-        // {
-        //     clearHistory: true,
-        //     animated: true,
-        //     transition: {
-        //         name: "slideTop",
-        //         duration: 350,
-        //         curve: "ease"
-        //     }
-        // });
     }
 
     gomarkerprofile() {
 
-    let navigationExtras: NavigationExtras = {
-        queryParams: {
-            "MarkerProfile": JSON.stringify(this.markerSelectOnMap[0].markerid)
-          }
-    };
-    this._routerExtensions.navigate(["markerprofile"], navigationExtras);
+        this.data.storage_vara = this.markerSelectOnMap[0].markerid;
+        // let navigationExtras: NavigationExtras = {
+        //     queryParams: {
+        //         "MarkerProfile": JSON.stringify(this.markerSelectOnMap[0].markerid)
+        //       }
+        // };
+        // this._routerExtensions.navigate(["markerprofile"], navigationExtras);
+        this._routerExtensions.navigate(["markerprofile"]);
     
 
     }
 
     goviewmap() {
-        // **** New 
 
-        // let empty_value = []
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "DataList": JSON.stringify(empty_value)
-        //   }
-        // };
-        
-        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+        this._routerExtensions.navigate(["viewmap"], {animated: false});
 
-        this._routerExtensions.navigate(["viewmap"]);
-
-        // *** 
     }
 
     gosearch() {
-        // **** New 
 
-        // let empty_value = []
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "DataList": JSON.stringify(empty_value)
-        //   }
-        // };
-        
-        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+        this._routerExtensions.navigate(["search"], {animated: false});
 
-        this._routerExtensions.navigate(["search"]);
-
-        // *** 
     }    
 
     goHotDeals() {
+        this.isBusy = true;
 
         let myDataArray: Dealsprofile[];
         let typesUserArray: any;
@@ -372,65 +389,77 @@ export class ViewmapComponent {
         let arrayGroupBy: any = [];
 
 
-        this.getCurrentHotDeals().then(dataResponse => {
 
-            myDataArray = dataResponse;
+        if(this.userIdentification!=null){
+            this.getCurrentHotDeals().then(dataResponse => {
 
-            this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+                myDataArray = dataResponse;
 
-                typesUserArray = typeResponse.map(function(typeRes) {
-                  return typeRes.typeid;
-                });                
+                this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
 
-                strTypesUserArray = typesUserArray.join(","); 
+                    typesUserArray = typeResponse.map(function(typeRes) {
+                      return typeRes.typeid;
+                    });                
 
-                this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
-                    markerIdentificators = markersResponse.map(function(markerRes) {
-                      return markerRes._id;
-                    });
+                    strTypesUserArray = typesUserArray.join(","); 
 
-                    strMarkersId = markerIdentificators.join(","); 
+                    this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
+                        markerIdentificators = markersResponse.map(function(markerRes) {
+                          return markerRes._id;
+                        });
 
-                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                        myDeals = dealsResponse;
-                        let alltypes = [];
+                        strMarkersId = markerIdentificators.join(","); 
 
-                        alltypes = myDeals.map(function(typeList) {
-                          return typeList.markerid.type.description;;
-                        });     
-                        alltypes = alltypes.filter(function(elem, index, self) {
-                          return index === self.indexOf(elem);
-                        })
-                        
-                        let myDealsAgroup: Dealsprofile[];
-                        
-                        
-                        for(let i=0; i<alltypes.length; i++){
-                            let elementArray = {};
-                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                            elementArray[alltypes[i]] = myDealsAgroup;
-                            arrayGroupBy.push(elementArray);
-                                
-                        }
+                        this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                            myDeals = dealsResponse;
+                            let alltypes = [];
 
-                        let navigationExtras: NavigationExtras = {
-                            queryParams: {
-                                "InterestsDeals": JSON.stringify(arrayGroupBy),
-                                "HotDeals": JSON.stringify(myDataArray)
+                            alltypes = myDeals.map(function(typeList) {
+                              return typeList.markerid.type.description;;
+                            });     
+                            alltypes = alltypes.filter(function(elem, index, self) {
+                              return index === self.indexOf(elem);
+                            })
+                            
+                            let myDealsAgroup: Dealsprofile[];
+                            
+                            
+                            for(let i=0; i<alltypes.length; i++){
+                                let elementArray = {};
+                                myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                                elementArray[alltypes[i]] = myDealsAgroup;
+                                arrayGroupBy.push(elementArray);
+                                    
                             }
-                        };
 
-                        this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+                            this.isBusy = false;
+                            
+                            this.data.storage_vara = arrayGroupBy;
+                            this.data.storage_varb = myDataArray;
 
+                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
+
+                            
+                            // let navigationExtras: NavigationExtras = {
+                            //     queryParams: {
+                            //         "InterestsDeals": JSON.stringify(arrayGroupBy),
+                            //         "HotDeals": JSON.stringify(myDataArray)
+                            //     }
+                            // };
+
+                            // this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+
+                        });
+                        
                     });
-                    
+
                 });
 
-            });
+            });    
 
-        });    
-
-
+        }else{
+          this._routerExtensions.navigate(["login"], {animated: false});
+        }
 
     }
 
@@ -444,21 +473,20 @@ export class ViewmapComponent {
         console.log("[*] Storage Perfil " + jsonuseraux);
 
         if( jsonuseraux == null)
-            this._routerExtensions.navigate(["login"]);
+            this._routerExtensions.navigate(["login"], {animated: false});
         else{
-            // let auxdata = JSON.parse(jsonuseraux);
-            // jsonDataUser = {
-            //     "nameU": auxdata["profile"]["name"],
-            //     "cityU": "Cuenca, Ecuador",
-            //     "imageU": auxdata["profile"]["picture"]
-            // };
-            // let navigationExtras: NavigationExtras = {
-            // queryParams: {
-            //       "info": JSON.stringify(jsonDataUser)
-            //     }
-            // };
-            // this._routerExtensions.navigate(["profile"], navigationExtras);
-            this._routerExtensions.navigate(["profile"]);
+            this.getDealsSubscribe(this.userIdentification).then(dealsResponse => {
+                this.data.storage_vara = dealsResponse;
+                this._routerExtensions.navigate(["profile"], {animated: false});                            
+                // let navigationExtras: NavigationExtras = {
+                // queryParams: {
+                //       "DealsSubscribe": JSON.stringify(dealsResponse)
+                //     }
+
+                // };                    
+                // this._routerExtensions.navigate(["profile"], navigationExtras);                            
+
+            });
 
         }
     }
@@ -560,5 +588,22 @@ export class ViewmapComponent {
       }
       
   }    
+
+    onBusyChanged(args) {
+        let indicator = <ActivityIndicator>args.object;
+        console.log("indicator.busy changed to: " + indicator.busy);
+    }  
+
+  async getDealsSubscribe(userId: string) {
+
+      try {
+          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          return users_deals;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
 
 }

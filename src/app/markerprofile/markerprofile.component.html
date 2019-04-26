@@ -22,7 +22,7 @@
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
     <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="{{ 'followers' | L }}" class="followers-style-text"></LABEL>
     <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" marginTop="15" marginRight="20">                
-        <BUTTON text="{{labelfollowbutton}}" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
+        <BUTTON text="{{labelfollowbutton}}" (tap)="onClickFollow()" class="homemarker-follow-button" visibility="{{ showDetails }}"></BUTTON>
     </StackLayout>
 
     
@@ -38,6 +38,7 @@
             </StackLayout>
         </GridLayout>
     </StackLayout>
+<ActivityIndicator id="indicator" row="1" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>    
     <!-- class="homemarker-follow-button" -->
 <!--     <StackLayout horizontalAlignment="right" row="1" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
         <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
@@ -63,6 +64,7 @@
                         <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
                     </StackLayout> -->
                 </StackLayout>
+
             <StackLayout class="homemarker-deals">
                 <Label text="{{ 'availables_deals' | L }}"></Label>
                 <!-- <Label text="{{'availables_deals' | L}}"></Label> -->

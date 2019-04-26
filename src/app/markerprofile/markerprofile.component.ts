@@ -21,11 +21,15 @@ import { UsersmarkerService } from "../shared/api/usersmarker/usersmarker.servic
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 import { Usersmarker } from "../shared/models/usersmarker.model";
+import { Data } from "../providers/data/data";
 
-// COMUN ***
+import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+import { Usersdeals } from "../shared/models/usersdeals.model";
 
 import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
 import { Usersinterests } from "../shared/models/usersinterests.model";
+
+import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 
 //********
 
@@ -52,7 +56,12 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
   public newImage: Image;
   
   // marker_profile: any;
-  userIdentification: string = "5c96f09a6d69fdd962e49c19";
+  // userIdentification: string = "5c96f09a6d69fdd962e49c19";
+  userIdentification: string;
+  public isBusy = false;
+
+  showDetails = "collapsed";
+
   imagedescription_a: string;
   imagedescription_b: string;
   imagedescription_c: string;
@@ -65,7 +74,8 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
     private dealsprofileService: DealsprofileService, private ngZone: NgZone, 
-    private markerprofileService: MarkerprofileService, private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService) {
+    private markerprofileService: MarkerprofileService, private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService,
+    private data: Data, private usersdealsService: UsersdealsService) {
 
     // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;  
@@ -184,11 +194,13 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
     //   }      
     // ];
 
-    this.route.queryParams.subscribe(params => {
-        profileMarkerString = params["MarkerProfile"];
-    });
+    // this.route.queryParams.subscribe(params => {
+    //     profileMarkerString = params["MarkerProfile"];
+    // });
+    // profileMarkerString = this.data.storage_vara;
 
-    this.profile_id_selected = JSON.parse(profileMarkerString); 
+    // this.profile_id_selected = JSON.parse(profileMarkerString); 
+    this.profile_id_selected = this.data.storage_vara;     
 
     this.imagedescription_a = "res://" + this.profile_id_selected.images[0];
     this.imagedescription_b = "res://" + this.profile_id_selected.images[1];
@@ -207,7 +219,31 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+        
+        if(localstorage.getItem('ResultLogin') != null){
+            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userIdentification = userLoginRecord.info._id;
+        }
 
+        if(this.userIdentification!=null){ 
+          this.showDetails="visible";
+          this.isFollower(this.userIdentification, this.profile_id_selected._id).then(dataResponse => {
+
+            console.log("Revisa si esta siguiendo: " + dataResponse.length);
+
+            this.responseUsersMarker = dataResponse;
+
+            if(this.responseUsersMarker.length == 0){
+              this.labelfollowbutton = localize("follow");
+
+            }else if(this.responseUsersMarker.length > 0){
+              this.labelfollowbutton = localize("unfollow");
+            }
+
+          });
+        }else{
+          this.showDetails="collapsed";
+        }        
 
   }
 
@@ -222,20 +258,26 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         // //     });
         // //   }, 5000);
         // }
-    this.isFollower(this.userIdentification, this.profile_id_selected._id).then(dataResponse => {
 
-      console.log("Revisa si esta siguiendo: " + dataResponse.length);
+    // if(this.userIdentification!=null){ 
+    //   this.showDetails="visible";
+    //   this.isFollower(this.userIdentification, this.profile_id_selected._id).then(dataResponse => {
 
-      this.responseUsersMarker = dataResponse;
+    //     console.log("Revisa si esta siguiendo: " + dataResponse.length);
 
-      if(this.responseUsersMarker.length == 0){
-        this.labelfollowbutton = localize("follow");
+    //     this.responseUsersMarker = dataResponse;
 
-      }else if(this.responseUsersMarker.length > 0){
-        this.labelfollowbutton = localize("unfollow");
-      }
+    //     if(this.responseUsersMarker.length == 0){
+    //       this.labelfollowbutton = localize("follow");
 
-    });
+    //     }else if(this.responseUsersMarker.length > 0){
+    //       this.labelfollowbutton = localize("unfollow");
+    //     }
+
+    //   });
+    // }else{
+    //   this.showDetails="collapsed";
+    // }
 
 
     this.getDealsMarkerProfile(this.profile_id_selected._id).then(dataResponse => {
@@ -253,17 +295,21 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
           this.newImage.id = this.images_descuentos[i]._id;
           this.newImage.style.margin = "5 0";
           this.newImage.stretch = "fill";
-          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) {   
-            let widgetImage = <Image>args.object;
-            let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
-            let navigationExtras: NavigationExtras = {
-                queryParams: {
-                    "DealMarker": JSON.stringify(json_deal_selected),
-                    "MarkerProfile": JSON.stringify(this.profile_id_selected)
-                  }
-            };
-            // this._routerExtensions.navigate(["dealprofile"], navigationExtras);
-            this.ngZone.run(() => this._routerExtensions.navigate(['dealprofile'], navigationExtras)).then();
+          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) { 
+            if(this.userIdentification!=null){        
+              let widgetImage = <Image>args.object;
+              let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
+              let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                      "DealMarker": JSON.stringify(json_deal_selected),
+                      "MarkerProfile": JSON.stringify(this.profile_id_selected)
+                    }
+              };
+              // this._routerExtensions.navigate(["dealprofile"], navigationExtras);
+              this.ngZone.run(() => this._routerExtensions.navigate(['dealprofile'], navigationExtras)).then();
+            }else{
+              this.ngZone.run(() => this._routerExtensions.navigate(["login"], {animated: false})).then();
+            }  
           }, this);
           
           this.myNativeStack.addChild(this.newImage);
@@ -310,9 +356,9 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
   //   this._routerExtensions.navigate(["dealprofile"], navigationExtras) 
   // }
 
-  onClickImgb(){
-    alert("Press1")
-}
+//   onClickImgb(){
+//     alert("Press1")
+// }
 
   onClickFollow(){
 
@@ -361,20 +407,10 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 }
 
   goviewmap() {
-      // **** NEW ****
-      // let empty_value = []
-      // let navigationExtras: NavigationExtras = {
-      //     queryParams: {
-      //         "DataList": JSON.stringify(empty_value)
-      //   }
-      // };
-      
-      // this._routerExtensions.navigate(["viewmap"], navigationExtras );
-      this._routerExtensions.navigate(["viewmap"]);
-      // *********
+      this._routerExtensions.navigate(["viewmap"], {animated: false});
   }
 
-      gologinview() {
+  gologinview() {
 
         let jsonuseraux = "";
         let jsonDataUser: any;
@@ -383,21 +419,12 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         console.log("[*] Storage Perfil " + jsonuseraux);
 
         if( jsonuseraux == null)
-            this._routerExtensions.navigate(["login"]);
+            this._routerExtensions.navigate(["login"], {animated: false});
         else{
-            // let auxdata = JSON.parse(jsonuseraux);
-            // jsonDataUser = {
-            //     "nameU": auxdata["profile"]["name"],
-            //     "cityU": "Cuenca, Ecuador",
-            //     "imageU": auxdata["profile"]["picture"]
-            // };
-            // let navigationExtras: NavigationExtras = {
-            // queryParams: {
-            //       "info": JSON.stringify(jsonDataUser)
-            //     }
-            // };
-            // this._routerExtensions.navigate(["profile"], navigationExtras);
-            this._routerExtensions.navigate(["profile"]);
+            this.getDealsSubscribe(this.userIdentification).then(dealsResponse => {
+                this.data.storage_vara = dealsResponse;
+                this._routerExtensions.navigate(["profile"], {animated: false});                            
+            });
 
         }
     }
@@ -467,15 +494,15 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         
     }    
 
-// COMUN ****
-
     gosearch() {
 
-        this._routerExtensions.navigate(["search"]);
+        this._routerExtensions.navigate(["search"], {animated: false});
     }    
 
     goHotDeals() {
 
+        this.isBusy = true;
+        
         let myDataArray: Dealsprofile[];
         let typesUserArray: any;
         let markerIdentificators = [];
@@ -484,65 +511,74 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         var strMarkersId = "";
         let arrayGroupBy: any = [];
 
+        if(this.userIdentification!=null){
 
-        this.getCurrentHotDeals().then(dataResponse => {
+            this.getCurrentHotDeals().then(dataResponse => {
 
-            myDataArray = dataResponse;
+                myDataArray = dataResponse;
 
-            this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+                this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
 
-                typesUserArray = typeResponse.map(function(typeRes) {
-                  return typeRes.typeid;
-                });                
+                    typesUserArray = typeResponse.map(function(typeRes) {
+                      return typeRes.typeid;
+                    });                
 
-                strTypesUserArray = typesUserArray.join(","); 
+                    strTypesUserArray = typesUserArray.join(","); 
 
-                this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
-                    markerIdentificators = markersResponse.map(function(markerRes) {
-                      return markerRes._id;
-                    });
+                    this.getMarkerByType(strTypesUserArray).then(markersResponse => {      
+                        markerIdentificators = markersResponse.map(function(markerRes) {
+                          return markerRes._id;
+                        });
 
-                    strMarkersId = markerIdentificators.join(","); 
+                        strMarkersId = markerIdentificators.join(","); 
 
-                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                        myDeals = dealsResponse;
-                        let alltypes = [];
+                        this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                            myDeals = dealsResponse;
+                            let alltypes = [];
 
-                        alltypes = myDeals.map(function(typeList) {
-                          return typeList.markerid.type.description;;
-                        });     
-                        alltypes = alltypes.filter(function(elem, index, self) {
-                          return index === self.indexOf(elem);
-                        })
-                        
-                        let myDealsAgroup: Dealsprofile[];
-                        
-                        
-                        for(let i=0; i<alltypes.length; i++){
-                            let elementArray = {};
-                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                            elementArray[alltypes[i]] = myDealsAgroup;
-                            arrayGroupBy.push(elementArray);
-                                
-                        }
-
-                        let navigationExtras: NavigationExtras = {
-                            queryParams: {
-                                "InterestsDeals": JSON.stringify(arrayGroupBy),
-                                "HotDeals": JSON.stringify(myDataArray)
+                            alltypes = myDeals.map(function(typeList) {
+                              return typeList.markerid.type.description;;
+                            });     
+                            alltypes = alltypes.filter(function(elem, index, self) {
+                              return index === self.indexOf(elem);
+                            })
+                            
+                            let myDealsAgroup: Dealsprofile[];
+                            
+                            
+                            for(let i=0; i<alltypes.length; i++){
+                                let elementArray = {};
+                                myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                                elementArray[alltypes[i]] = myDealsAgroup;
+                                arrayGroupBy.push(elementArray);
+                                    
                             }
-                        };
 
-                        this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+                            // let navigationExtras: NavigationExtras = {
+                            //     queryParams: {
+                            //         "InterestsDeals": JSON.stringify(arrayGroupBy),
+                            //         "HotDeals": JSON.stringify(myDataArray)
+                            //     }
 
+                            // };
+
+                            this.data.storage_vara = arrayGroupBy;
+                            this.data.storage_varb = myDataArray;
+
+                            this.isBusy = false;
+
+                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
+
+                        });
+                        
                     });
-                    
+
                 });
 
-            });
-
-        });    
-
+            });    
+        }else{
+          this._routerExtensions.navigate(["login"], {animated: false});
+        }
 
 
     }
@@ -596,6 +632,19 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       
   }    
 
-//******
+  async getDealsSubscribe(userId: string) {
 
+      try {
+          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          return users_deals;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+  
+  onBusyChanged(args) {
+        let indicator = <ActivityIndicator>args.object;
+        console.log("indicator.busy changed to: " + indicator.busy);
+  }
 }
