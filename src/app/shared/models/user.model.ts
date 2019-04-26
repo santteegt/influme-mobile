@@ -1,8 +1,11 @@
+
 export interface User {
-	
+
+	_id: string;
 	username: string;
 	name: string;
-	password?: string;
-	admin?: string;
-
+	city: string;
+	email: string;
+	influencer: boolean;
+	
 }

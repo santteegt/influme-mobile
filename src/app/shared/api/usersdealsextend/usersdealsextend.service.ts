@@ -2,26 +2,17 @@ import { Injectable } from '@angular/core';
 import { request } from "tns-core-modules/http";
 import { config } from "../../config";
 import { RestService } from "../rest.service";
-import { Usersdeals } from "../../models/usersdeals.model";
+import { Usersdealsextend } from "../../models/usersdealsextend.model";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersdealsService {
+export class UsersdealsextendService {
 
   constructor(private restAPI: RestService) { }
 
-  	public saveDealUser(bodyRequest: Usersdeals): Promise<Usersdeals> {
-
-		let headers = { "Content-Type": "application/json" };
-
-		let promise = this.restAPI.post(config.apiUrl + `/usersdeals`, bodyRequest, headers);
-		
-	return promise;
-	}
-
-	public getAllDealsSubscribe(userID: string): Promise<Usersdeals[]> {
+  	public getAllDealsSubscribe(userID: string): Promise<Usersdealsextend[]> {
   		let headers = null;
 
   		let promise = this.restAPI.get(config.apiUrl + `/usersdeals/search/${userID}`, headers);
@@ -29,5 +20,4 @@ export class UsersdealsService {
   		
 		return promise;
 	}
-
 }

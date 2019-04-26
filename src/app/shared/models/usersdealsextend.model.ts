@@ -1,8 +1,8 @@
 import { Dealsprofile } from '../models/dealsprofile.model';
 
-export interface Usersdeals {
+export interface Usersdealsextend {
 
 	userid: string;
-	dealid: string;
+	dealid: Dealsprofile;
 
 }
