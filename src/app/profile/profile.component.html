@@ -74,17 +74,17 @@
     <StackLayout>
       <GridLayout rows="200">
        <StackLayout row="0">
-        <!-- <Image stretch="fill" [src]="urlImage"></Image>         -->
-        <Image stretch="fill" src="res://profilePicture"></Image>
+        <Image stretch="fill" [src]="urlImage"></Image>        
+        <!-- <Image stretch="fill" src="res://profilePicture"></Image> -->
        </StackLayout>
         <StackLayout row="0">
-          <LABEL text="{{120}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+          <LABEL text="{{followers}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
         </StackLayout>
         <StackLayout row="0">
           <LABEL verticalAlignment="top" marginTop="55" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
         </StackLayout>
         <StackLayout row="0">
-          <LABEL text="{{28}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+          <LABEL text="{{following}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
         </StackLayout>
         <StackLayout row="0">
           <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
@@ -115,7 +115,7 @@
       <!-- </StackLayout> -->
       <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
           <!-- <Label [text]="cityUser" class="homemarker-description"></Label> {{'profile' | L}}-->
-          <Label text="{{'location' | L}}" class="homemarker-description"></Label>        
+          <Label [text]="cityUser" class="homemarker-description"></Label>        
       <!-- </StackLayout> -->
       <!-- <StackLayout row="0" orientation="vertical" class="homemarker-line-layout" height="5">                 -->
           <Label text=" " class="homemarker-line" height="10"></Label>
@@ -130,9 +130,9 @@
               </StackLayout>
               <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
               </StackLayout>
-                  <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
+<!--                   <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
           <BUTTON text="{{'follow' | L}}" class="homemarker-follow-button"></BUTTON>
-              </StackLayout>
+              </StackLayout> -->
 
           </StackLayout>
 

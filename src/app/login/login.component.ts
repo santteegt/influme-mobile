@@ -8,6 +8,14 @@ import * as jwt from "jwt-decode";
 import * as localstorage from "nativescript-localstorage";
 import { User } from "../shared/models/user.model";
 
+import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
+import { Usersinterestsextend } from "../shared/models/usersinterestsextend.model";
+
+import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+import { Usersdeals } from "../shared/models/usersdeals.model";
+
+import { Data } from "../providers/data/data";
+
 @Component({
     selector: "Login",
     moduleId: module.id,
@@ -23,7 +31,10 @@ export class LoginComponent {
     // private userData: User;
 
     // constructor(private _routerExtensions: RouterExtensions, private zone: NgZone, private page: Page) {
-    constructor(private _routerExtensions: RouterExtensions, private page: Page) {
+    constructor(private _routerExtensions: RouterExtensions, private page: Page, 
+        private usersinterestsService: UsersinterestsService, 
+        private usersdealsService: UsersdealsService,
+        private data: Data) {
         this.page.actionBarHidden = true;
         // this.page.backgroundSpanUnderStatusBar = true;
 
@@ -94,48 +105,143 @@ export class LoginComponent {
         userData.name = usuario["name"];
         userData.city = "";
         userData.email = "";
+        userData.picturehome = usuario["picture"];
+        userData.followers = 0;
+        userData.following = 0;
         userData.influencer = false;
 
+        //Para verificar si es nuevo (0) o edicion (1)
+        let editOption = 0;
 
-        this.jsonFinal = {
-            "info": userData,
-            "pictureURL": usuario["picture"],
-            "accessToken": res.accessToken,
-            "idToken": res.idToken,            
-            "intereses": []
-        };
+        //verifica si existe el username registrado. 
+        this.getUserInterestsProfile(userData.username).then(dataUserResponse => {
 
-        localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                       
+            let userProfile: any={};
+            let interestsProfile = [];
+            let userSearchProfile = [];
+            let intereses: any = [];
+            let subIntereses: any = {};            
+            
+            let allUsers: any;
+            let onlyUser: any;    
 
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "info": JSON.stringify(usuario)
-        //   }
-        // };
+            let navigationExtras: NavigationExtras;        
+            
+            dataUserResponse = dataUserResponse.filter(useritem => useritem.userid != null);
+            
+            //get all idUser
+            allUsers = dataUserResponse.map(function(userList) {
+                return userList.userid._id;
+            });            
 
-        // this._routerExtensions.navigate(["user"], navigationExtras );
+            //Remove duplicate ids 
+            allUsers = allUsers.filter(function(elem, index, self) {
+              return index === self.indexOf(elem);
+            })
 
-          let editOption = 0;
-          let navigationExtras: NavigationExtras = {
-          queryParams: {
-              "menuOption": editOption
-          }
-         };
-        this._routerExtensions.navigate(["user"], navigationExtras );
+            allUsers.forEach(function(element) {
+
+              onlyUser = dataUserResponse.filter(useritem => useritem.userid._id === element);
+              onlyUser.forEach(function(row) {                  
+                userProfile.info = row.userid;
+                interestsProfile.push(row.typeid)
+              });
+              
+              userProfile.interests = interestsProfile;                  
+              userSearchProfile.push(userProfile);
+
+            });   
+
+            if(userSearchProfile.length>0) {
+
+                for(var i=0; i<userSearchProfile[0].interests.length; i++){
+                        subIntereses = {};
+                        subIntereses.id =  userSearchProfile[0].interests[i]._id;       
+                        subIntereses.img = userSearchProfile[0].interests[i].icontype;
+                        subIntereses.width = "10.9";
+                        subIntereses.height = "18";
+                        intereses.push(subIntereses);      
+                }                
+
+                this.buildJsonUser(userSearchProfile[0].info, res, intereses);
+
+                localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));
+
+                this.getDealsSubscribe(userSearchProfile[0].info._id).then(dealsResponse => {                    
+
+                    this.data.storage_vara = dealsResponse;
+
+                    editOption = 1;
+                    navigationExtras = {
+                        queryParams: {
+                            "menuOption": editOption
+                        }
+                    };            
+        
+                    this._routerExtensions.navigate(["profile"], navigationExtras);
+                });                                       
+
+            }else
+            {
+
+                this.buildJsonUser(userData, res, []);
+
+                localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                       
+
+                editOption = 0;
+                navigationExtras = {
+                    queryParams: {
+                        "menuOption": editOption
+                    }
+                };                
+                this._routerExtensions.navigate(["user"], navigationExtras );
+
+            }
+
+        });
+        
+
 
     }
 
+    public buildJsonUser(userData, res, interesesparm){
+        this.jsonFinal = {
+            "info": userData,
+            // "pictureURL": usuario["picture"],
+            "accessToken": res.accessToken,
+            "idToken": res.idToken,            
+            "intereses": interesesparm
+        };        
+    }    
+
     private routeMap() {
-        // let empty_value = [];
-        // let navigationExtras: NavigationExtras = {
-        //     queryParams: {
-        //         "DataList": JSON.stringify(empty_value)
-        //   }
-        // };
-        
-        // this._routerExtensions.navigate(["viewmap"], navigationExtras );
+
         this._routerExtensions.navigate(["viewmap"]);
 
 
   }
+
+    async getUserInterestsProfile(username: string) {
+
+        try {
+            const user_profile: Usersinterestsextend[] = await this.usersinterestsService.getTypesFromNickname(username);
+            return user_profile;
+        } catch(err) {
+            console.log("[*] Error: " + err);
+        }
+        
+    }
+
+    async getDealsSubscribe(userId: string) {
+
+          try {
+              const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+              return users_deals;
+          } catch(err) {
+              console.log(err);
+          }
+          
+    }    
+
+
 }

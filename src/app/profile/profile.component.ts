@@ -45,6 +45,9 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   private urlImage: string;
   private nameUser: string;
   private cityUser: string;
+  private followers: string;
+  private following: string;
+
   private confImage: string;
   private userLogData: any;
   private lintereses: any;
@@ -103,16 +106,11 @@ constructor(private route: ActivatedRoute, private page: Page,
     //   }
     // });
 
-
     if(this.data.storage_vara!=null){
       this.dealsSubscribe = this.data.storage_vara;
     }else{
       this.dealsSubscribe = [];
     }
-
-    
-
-    console.log("DEALS " + this.dealsSubscribe);
 
 
     let infoUser = localStorage.getItem('ResultLogin');
@@ -120,9 +118,12 @@ constructor(private route: ActivatedRoute, private page: Page,
 
     this.userIdentification = this.userLogData.info._id;
 
-    this.urlImage = this.userLogData.pictureURL;
-    this.nameUser = this.userLogData.name;
-    this.cityUser = this.userLogData.city;
+    this.urlImage = this.userLogData.info.picturehome;
+    this.nameUser = this.userLogData.info.name;
+    this.cityUser = this.userLogData.info.city;
+    this.followers = this.userLogData.info.followers;
+    this.following = this.userLogData.info.following;
+
     this.lintereses = this.userLogData.intereses;
 
     for(var i=0; i<this.lintereses.length; i++){
@@ -321,45 +322,55 @@ constructor(private route: ActivatedRoute, private page: Page,
 
                     strMarkersId = markerIdentificators.join(","); 
 
-                    this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                        myDeals = dealsResponse;
-                        let alltypes = [];
+                    if(strMarkersId!=""){                    
 
-                        alltypes = myDeals.map(function(typeList) {
-                          return typeList.markerid.type.description;;
-                        });     
-                        alltypes = alltypes.filter(function(elem, index, self) {
-                          return index === self.indexOf(elem);
-                        })
-                        
-                        let myDealsAgroup: Dealsprofile[];
-                        
-                        
-                        for(let i=0; i<alltypes.length; i++){
-                            let elementArray = {};
-                            myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                            elementArray[alltypes[i]] = myDealsAgroup;
-                            arrayGroupBy.push(elementArray);
-                                
-                        }
+                      this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                          myDeals = dealsResponse;
+                          let alltypes = [];
 
+                          alltypes = myDeals.map(function(typeList) {
+                            return typeList.markerid.type.description;;
+                          });     
+                          alltypes = alltypes.filter(function(elem, index, self) {
+                            return index === self.indexOf(elem);
+                          })
+                          
+                          let myDealsAgroup: Dealsprofile[];
+                          
+                          
+                          for(let i=0; i<alltypes.length; i++){
+                              let elementArray = {};
+                              myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                              elementArray[alltypes[i]] = myDealsAgroup;
+                              arrayGroupBy.push(elementArray);
+                                  
+                          }
+
+                          this.isBusy = false;
+                          
+                          this.data.storage_vara = arrayGroupBy;
+                          this.data.storage_varb = myDataArray;
+
+                          this._routExt.navigate(["hotdeals"], {animated: false});                        
+
+                          // let navigationExtras: NavigationExtras = {
+                          //     queryParams: {
+                          //         "InterestsDeals": JSON.stringify(arrayGroupBy),
+                          //         "HotDeals": JSON.stringify(myDataArray)
+                          //     }
+                          // };
+
+                          // this._routExt.navigate(["hotdeals"], navigationExtras);                        
+
+                      });
+                    }else{
                         this.isBusy = false;
                         
-                        this.data.storage_vara = arrayGroupBy;
+                        this.data.storage_vara = [];
                         this.data.storage_varb = myDataArray;
 
-                        this._routExt.navigate(["hotdeals"], {animated: false});                        
-
-                        // let navigationExtras: NavigationExtras = {
-                        //     queryParams: {
-                        //         "InterestsDeals": JSON.stringify(arrayGroupBy),
-                        //         "HotDeals": JSON.stringify(myDataArray)
-                        //     }
-                        // };
-
-                        // this._routExt.navigate(["hotdeals"], navigationExtras);                        
-
-                    });
+                        this._routExt.navigate(["hotdeals"], {animated: false});                                                    
+                    }                    
                     
                 });
 
