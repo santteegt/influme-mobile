@@ -29,7 +29,16 @@ export class UsersinterestsService {
   		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
   		
 		return promise;
-	}	
+	}
+
+	public getTypesFromNickname(username: string): Promise<Usersinterestsextend[]> {
+  		let headers = null;
+
+  		let promise = this.restAPI.get(config.apiUrl + `/usersinterests/search/nick/${username}`, headers);
+  		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+  		
+		return promise;
+	}		
 
   	public saveUserInterests(bodyRequest: Usersinterests): Promise<Usersinterests> {
 

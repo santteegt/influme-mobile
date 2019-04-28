@@ -129,13 +129,15 @@ export class SearchComponent implements OnInit {
         
         this.getMarkerProfile(searchBar.text).then(dataM => {
 
-
+         this.myNativeStack.removeChildren();
           this.marker_profile = dataM;
           // if(dataM.length > 0){
             // allResults.push(dataM);    
           // }
 
           this.getUserInterestsProfile(searchBar.text).then(dataUserResponse => {
+
+            this.myNativeStack.removeChildren();
 
             let userProfile: any={};
             let interestsProfile = [];
@@ -148,9 +150,9 @@ export class SearchComponent implements OnInit {
 
             //get all idUser
             allUsers = dataUserResponse.map(function(userList) {
-              if(userList.userid!=null){
+              // if(userList.userid!=null){
                 return userList.userid._id;
-              }
+              // }
             });             
 
             //Remove duplicate ids 
@@ -201,7 +203,7 @@ export class SearchComponent implements OnInit {
 
                     // Imagen de perfil
                     this.newImage = new Image();          
-                    this.newImage.src = "res://" + userSearchProfile[i].info.picturehome;
+                    this.newImage.src = userSearchProfile[i].info.picturehome;
                     this.newImage.stretch = "fill";
                     this.newImage.style.width = 55;
                     this.newImage.style.height = 55;
@@ -252,15 +254,31 @@ export class SearchComponent implements OnInit {
                     this.newGridLayout.addChildAtCell(this.newStackLayoutLabel, i, 0);
                     this.newGridLayout.addChildAtCell(this.newGridLayout1, i, 0);
                     this.newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
-                    // this.newGridLayout.addColumn(new ItemSpec(0, GridUnitType.AUTO));
-
-                    // this.newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
-                    //   let grid = <GridLayout>args.object;           
-                    //   let json_deal_selected: Markerprofile[] = this.marker_profile.filter(d => d._id === grid.id);
+                    this.newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
+                      let grid = <GridLayout>args.object;           
+                      let json_user_selected: any = userSearchProfile.filter(d => d.info._id === grid.id);
+                      let intereses: any = [];
+                      let subIntereses: any = {};
       
-                    //   this.data.storage_vara = json_deal_selected[0];
-                    //   this.ngZone.run(() => this._routerExtensions.navigate(['markerprofile'])).then();
-                    // }, this);             
+                      this.data.storage_varb = json_user_selected[0].info;
+
+                      for(var i=0; i<json_user_selected[0].interests.length; i++){   
+                        subIntereses = {};
+                        subIntereses.id =  json_user_selected[0].interests[i]._id       
+                        subIntereses.img = json_user_selected[0].interests[i].icontype;
+                        subIntereses.width = "10.9";
+                        subIntereses.height = "18";
+                        intereses.push(subIntereses);      
+                      }                                      
+      
+                      this.data.storage_vara = intereses;
+
+                      this.getDealsSubscribe(json_user_selected[0].info._id).then(dealsResponse => {
+                        this.data.storage_varc = dealsResponse;
+                        this.ngZone.run(() => this._routerExtensions.navigate(['profilevisited'])).then();
+                      });                      
+                                            
+                    }, this);             
                     this.newGridLayout.height=75;
                     this.myNativeStack.addChild(this.newGridLayout);                  
 
@@ -630,35 +648,45 @@ export class SearchComponent implements OnInit {
 
                       strMarkersId = markerIdentificators.join(","); 
 
-                      this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                          myDeals = dealsResponse;
-                          let alltypes = [];
+                      if(strMarkersId!=""){
 
-                          alltypes = myDeals.map(function(typeList) {
-                            return typeList.markerid.type.description;;
-                          });     
-                          alltypes = alltypes.filter(function(elem, index, self) {
-                            return index === self.indexOf(elem);
-                          })
-                          
-                          let myDealsAgroup: Dealsprofile[];
-                          
-                          
-                          for(let i=0; i<alltypes.length; i++){
-                              let elementArray = {};
-                              myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                              elementArray[alltypes[i]] = myDealsAgroup;
-                              arrayGroupBy.push(elementArray);
-                                  
-                          }
+                        this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                            myDeals = dealsResponse;
+                            let alltypes = [];
 
+                            alltypes = myDeals.map(function(typeList) {
+                              return typeList.markerid.type.description;;
+                            });     
+                            alltypes = alltypes.filter(function(elem, index, self) {
+                              return index === self.indexOf(elem);
+                            })
+                            
+                            let myDealsAgroup: Dealsprofile[];
+                            
+                            
+                            for(let i=0; i<alltypes.length; i++){
+                                let elementArray = {};
+                                myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                                elementArray[alltypes[i]] = myDealsAgroup;
+                                arrayGroupBy.push(elementArray);
+                                    
+                            }
+
+                            this.isBusy = false;
+                            
+                            this.data.storage_vara = arrayGroupBy;
+                            this.data.storage_varb = myDataArray;
+
+                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
+                        });
+                      }else{
                           this.isBusy = false;
                           
-                          this.data.storage_vara = arrayGroupBy;
+                          this.data.storage_vara = [];
                           this.data.storage_varb = myDataArray;
 
-                          this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
-                      });
+                          this._routerExtensions.navigate(["hotdeals"], {animated: false});                                                    
+                      }                      
                       
                   });
 
