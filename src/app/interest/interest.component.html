@@ -4,6 +4,7 @@
 			<Label text="{{ 'title_interest' | L }}" textWrap="true" width="115" height="36" class="main-title"></Label>
 		</StackLayout>
 		<Stacklayout row="1" orientation="vertical">
+        <ActivityIndicator id="indicator" row="1" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>            
 			
 		</Stacklayout>
 		<GridLayout row="2" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
@@ -63,6 +64,7 @@
             </StackLayout>            
 		</GridLayout>				
 		<Stacklayout row="9" orientation="vertical">
+
 			
 		</Stacklayout>
 		<GridLayout row="10" columns="*, 45, *, 45, *" class="options-layout" *ngIf="isVisible">			
@@ -141,12 +143,12 @@
             </StackLayout>
 		</GridLayout>
 		<StackLayout row="21"></StackLayout>
-		<StackLayout row="22">
+		<StackLayout row="22" *ngIf="isVisible">
             <!-- {{ 'create_account' | L }}" -->
 			<Button [text]="label_button" class="button-create" verticalAlignment="center" horizontalAlignment="center" (tap)="goProfile()"></Button>
 		</StackLayout>
-		<StackLayout row="23" class="layout-button-back">
-			<Button text="{{ 'go_back' | L }}" class="button-back" verticalAlignment="center" horizontalAlignment="center" visibility="{{ showDetails }}"></Button>
+		<StackLayout row="23" class="layout-button-back" *ngIf="isVisible">
+			<Button text="{{ 'go_back' | L }}" class="button-back" verticalAlignment="center" horizontalAlignment="center" visibility="{{ showDetails }}" (tap)="goback()"></Button>
 		</StackLayout>
 
         <AbsoluteLayout width="100" horizontalAlignment="right" verticalAlignment="top" marginTop="20" height="100">

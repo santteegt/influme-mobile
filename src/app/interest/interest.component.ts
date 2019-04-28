@@ -20,6 +20,9 @@ import { Typemarker } from "../shared/models/typemarker.model";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import * as nsPlatform from "nativescript-platform";
 
+import { Data } from "../providers/data/data";
+import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
+
 
 
 @Component({
@@ -42,13 +45,14 @@ export class InterestComponent implements OnInit {
   private showDetails1: string;
   private menuOption: any;
   public isVisible: boolean;
+  public isBusy = true;
   // public arrayUserInterests: Usersinterest;
 
 
 
   constructor(private route: ActivatedRoute, private page: Page, private _routerExtensions: RouterExtensions,
     private userapiService: UserapiService, private usersinterestsService: UsersinterestsService,
-    private typemarkerService: TypemarkerService) { 
+    private typemarkerService: TypemarkerService, private data: Data) { 
 
     this.feedback = new Feedback();
     
@@ -146,6 +150,8 @@ ngOnInit() {
           }
         }
 
+        this.isBusy = false;
+
     });
 
 
@@ -206,21 +212,30 @@ ngOnInit() {
 
           this.createAccountUser(this.userLogData.info).then(responseSaveUser => {
 
-            this.userLogData.info._id=responseSaveUser._id;
+            if(responseSaveUser.error!=null){
+              this.printError("message_user_save_error");
 
-            this.saveInterests(intereses, responseSaveUser._id);
-            // intereses.forEach(function(element) {
-            //   elementUserInterests.userid = responseSaveUser._id
-            //   elementUserInterests.typeid = element.id
-            //   arrayUserInterests.push(elementUserInterests);
-            // });
+            }else{
+              this.userLogData.info._id=responseSaveUser._id;
 
-            // for(var i = 0; i<arrayUserInterests.length; i++){
-            //   this.createAccountUserInterests(arrayUserInterests[i]).then(responseSaveUserInterests => {
-            //       console.log("save interesrs " + responseSaveUserInterests);
-            //   });
-            // }
+              this.saveInterests(intereses, responseSaveUser._id);
+              // intereses.forEach(function(element) {
+              //   elementUserInterests.userid = responseSaveUser._id
+              //   elementUserInterests.typeid = element.id
+              //   arrayUserInterests.push(elementUserInterests);
+              // });
+
+              // for(var i = 0; i<arrayUserInterests.length; i++){
+              //   this.createAccountUserInterests(arrayUserInterests[i]).then(responseSaveUserInterests => {
+              //       console.log("save interesrs " + responseSaveUserInterests);
+              //   });
+              // }
+
+            }
+
           });
+
+          ;
       }else{
 
         // proceso para actualizar
@@ -279,7 +294,8 @@ ngOnInit() {
           console.log("Objeto de retorno de create Account " + JSON.stringify(userprofile));
           return userprofile;
       } catch(err) {
-          console.log(err);
+          console.log("**** ERRROR " + err);
+          
       }
       
   }
@@ -332,8 +348,19 @@ ngOnInit() {
 
     localStorage.removeItem('ResultLogin');
     localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));
+    this.data.storage_vara = null;
     this._routerExtensions.navigate(["profile"]);    
 
   }
+
+goback(){
+
+  this._routerExtensions.back();    
+}  
+
+    onBusyChanged(args) {
+        let indicator = <ActivityIndicator>args.object;
+        console.log("indicator.busy changed to: " + indicator.busy);
+    }
 
 }
