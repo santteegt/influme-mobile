@@ -233,12 +233,22 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
             this.responseUsersMarker = dataResponse;
 
-            if(this.responseUsersMarker.length == 0){
-              this.labelfollowbutton = localize("follow");
+            // if(this.responseUsersMarker.length == 0){
+            //   this.labelfollowbutton = localize("follow");
 
-            }else if(this.responseUsersMarker.length > 0){
-              this.labelfollowbutton = localize("unfollow");
-            }
+            // }else if(this.responseUsersMarker.length > 0){
+            //   this.labelfollowbutton = localize("unfollow");
+            // }
+            if(this.responseUsersMarker.length>0){
+              if(this.responseUsersMarker[0].status == false){
+                this.labelfollowbutton = localize("follow");
+
+              }else if(this.responseUsersMarker[0].status == true){
+                this.labelfollowbutton = localize("unfollow");
+              }             
+            }else{
+              this.labelfollowbutton = localize("follow");
+            }            
 
           });
         }else{
@@ -532,45 +542,54 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
                         strMarkersId = markerIdentificators.join(","); 
 
-                        this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                            myDeals = dealsResponse;
-                            let alltypes = [];
+                        if(strMarkersId!=""){                        
 
-                            alltypes = myDeals.map(function(typeList) {
-                              return typeList.markerid.type.description;;
-                            });     
-                            alltypes = alltypes.filter(function(elem, index, self) {
-                              return index === self.indexOf(elem);
-                            })
+                          this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+                              myDeals = dealsResponse;
+                              let alltypes = [];
+
+                              alltypes = myDeals.map(function(typeList) {
+                                return typeList.markerid.type.description;;
+                              });     
+                              alltypes = alltypes.filter(function(elem, index, self) {
+                                return index === self.indexOf(elem);
+                              })
+                              
+                              let myDealsAgroup: Dealsprofile[];
+                              
+                              
+                              for(let i=0; i<alltypes.length; i++){
+                                  let elementArray = {};
+                                  myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                                  elementArray[alltypes[i]] = myDealsAgroup;
+                                  arrayGroupBy.push(elementArray);
+                                      
+                              }
+
+                              // let navigationExtras: NavigationExtras = {
+                              //     queryParams: {
+                              //         "InterestsDeals": JSON.stringify(arrayGroupBy),
+                              //         "HotDeals": JSON.stringify(myDataArray)
+                              //     }
+
+                              // };
+
+                              this.data.storage_vara = arrayGroupBy;
+                              this.data.storage_varb = myDataArray;
+
+                              this.isBusy = false;
+
+                              this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
+
+                          });
+                        }else{
+                            this.isBusy = false;
                             
-                            let myDealsAgroup: Dealsprofile[];
-                            
-                            
-                            for(let i=0; i<alltypes.length; i++){
-                                let elementArray = {};
-                                myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                                elementArray[alltypes[i]] = myDealsAgroup;
-                                arrayGroupBy.push(elementArray);
-                                    
-                            }
-
-                            // let navigationExtras: NavigationExtras = {
-                            //     queryParams: {
-                            //         "InterestsDeals": JSON.stringify(arrayGroupBy),
-                            //         "HotDeals": JSON.stringify(myDataArray)
-                            //     }
-
-                            // };
-
-                            this.data.storage_vara = arrayGroupBy;
+                            this.data.storage_vara = [];
                             this.data.storage_varb = myDataArray;
 
-                            this.isBusy = false;
-
-                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
-
-                        });
-                        
+                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                                                    
+                        }                        
                     });
 
                 });
