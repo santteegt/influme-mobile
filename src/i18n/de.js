@@ -52,5 +52,6 @@ module.exports = {
 	"search": "Suche",
 	"unfollow": "folgend",
 	"hot_deals": "Hot Deals",
-	"trending": "Trending"	
+	"trending": "Trending",
+	"message_user_save_error": "Eingegebene Daten überprüfen"		
 };
