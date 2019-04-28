@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { Page } from "tns-core-modules/ui/page";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
 // import { NgZone } from "@angular/core";
 import { Observable } from "tns-core-modules/data/observable";
 // import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
@@ -44,6 +45,8 @@ export class UserComponent implements OnInit {
   public txtfieldmail: string;
   public imageurl: string; 
   
+  private feedback: Feedback;
+
   public turnInfluencer: boolean = false;
   private userLogData: any;
   private userProfile: User;
@@ -60,6 +63,8 @@ export class UserComponent implements OnInit {
                 private userApiService: UserapiService) { 
 
       this.page.actionBarHidden = true;
+
+      this.feedback = new Feedback();
 
       this.enableLocationTap();
       this.buttonGetLocationTap();
@@ -119,7 +124,7 @@ export class UserComponent implements OnInit {
 
     	this.lnname = this.userProfile.username;
     	this.lname = this.userProfile.name;
-    	this.imageurl = this.userLogData.pictureURL;
+    	this.imageurl = this.userProfile.picturehome;
       this.txtfieldcity = this.userProfile.city;
       this.txtfieldmail = this.userProfile.email;
 
@@ -172,6 +177,7 @@ export class UserComponent implements OnInit {
   }
 
   goback(){
+    localStorage.removeItem('ResultLogin');
     this._routerExt.back();    
   }
 
@@ -201,7 +207,12 @@ export class UserComponent implements OnInit {
           this.userProfile.email = this.txtfieldmail;
           this.userProfile.influencer = this.turnInfluencer;
           this.updateAccountUser(this.userProfile._id, this.userProfile).then(responseSaveUser => {
-            this._routerExt.navigate(["profile"]);
+            if(responseSaveUser.error!=null){
+              this.printError("message_user_save_error");
+            }else{
+              this._routerExt.navigate(["profile"]);  
+            }
+            
           });
       }
     }
@@ -261,6 +272,22 @@ export class UserComponent implements OnInit {
       });
   }
 
+  printError(textError){
+      this.feedback.show({
+            title: "Error Selection",
+            message: localize(textError),
+            duration: 1400,
+            titleFont: "SFProDisplay-Bold",
+            titleSize: 16,
+            messageFont: "SFProDisplay-Regular",
+            messageSize: 13,
+            type: FeedbackType.Error,
+            onTap: () => {
+              console.log("showError tapped");
+            }
+          });
+  }  
+
 public onFirstChecked(args) {
         let firstSwitch = <Switch>args.object;
         if (firstSwitch.checked) {
@@ -290,9 +317,9 @@ onBlurEmail(args) {
     console.log("Objeto User a actualizar " + JSON.stringify(bodySave));
 
       try {
-          const userprofile: User = await this.userApiService.updateUser(idUser, bodySave);
-          console.log("Objeto de retorno de create Account " + JSON.stringify(userprofile));
-          return userprofile;
+          const userprofile_: User = await this.userApiService.updateUser(idUser, bodySave);
+          console.log("Objeto de retorno de create Account " + JSON.stringify(userprofile_));
+          return userprofile_;
       } catch(err) {
           console.log(err);
       }
