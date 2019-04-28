@@ -395,7 +395,7 @@ export class ViewmapComponent {
 
                 myDataArray = dataResponse;
 
-                this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {      
+                this.getTypesMarkerByUsers(this.userIdentification).then(typeResponse => {  
 
                     typesUserArray = typeResponse.map(function(typeRes) {
                       return typeRes.typeid;
@@ -410,46 +410,59 @@ export class ViewmapComponent {
 
                         strMarkersId = markerIdentificators.join(","); 
 
-                        this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
-                            myDeals = dealsResponse;
-                            let alltypes = [];
+                        if(strMarkersId!=""){
 
-                            alltypes = myDeals.map(function(typeList) {
-                              return typeList.markerid.type.description;;
-                            });     
-                            alltypes = alltypes.filter(function(elem, index, self) {
-                              return index === self.indexOf(elem);
-                            })
+                            this.getUsersInterestsDeals(strMarkersId).then(dealsResponse => {      
+
+
+                                myDeals = dealsResponse;
+                                let alltypes = [];
+                                
+                                alltypes = myDeals.map(function(typeList) {
+                                  return typeList.markerid.type.description;;
+                                });     
+                                alltypes = alltypes.filter(function(elem, index, self) {
+                                  return index === self.indexOf(elem);
+                                })
                             
-                            let myDealsAgroup: Dealsprofile[];
+                                let myDealsAgroup: Dealsprofile[];
                             
                             
-                            for(let i=0; i<alltypes.length; i++){
-                                let elementArray = {};
-                                myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
-                                elementArray[alltypes[i]] = myDealsAgroup;
-                                arrayGroupBy.push(elementArray);
-                                    
-                            }
+                                for(let i=0; i<alltypes.length; i++){
+                                    let elementArray = {};
+                                    myDealsAgroup = myDeals.filter(itmeType => itmeType.markerid.type.description === alltypes[i]);
+                                    elementArray[alltypes[i]] = myDealsAgroup;
+                                    arrayGroupBy.push(elementArray);
+                                        
+                                }
 
-                            this.isBusy = false;
-                            
-                            this.data.storage_vara = arrayGroupBy;
-                            this.data.storage_varb = myDataArray;
+                                this.isBusy = false;
+                                
+                                this.data.storage_vara = arrayGroupBy;
+                                this.data.storage_varb = myDataArray;
 
-                            this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
+                                this._routerExtensions.navigate(["hotdeals"], {animated: false});                        
 
-                            
-                            // let navigationExtras: NavigationExtras = {
-                            //     queryParams: {
-                            //         "InterestsDeals": JSON.stringify(arrayGroupBy),
-                            //         "HotDeals": JSON.stringify(myDataArray)
-                            //     }
-                            // };
+                                
+                                // let navigationExtras: NavigationExtras = {
+                                //     queryParams: {
+                                //         "InterestsDeals": JSON.stringify(arrayGroupBy),
+                                //         "HotDeals": JSON.stringify(myDataArray)
+                                //     }
+                                // };
 
-                            // this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
+                                // this._routerExtensions.navigate(["hotdeals"], navigationExtras);                        
 
-                        });
+                            });
+                        }else{
+                                this.isBusy = false;
+                                
+                                this.data.storage_vara = [];
+                                this.data.storage_varb = myDataArray;
+
+                                this._routerExtensions.navigate(["hotdeals"], {animated: false});                                                    
+                        }
+                    
                         
                     });
 
