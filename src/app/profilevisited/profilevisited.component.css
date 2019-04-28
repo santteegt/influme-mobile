@@ -1,0 +1,304 @@
+/* Add mobile styles for the component here.  */
+/* Add mobile styles for the component here.  */
+
+.markerprofile-layout {
+    /*padding-top: 93;*/
+    padding-left: 24;
+    text-align: left;
+    /*background-color: black;*/
+    /*font-weight: bold;*/
+}
+
+.title-layout {
+    font-family: "SFProDisplay-Bold";
+    font-size: 35;
+    font-weight: bold;
+    color: black;
+}
+
+.icon-settings{
+    padding-right: 24;
+    vertical-align: middle;
+}
+
+.followers-style-number{
+    padding-top: 30px;
+	width:60;
+	height: 35; 
+	background-color: black;
+	color: white;
+/*	font-weight: 700;
+	font-size: 30px;
+*/	text-align: center;
+	border-top-left-radius: 5;
+	border-top-right-radius: 5;
+    font-family: "SFProDisplay-Bold";
+    font-size: 24;
+    font-weight: bold;
+}
+
+.followers-style-text{
+	padding-top: 0;
+	width:60;
+	height: 25; 
+	background-color: black;
+    text-align: center;
+	border-bottom-left-radius: 5;
+	border-bottom-right-radius: 5;
+    font-family: "SFProDisplay-Light";
+    color: white;
+    font-size: 10;
+
+}
+
+.main-layout-desprofile{
+    padding-top: 12;
+    padding-left: 40;
+    padding-right: 40;  
+}
+
+.homemarker-title {
+/*	padding-top: 12;
+    padding-left: 40;
+    padding-right: 40;
+*/
+    font-family: "SFProDisplay-Bold";
+    font-size: 22;
+    font-weight: bold;
+}
+
+.homemarker-description {
+    padding-top: 5;
+    /*padding-left: 40;*/
+    /*font-size: 17px;*/
+    /*color: #757171;*/
+    font-family: "SFProDisplay-Light";
+    color: black;
+    font-size: 15;
+}
+
+.homemarker-follow-button-layout {
+    /*padding-top: 10;*/
+    /*padding-left: 250;*/
+    vertical-align: middle;
+}
+
+.homemarker-follow-button {
+    width: 85;
+    height: 30;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
+    border-radius: 5;
+    background-color: #EE185F;
+    color: white;
+    font-family: "SFProDisplay-Bold";
+    font-size: 12;
+    font-weight: bold;
+}
+
+.homemarker-line {
+    border-bottom: solid;
+    border-bottom-color: #757171;
+    border-bottom-width: 2;
+
+}
+
+.homemarker-line-layout {
+    /*padding-top: 40;*/
+    padding-left: 40;
+    padding-right: 40;
+
+}
+
+.homemarker-follow-button-layout {
+    /*padding-top: 10;*/
+    /*padding-left: 250;*/
+    vertical-align: middle;
+}
+
+.homemarker-follow-button {
+    width: 85;
+    height: 30;
+    padding-top: 2;
+    padding-bottom: 2;
+    padding-left: 4;
+    padding-right: 4;
+    border-radius: 8;
+    background-color: #EE185F;
+    color: white;
+    font-size: 14px;
+}
+
+.homemarker-social-media{    
+    padding-top: 5;
+    padding-left: 40;
+}
+
+.homemarker-facebook {
+    width: 35;
+    height: 35;
+    border-radius: 4;
+}
+
+.homemarker-twitter {
+    width: 35;
+    height: 35;
+    border-radius: 4;
+}
+
+.homemarker-instagram {
+    width: 35;
+    height: 35;
+    border-radius: 4;
+}
+
+.homemarker-line-layout-a {
+    padding-top: 5;
+    padding-right: 40;
+
+}
+
+.bottom-menu-maps {
+    background-color: black;
+    color: white;
+    font-family: FontAwesome;
+    font-size: 24;
+    vertical-align: middle;
+    width: 25%;
+    height: 50;
+}
+
+.bottom-menu-maps:active {
+    background-color: lightgray;
+    color:white;
+}
+
+.homemarker-deals {
+    color: black;
+/*    font-size: 17px;
+    font-weight: bold;
+*/    padding-top: 10; 
+    font-family: "SFProDisplay-Bold";
+    font-size: 16;
+    font-weight: bold;
+}
+
+.homemarker-deals-images{
+    padding-top: 20;
+    padding-right: 40;
+    /*padding-left: 40;*/
+}
+
+.auto-interest{
+    width: 26.3;
+    height: 26;
+    border-radius: 4;
+    border-color: white;
+    border-width: 1;
+}
+
+.sideStackLayout {
+    background-color: white; 
+/*    border-style: dotted;
+    border-color: gray;
+    border-width: 1;*/
+    border-radius: 5;
+}
+
+.sideTitleStackLayout {
+    /*padding-top: 93;*/
+    padding-bottom: 2;
+    font-family: "SFProDisplay-Bold";
+    font-weight: bold;
+    font-size: 35;
+    height: 56;
+    text-align: center;
+    vertical-align: center;
+    color: black;
+    border-bottom-style: dotted;
+    border-bottom-color: black;
+    border-bottom-width: 1;
+}
+
+.sideLabel {
+/*    padding: 10;
+    padding-top: 10;*/
+/*    padding-bottom: 10;
+    padding-left: 50;*/
+    font-family: "SFProDisplay-Bold";
+    font-size: 16;
+    color: black;
+}
+
+.sideLightGrayLabel {
+    background-color: lightgray;
+}
+
+.icons-menu-side{
+    font-size: 30;
+}
+
+/*.imagebackground{
+	height: 30%;
+	width: 100%;
+	stretch: aspectFill; 
+	
+}
+
+.profiletxt{
+	font-size: 30px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.nametxt{
+	font-size: 20px;
+	font-weight: bold;
+	color: #000000;
+	align-content: center;
+	word-wrap: true;
+}
+
+.followbtn{
+	color: #ffffff;
+    background-color:#ff2d4c;
+    width: 20%;
+}
+
+.Grid[col="0"] {
+	text-align: left;
+}
+
+.Grid[col="2"] {
+	text-align: right;
+}
+
+.btnsocial{
+	width: 15%;
+	height: 15%;
+	text-align: center;
+}
+
+.btnsocial1{
+	color: #ffffff;
+    background-color:#c32aa3;
+}
+
+.btnsocial2{
+	color: #ffffff;
+    background-color:#3b5998;
+}
+
+.btnsocial3{
+	color: #ffffff;
+    background-color:#1da1f2;
+}
+
+.texto-encima{
+    position: absolute;
+    top: 10%;
+    left: 80%;
+}
+*/
