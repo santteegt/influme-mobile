@@ -292,37 +292,50 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
     this.getDealsMarkerProfile(this.profile_id_selected._id).then(dataResponse => {
 
-
-        this.images_descuentos = dataResponse;
+        let contIndex = 0;
             // .profile_id_selected[0]["promos"];
         this.myNativeStack = this.stackRef.nativeElement;
 
-        for (var i=0; i<this.images_descuentos.length; i++){
+        this.images_descuentos = dataResponse;
 
-          let valueimage = "res://" + this.images_descuentos[i].img;
-          this.newImage = new Image();          
-          this.newImage.src = valueimage
-          this.newImage.id = this.images_descuentos[i]._id;
-          this.newImage.style.margin = "5 0";
-          this.newImage.stretch = "fill";
-          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) { 
-            if(this.userIdentification!=null){        
-              let widgetImage = <Image>args.object;
-              let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
-              let navigationExtras: NavigationExtras = {
-                  queryParams: {
-                      "DealMarker": JSON.stringify(json_deal_selected),
-                      "MarkerProfile": JSON.stringify(this.profile_id_selected)
-                    }
-              };
-              // this._routerExtensions.navigate(["dealprofile"], navigationExtras);
-              this.ngZone.run(() => this._routerExtensions.navigate(['dealprofile'], navigationExtras)).then();
-            }else{
-              this.ngZone.run(() => this._routerExtensions.navigate(["login"], {animated: false})).then();
-            }  
-          }, this);
-          
-          this.myNativeStack.addChild(this.newImage);
+        if(this.userIdentification!=null){
+
+          if(this.images_descuentos.length>0){
+
+              console.log("{*} HAY deals");
+
+              this.images_descuentos.forEach(async (element) => {
+
+                console.log("{*} Iterando Deals "+ JSON.stringify(element));
+              
+                this.getDealsByUserUsed(this.userIdentification, element._id).then(dataResponseVerify => {
+
+                  console.log("{*} Usuario registro? "+ dataResponseVerify.length);
+
+                  if(dataResponseVerify.length==0){
+                    this.setDealsHtml(element);
+                  }else{
+                    contIndex = contIndex + 1;
+                  }              
+                  if(contIndex == this.images_descuentos.length){
+                    this.setDealsHtmlEmpty();                    
+                  }
+
+                });
+
+              });
+          }else{
+              this.setDealsHtmlEmpty();
+          }
+        }else{
+          if(this.images_descuentos.length>0){
+
+              this.images_descuentos.forEach(async (element) => {
+                    this.setDealsHtml(element);
+              });
+          }else{
+              this.setDealsHtmlEmpty(); 
+          }
         }
 
     });
@@ -342,7 +355,41 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
     //   }
   }
 
-  
+  public setDealsHtmlEmpty(){
+      this.newImage = new Image();          
+      this.newImage.src = "res://empty";
+      this.newImage.style.margin = "5 0";
+      this.newImage.stretch = "fill";  
+      this.myNativeStack.addChild(this.newImage);    
+  }
+
+  public setDealsHtml(element){
+
+          let valueimage = "res://" + element.img;
+          this.newImage = new Image();          
+          this.newImage.src = valueimage
+          this.newImage.id = element._id;
+          this.newImage.style.margin = "5 0";
+          this.newImage.stretch = "fill";
+          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) { 
+            if(this.userIdentification!=null){        
+              let widgetImage = <Image>args.object;
+              let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
+              let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                      "DealMarker": JSON.stringify(json_deal_selected),
+                      "MarkerProfile": JSON.stringify(this.profile_id_selected)
+                    }
+              };
+              // this._routerExtensions.navigate(["dealprofile"], navigationExtras);
+              this.ngZone.run(() => this._routerExtensions.navigate(['dealprofile'], navigationExtras)).then();
+            }else{
+              this.ngZone.run(() => this._routerExtensions.navigate(["login"], {animated: false})).then();
+            }  
+          }, this);
+          
+          this.myNativeStack.addChild(this.newImage); 
+  }
 
   // onClickImga(navigationExtras){
   //   // QUITAR COMENTARIOS
@@ -661,6 +708,18 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
       }
       
   }
+
+  async getDealsByUserUsed(userid, dealid) {
+
+        try {
+      const dealsRaw: Usersdeals[] = await this.usersdealsService.getDealsByUser(userid, dealid);
+      // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+      return dealsRaw;
+        } catch(err) {
+      console.log(err);
+        }
+        
+    }  
   
   onBusyChanged(args) {
         let indicator = <ActivityIndicator>args.object;

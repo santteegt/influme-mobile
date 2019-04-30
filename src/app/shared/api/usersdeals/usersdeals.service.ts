@@ -30,4 +30,13 @@ export class UsersdealsService {
 		return promise;
 	}
 
+	public getDealsByUser(userID: string,dealID: string ): Promise<Usersdeals[]> {
+		let headers = null;
+
+		let promise = this.restAPI.get(config.apiUrl + `/usersdeals/search/one/${userID}/${dealID}`, headers);
+		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+		
+	  return promise;
+  }	
+
 }
