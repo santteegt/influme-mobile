@@ -8,7 +8,9 @@
 	</StackLayout>
     
     <StackLayout row="2" backgroundcolor="#E8E6E6">
-        <SearchBar hint="Search" (textChange)="onTextChange($event)" (loaded)="searchBarLoaded($event)" (submit)="onSubmit($event)" (tap)="clearTextFieldFocus($event)"class="search-bar"></SearchBar>
+        <SearchBar hint="Search" [formControl]="searchControl" (textChange)="onTextChange($event)" (loaded)="searchBarLoaded($event)" (submit)="onSubmit($event)" (tap)="clearTextFieldFocus($event)"class="search-bar"></SearchBar>
+        <!-- <SearchBar [formControl]="searchControl" (loaded)="searchBarLoaded($event)" class="search-bar"></SearchBar> -->
+
     </StackLayout>          
 
 	<GridLayout row="3" rows="*">

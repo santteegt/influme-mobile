@@ -5,19 +5,14 @@
 </ActionBar> 
 <!-- 50 -->
 <GridLayout rows="200,auto,*,50" class="markerprofile-layout">
+
       <GridLayout row="0">   
-        <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">
-                <CarouselItem>
-                    <Image src="{{imagedescription_a}}" stretch="aspectFill" ></Image>
-                </CarouselItem>
-                <CarouselItem>
-                    <Image src="{{imagedescription_b}}" stretch="aspectFill"></Image>
-                </CarouselItem>
-                <CarouselItem>
-                    <Image src="{{imagedescription_c}}" stretch="aspectFill"></Image>
-                </CarouselItem>
+         <Carousel #mycarite ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="199" width="100%">            
+
         </Carousel>
       </GridLayout>
+
+
     <LABEL text="{{profile_id_selected.followers}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
     <!-- <LABEL verticalAlignment="top" marginTop="65" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL> -->
     <LABEL verticalAlignment="top" marginTop="52" marginRight="20" horizontalAlignment="right" text="{{ 'followers' | L }}" class="followers-style-text"></LABEL>

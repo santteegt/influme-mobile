@@ -22,6 +22,8 @@ import { Markerprofile } from "../shared/models/markerprofile.model";
 import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
 import { Usersinterests } from "../shared/models/usersinterests.model";
 
+import { ImagesService } from "../shared/api/images/images.service";
+
 import { localize } from "nativescript-localize";
 
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
@@ -33,6 +35,8 @@ import { Usersdeals } from "../shared/models/usersdeals.model";
 import * as nsPlatform from "nativescript-platform";
 
 import { Data } from "../providers/data/data";
+
+import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -95,12 +99,13 @@ export class ViewmapComponent {
     optionsFilter: any;
 
     messagefreebutton: string;
+    public base64ImageSource: ImageSource;
 
 
     constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
         private dealsprofileService: DealsprofileService, private usersinterestsService: UsersinterestsService,
         private markerprofileService: MarkerprofileService, private usersdealsService: UsersdealsService, 
-        private data: Data) {
+        private data: Data, private imagesService: ImagesService) {
     
         this.page.actionBarHidden = true;
         this.isBusy = true;
@@ -304,36 +309,78 @@ export class ViewmapComponent {
         
         this.markerSelectOnMap = this.marker_profile.filter(d => d.markerid.title == args.marker.title);
 
-        let img_marker_selected = this.prefixImagePath + this.markerSelectOnMap[0].markerid.picturehome;
-        let icon_type = this.prefixImagePath + this.markerSelectOnMap[0].markerid.type.icontype;
-        for(var i=0; i<this.markerSelectOnMap.length; i++){
-            ticketsfree = ticketsfree + (this.markerSelectOnMap[i].total_tickets - this.markerSelectOnMap[i].used_tickets);
-            this.messagefreebutton = ticketsfree + " " + localize("available_deal");
-        }
+        // let img_marker_selected = this.prefixImagePath + this.markerSelectOnMap[0].markerid.picturehome;
+        // let icon_type = this.prefixImagePath + this.markerSelectOnMap[0].markerid.type.icontype;
+
+        // let imagenesfinales: any = this.markerSelectOnMap[0].markerid.images.map(async itemvalue => {
+        //     let response = await this.getImageFilter(itemvalue);
+        //     //console.log(JSON.stringify(response.imagesource));
+        //     // return response.json();
+        //     return response;
+        //   });       
+
+        // console.log("** " + imagenesfinales[0]);           
+
+        // for(var y=0; y<this.markerSelectOnMap[0].markerid.images.length;y++){
+            
+        //     this.markerSelectOnMap[0].markerid.images[y] = imagenesfinales[y];              
+
+
+        // }
+
+        // console.log("** " + JSON.stringify(this.markerSelectOnMap[0].markerid.images[0]));
+        //     console.log(this.markerSelectOnMap[0].markerid.images[y]);
+
+        //     this.getImageFilter(this.markerSelectOnMap[0].markerid.images[y]).then(dataImages => { 
+
+        //         console.log("* " + dataImages.imagesource);           
+
+        //         // this.markerSelectOnMap[0].markerid.images[0] = "JAJAJA";              
+
+        //     });
+
+        // }
+
+
+
+
+        // Recupera imagen para perfil que es la posicion 0 de las almacenadas en markerprofile
+        this.getImageFilter(this.markerSelectOnMap[0].markerid.images[0]).then(dataImages => {
+
+            // this.base64ImageSource = fromBase64(this.markerSelectOnMap[0].markerid.images[0]);  
+            this.base64ImageSource = fromBase64(dataImages.imagesource);  
+
+
+            // let img_marker_selected = this.markerSelectOnMap[0].markerid.images[0];
+
+            let icon_type = this.prefixImagePath + this.markerSelectOnMap[0].markerid.type.icontype;
+            for(var i=0; i<this.markerSelectOnMap.length; i++){
+                ticketsfree = ticketsfree + (this.markerSelectOnMap[i].total_tickets - this.markerSelectOnMap[i].used_tickets);
+                this.messagefreebutton = ticketsfree + " " + localize("available_deal");
+            }
+
+            //console.log("Icono " + icon_type);
+            
+            this.myNativeStack.removeChildren();
+            this.newImage = new Image();
+            this.newImage.src = this.base64ImageSource;
+            this.newImage.stretch = "aspectFill";
+            this.myNativeStack.addChild(this.newImage);
+
+            this.myNativeStack1.removeChildren();
+            this.newImage = new Image();
+            this.newImage.src = icon_type;
+            this.newImage.stretch = "aspectFit";
+            this.newImage.width = 11.7;
+            this.newImage.height = 19.4;
+            // this.newImage.style.color = "black";
+            this.myNativeStack1.addChild(this.newImage);
+
+            this.showDetails= "visible"            
+        });
         
 
 
-        //console.log("Icono " + icon_type);
-        
-        this.myNativeStack.removeChildren();
-        this.newImage = new Image();
-        this.newImage.src = img_marker_selected;
-        this.newImage.stretch = "aspectFill";
-        this.myNativeStack.addChild(this.newImage);
-
-        this.myNativeStack1.removeChildren();
-        this.newImage = new Image();
-        this.newImage.src = icon_type;
-        this.newImage.stretch = "aspectFit";
-        this.newImage.width = 11.7;
-        this.newImage.height = 19.4;
-        // this.newImage.style.color = "black";
-        this.myNativeStack1.addChild(this.newImage);
-
-        // this.description_marker = args.marker.snippet;
-        // alert("Marker Event: '" + args.eventName + "' triggered on: " + args.marker.title + ", Lat: " + args.marker.position.latitude 
-        //     + ", Lon: " + args.marker.position.longitude)
-        this.showDetails= "visible"
     }
 
     onCameraChanged(args) {
@@ -617,6 +664,17 @@ export class ViewmapComponent {
       }
       
   }
+
+  async getImageFilter(idImage) {
+    try {
+      const dealsRaw: any = await this.imagesService.getImagesFiles(idImage);
+      // console.log("IMG "+JSON.stringify(dealsRaw));
+      return dealsRaw;
+        } catch(err) {
+      console.log(err);
+        }
+        
+    }  
 
 
 }

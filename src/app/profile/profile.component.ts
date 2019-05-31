@@ -24,6 +24,8 @@ import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.ser
 import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
+import { ImagesService } from "../shared/api/images/images.service";
+import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
 
 import { Data } from "../providers/data/data";
 
@@ -60,7 +62,7 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   private drawer: RadSideDrawer;
 
   @ViewChild("carouselO") carouselRef: ElementRef;
-  // private varCarousel: Carousel;
+  public carousel: Carousel;
 
   @ViewChild("maintitlesettings") stackMainTitleSettings: ElementRef;
   titleSettingsNativeStack: StackLayout;
@@ -68,14 +70,14 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   @ViewChild("maintitle") stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;      
 
-  public newImage: Image;  
-  public carouselItem: CarouselItem;
+  // public newImage: Image;  
+  // public carouselItem: CarouselItem;
 
 
 constructor(private route: ActivatedRoute, private page: Page,
                 private userApiService: UserapiService, private _routExt: RouterExtensions, 
                 private _changeDetectionRef: ChangeDetectorRef, private dealsprofileService: DealsprofileService,
-                private markerprofileService: MarkerprofileService, 
+                private markerprofileService: MarkerprofileService,private imagesService: ImagesService, 
                 private usersinterestsService: UsersinterestsService, private data: Data) { 
 
     let token="";
@@ -164,7 +166,8 @@ constructor(private route: ActivatedRoute, private page: Page,
   ngAfterViewInit() {
         this.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectionRef.detectChanges();
-        
+
+        this.carousel = this.carouselRef.nativeElement;
         this.fillCarousel();
 
         // this.getDealsSubscribe(this.userLogData.info._id).then(dealsResponse => {
@@ -175,28 +178,35 @@ constructor(private route: ActivatedRoute, private page: Page,
   }
 
   private fillCarousel(){
-    const carousel = this.carouselRef.nativeElement as Carousel;
+
+    
 
     if(this.dealsSubscribe.length>0){
 
       for(var j=0; j<this.dealsSubscribe.length; j++){
+        // this.profile_id_selected.images.forEach( (itemvalue) => {
 
-        this.newImage = new Image();          
-        this.newImage.src = "res://"+this.dealsSubscribe[j].dealid.img;
-        this.newImage.stretch = "fill";
-        this.carouselItem = new CarouselItem(); 
-        this.carouselItem.addChild(this.newImage);               
-        carousel.addChild(this.carouselItem);
+        const carouselItem = new CarouselItem();
+
+        this.getImageFilter(this.dealsSubscribe[j].dealid.img).then(dataImage=> {
+
+          const newImageDealsUser = new Image();
+          newImageDealsUser.src = fromBase64(dataImage.imagesource);
+          newImageDealsUser.stretch = "fill";          
+          carouselItem.addChild(newImageDealsUser);                         
+        }); 
+
+        this.carousel.addChild(carouselItem);  
 
       }
 
     }else{
-      this.newImage = new Image();          
-      this.newImage.src = "res://empty";
-      this.newImage.stretch = "fill";
-      this.carouselItem = new CarouselItem(); 
-      this.carouselItem.addChild(this.newImage); 
-      carousel.addChild(this.carouselItem);        
+      const newImageEmptyDeals = new Image();          
+      newImageEmptyDeals.src = "res://empty";
+      newImageEmptyDeals.stretch = "fill";
+      const carouselItemEmpty = new CarouselItem(); 
+      carouselItemEmpty.addChild(newImageEmptyDeals); 
+      this.carousel.addChild(carouselItemEmpty);        
     }
 
   }
@@ -435,5 +445,17 @@ constructor(private route: ActivatedRoute, private page: Page,
         let indicator = <ActivityIndicator>args.object;
         console.log("indicator.busy changed to: " + indicator.busy);
     }
+
+  async getImageFilter(idImage) {
+    try {
+      // console.log("Name Img " + idImage);
+      const dealsRaw: any = await this.imagesService.getImagesFiles(idImage);
+      // console.log("IMG "+JSON.stringify(dealsRaw));
+      return dealsRaw;
+        } catch(err) {
+      console.log(err);
+        }
+        
+  }
 
 }

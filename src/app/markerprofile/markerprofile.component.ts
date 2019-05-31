@@ -13,10 +13,12 @@ import { Page } from "tns-core-modules/ui/page";
 import * as localstorage from "nativescript-localstorage";
 import * as utils from "tns-core-modules/utils/utils";
 import { localize } from "nativescript-localize";
+import { Carousel, CarouselItem } from 'nativescript-carousel';
 
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
 import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
 import { UsersmarkerService } from "../shared/api/usersmarker/usersmarker.service";
+import { ImagesService } from "../shared/api/images/images.service";
 
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
@@ -31,14 +33,9 @@ import { Usersinterests } from "../shared/models/usersinterests.model";
 
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 
-//********
-
-// export function onTap(args: GestureEventData){
-//     console.log(args.object.id);
-//   };
-
-// registerElement('Carousel', () => Carousel);
-// registerElement('CarouselItem', () => CarouselItem);
+import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
+import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
+import { Color } from "tns-core-modules/color";
 
 @Component({
   selector: 'markerprofile',
@@ -46,17 +43,20 @@ import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
   styleUrls: ['./markerprofile.component.css'],
   moduleId: module.id,
 })
-export class MarkerprofileComponent implements OnInit, AfterViewInit {
-  @ViewChild('carousel') carouselRef: ElementRef;
+export class MarkerprofileComponent implements OnInit {
+  // //Para carrusel
+  @ViewChild('mycarite') carRef: ElementRef;
+  public carouselG: Carousel;
 
-    // Para coger un StackLayout y agregar elementos
+  // Para coger un StackLayout y agregar elementos
   @ViewChild("myNgStack") stackRef: ElementRef;
   myNativeStack: StackLayout;
 
-  public newImage: Image;
-  
-  // marker_profile: any;
-  // userIdentification: string = "5c96f09a6d69fdd962e49c19";
+  // public newImage: Image;
+  // //Para carrusel
+  // public carouselItem: CarouselItem;
+
+
   userIdentification: string;
   public isBusy = false;
 
@@ -66,160 +66,89 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
   imagedescription_b: string;
   imagedescription_c: string;
   labelfollowbutton: string;
+  tesarray:any = [];
 
   profile_id_selected: Markerprofile;
   images_descuentos: Dealsprofile[];
 
   responseUsersMarker: Usersmarker[];
 
+
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
     private dealsprofileService: DealsprofileService, private ngZone: NgZone, 
-    private markerprofileService: MarkerprofileService, private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService,
+    private markerprofileService: MarkerprofileService, private imagesService: ImagesService,
+    private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService,
     private data: Data, private usersdealsService: UsersdealsService) {
-
-    // this.page.actionBarHidden = true;
-    // this.page.backgroundSpanUnderStatusBar = true;  
 
     let profileMarkerString = ""; 
 
-    // this.marker_profile = [
-    //   { 
-    //     "title" : "Mido",
-    //     "descripcion": "Sushi Restaurant",
-    //     "web": "www.mido.berlin",
-    //     "seguidores": "120",
-    //     "dir": "Wilmersdorfer Str. 94",
-    //     "img1": "res://mido/1",
-    //     "img2": "res://mido/6",
-    //     "img3": "res://mido/3",        
-    //     "promos": [
-    //       {
-    //         "img": "res://mido/CouponMido", "function": "onClickImga()"
-    //       }
-    //       // ,
-    //       // {
-    //       //   "img": "res://mercado/descuentoa", "function": "onClickImgb()"
-    //       // }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "808 Club Berlin",
-    //     "descripcion": "Night Club",
-    //     "web": "www.808.berlin",
-    //     "seguidores": "200",
-    //     "dir": "Budapester Str. 38-50",
-    //     "img1": "res://clubberlin/1",
-    //     "img2": "res://clubberlin/2",
-    //     "img3": "res://clubberlin/3",
-    //     "promos": [
-    //       {
-    //         "img": "res://clubberlin/Coupon808", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "Zola",
-    //     "descripcion": "Pizza Restaurant",
-    //     "web": "www.zola.com",
-    //     "seguidores": "240",
-    //     "dir": "Paul-Lincke-Ufer 39-40",
-    //     "img1": "res://zola/1",
-    //     "img2": "res://zola/2",
-    //     "img3": "res://zola/3",        
-    //     "promos": [
-    //       {
-    //         "img": "res://zola/CouponZola", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "Sons of Mana",
-    //     "descripcion": "Hawaiian Cuisine",
-    //     "web": "www.sonsofmana.de",
-    //     "seguidores": "540",
-    //     "dir": "Alte Schönhauser Str. 7-8",
-    //     "img1": "res://sonsofmana/1",
-    //     "img2": "res://sonsofmana/2",
-    //     "img3": "res://sonsofmana/3",        
-    //     "promos": [
-    //       {
-    //         "img": "res://sonsofmana/CouponSOM", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "Bar Tausend",
-    //     "descripcion": "Cocktails - Music - Dining",
-    //     "web": "www.tausendberlin.com",
-    //     "seguidores": "290",
-    //     "dir": "G9CM+8W Berlín, Alemania",
-    //     "img1": "res://tausend/1",
-    //     "img2": "res://tausend/2",
-    //     "img3": "res://tausend/3",                
-    //     "promos": [
-    //       {
-    //         "img": "res://tausend/CouponTausend", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "Aquadom & Sealife Berlin",
-    //     "descripcion": "Aquarium",
-    //     "web": "www.visitsealife.com",
-    //     "seguidores": "390",
-    //     "dir": "Spandauer Str. 3",
-    //     "img1": "res://asb/1",
-    //     "img2": "res://asb/2",
-    //     "img3": "res://asb/3",                        
-    //     "promos": [
-    //       {
-    //         "img": "res://asb/CouponSealife", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   },
-    //   { 
-    //     "title" : "Berliner Fernsehturm",
-    //     "descripcion": "Television Tower",
-    //     "web": "www.tv-turm.de",
-    //     "seguidores": "790",
-    //     "dir": "GCC5+8Q Berlín, Alemania",
-    //     "img1": "res://berliner/1",
-    //     "img2": "res://berliner/2",
-    //     "img3": "res://berliner/3",
-    //     "promos": [
-    //       {
-    //         "img": "res://berliner/CouponBerliner", "function": "onClickImga()"
-    //       }
-    //     ]
-    //   }      
-    // ];
+    this.profile_id_selected = this.data.storage_vara;      
 
-    // this.route.queryParams.subscribe(params => {
-    //     profileMarkerString = params["MarkerProfile"];
+    this.tesarray.push("res://zola/zola1");
+    this.tesarray.push("res://zola/zola2");
+
+    // this.imagedescription_a = this.profile_id_selected.images[0];    
+
+    // this.profile_id_selected.images.forEach(async (itemvalue) => {
+
+
     // });
-    // profileMarkerString = this.data.storage_vara;
 
-    // this.profile_id_selected = JSON.parse(profileMarkerString); 
-    this.profile_id_selected = this.data.storage_vara;     
+         //    console.log(">>>> " + itemvalue);
 
-    this.imagedescription_a = "res://" + this.profile_id_selected.images[0];
-    this.imagedescription_b = "res://" + this.profile_id_selected.images[1];
-    this.imagedescription_c = "res://" + this.profile_id_selected.images[2];
+         //    this.getImageFilter(itemvalue).then(dataImage=> { 
+         //      console.log("Entro");     
+         //      this.base64ImageSource.push(dataImage);              
+         //    });
+
+         // });
 
 
-    // this.profile_id_selected = this.marker_profile.filter(d => d.title === titleSearch);
 
-    // this.availableMarkers().then(dataM => {
+        // //Recuperando images para carousel de fotos de perfil 
+        // const populateImages = async () => {
+        //   for (const itemvalue of this.profile_id_selected.images) {
+        //       await this.getImageFilter(itemvalue).then(dataImage => {
+        //           const carousel = this.carouselRef.nativeElement as Carousel; 
+        //           // this.imagesbase64encode.push(fromBase64(dataImage.imagesource));
+        //           this.newImage = new Image();          
+        //           this.newImage.src = fromBase64(dataImage.imagesource);
+        //           this.newImage.stretch = "fill";
+        //           this.carouselItem = new CarouselItem(); 
+        //           this.carouselItem.addChild(this.newImage);               
+        //           carousel.addChild(this.carouselItem);
+        //       });
+        //   }
+        // }
 
-    //   // console.log("[*] Marker final " + this.dealsprofilecontent.);        
-    //   this.marker_profile = dataM;
+        // populateImages().then(() => {
+        //     console.log('done');             
+        //     // const carousel = this.carouselRef.nativeElement as Carousel;  
 
-    //   
-    // }
-  }
+        //     // console.log("SIZE IMAGENES " + this.imagesbase64encode.length);
 
-  ngOnInit() {
-        
+        //     // for(var x=0; x<this.imagesbase64encode.length;x++){
+
+        //     //   this.newImage = new Image();          
+        //     //   this.newImage.src = this.imagesbase64encode[x];
+        //     //   this.newImage.stretch = "fill";
+        //     //   this.carouselItem = new CarouselItem(); 
+        //     //   this.carouselItem.addChild(this.newImage);               
+        //     //   carousel.addChild(this.carouselItem);
+
+        //     // }             
+            
+        // });
+
+
+}
+
+
+
+  ngOnInit() { 
+
+        this.carouselG = this.carRef.nativeElement;            
+
         if(localstorage.getItem('ResultLogin') != null){
             let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
             this.userIdentification = userLoginRecord.info._id;
@@ -257,43 +186,36 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit() {
-       // const carousel = this.carouselRef.nativeElement as Carousel;
-        // // if (isAndroid) {
-        // //   setTimeout(() => {
-        // //     carousel.indicatorAnimation = IndicatorAnimation.WORM;
-        // //     alert({
-        // //       message: 'The indicator animation has changed from SWAP to WORM. View the items.component.ts to see how.',
-        // //       okButtonText: 'Okay'
-        // //     });
-        // //   }, 5000);
-        // }
 
-    // if(this.userIdentification!=null){ 
-    //   this.showDetails="visible";
-    //   this.isFollower(this.userIdentification, this.profile_id_selected._id).then(dataResponse => {
+  loadImagesMarker(){
 
-    //     console.log("Revisa si esta siguiendo: " + dataResponse.length);
+    this.profile_id_selected.images.forEach(async (itemvalue) => {
+      // for (var itemvalue of this.profile_id_selected.images) {                
+        const carouselItem = new CarouselItem();
+        
+        this.getImageFilter(itemvalue).then(dataImage=> {
 
-    //     this.responseUsersMarker = dataResponse;
+              const newImage = new Image();          
+              newImage.src = fromBase64(dataImage.imagesource);            
+              newImage.stretch = "aspectFill";                          
+              carouselItem.addChild(newImage);                                                             
+        }); 
+        this.carouselG.addChild(carouselItem);
+    });  
 
-    //     if(this.responseUsersMarker.length == 0){
-    //       this.labelfollowbutton = localize("follow");
+  }
 
-    //     }else if(this.responseUsersMarker.length > 0){
-    //       this.labelfollowbutton = localize("unfollow");
-    //     }
-
-    //   });
-    // }else{
-    //   this.showDetails="collapsed";
-    // }
+  ngAfterViewInit() { 
 
 
+
+    this.loadImagesMarker();
+
+    // Para cargar deals
     this.getDealsMarkerProfile(this.profile_id_selected._id).then(dataResponse => {
 
         let contIndex = 0;
-            // .profile_id_selected[0]["promos"];
+
         this.myNativeStack = this.stackRef.nativeElement;
 
         this.images_descuentos = dataResponse;
@@ -338,40 +260,57 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
           }
         }
 
+        // Fill imagenes de local slide
+        // this.profile_id_selected.images.forEach(async (itemvalue) => {
+        // this.tesarray.forEach( (itemvalue) => {
+
+        //     this.carouselItem = new CarouselItem();
+
+        //   // console.log("Name Image " + itemvalue);
+
+        //   // this.getImageFilter(itemvalue).then(dataImage=> {              
+              
+        //       this.newImage = new Image();          
+        //       // this.newImage.src = fromBase64(dataImage.imagesource);
+        //       this.newImage.src = itemvalue;
+
+        //       this.newImage.stretch = "fill";
+              
+
+        //       this.carouselItem.addChild(this.newImage);                            
+        //       carouselG.addChild(this.carouselItem);
+        //       // this.stacklItem.addChild(this.carouselItem);
+
+        //   // });
+
+        // });
+
     });
 
-    // this.myNativeStack = this.stackRef.nativeElement;
-
-    // for (var i=0; i<this.images_descuentos.length; i++){
-    //   let valueimage = this.images_descuentos[i]["img"];
-    //   this.newImage = new Image();
-    //   this.newImage.src = valueimage
-    //   this.newImage.stretch = "fill";
-    //   this.newImage.on(GestureTypes.tap, function (args: GestureEventData) {
-    
-    //       console.log(args.ios)          
-    //   });
-    //   this.myNativeStack.addChild(this.newImage);
-    //   }
   }
 
   public setDealsHtmlEmpty(){
-      this.newImage = new Image();          
-      this.newImage.src = "res://empty";
-      this.newImage.style.margin = "5 0";
-      this.newImage.stretch = "fill";  
-      this.myNativeStack.addChild(this.newImage);    
+      var newImage = new Image();          
+      newImage.src = "res://empty";
+      newImage.style.margin = "5 0";
+      newImage.stretch = "fill";  
+      this.myNativeStack.addChild(newImage);    
   }
 
-  public setDealsHtml(element){
+  public setDealsHtml(elementDeals){
 
-          let valueimage = "res://" + element.img;
-          this.newImage = new Image();          
-          this.newImage.src = valueimage
-          this.newImage.id = element._id;
-          this.newImage.style.margin = "5 0";
-          this.newImage.stretch = "fill";
-          this.newImage.on(GestureTypes.tap, function (args: GestureEventData ) { 
+    var element = elementDeals;
+
+    this.getImageFilter(element.img).then(dataImage=> {    
+
+          // let valueimage = "res://" + element.img;
+          const newImage = new Image();          
+          // this.newImage.src = valueimage
+          newImage.src = fromBase64(dataImage.imagesource);
+          newImage.id = element._id;
+          newImage.style.margin = "5 0";
+          newImage.stretch = "fill";
+          newImage.on(GestureTypes.tap, function (args: GestureEventData ) { 
             if(this.userIdentification!=null){        
               let widgetImage = <Image>args.object;
               let json_deal_selected: Dealsprofile[] = this.images_descuentos.filter(d => d._id === widgetImage.id);
@@ -388,7 +327,8 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
             }  
           }, this);
           
-          this.myNativeStack.addChild(this.newImage); 
+          this.myNativeStack.addChild(newImage); 
+    });
   }
 
   // onClickImga(navigationExtras){
@@ -725,4 +665,16 @@ export class MarkerprofileComponent implements OnInit, AfterViewInit {
         let indicator = <ActivityIndicator>args.object;
         console.log("indicator.busy changed to: " + indicator.busy);
   }
+
+  async getImageFilter(idImage) {
+    try {
+      // console.log("Name Img " + idImage);
+      const dealsRaw: any = await this.imagesService.getImagesFiles(idImage);
+      // console.log("IMG "+JSON.stringify(dealsRaw));
+      return dealsRaw;
+        } catch(err) {
+      console.log(err);
+        }
+        
+  }  
 }

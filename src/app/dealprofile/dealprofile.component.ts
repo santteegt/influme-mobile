@@ -7,6 +7,10 @@ import { Page } from "tns-core-modules/ui/page";
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 
+import { ImagesService } from "../shared/api/images/images.service";
+
+import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
+
 
 @Component({
   selector: 'dealprofile',
@@ -20,9 +24,10 @@ export class DealprofileComponent implements OnInit {
 
   aux_marker: Markerprofile;
 
-  imageDeal: string;
+  imageDeal: ImageSource;
 
-  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page) { 
+  constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, 
+    private page: Page, private imagesService: ImagesService) { 
 
     this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;    
@@ -39,9 +44,13 @@ export class DealprofileComponent implements OnInit {
 
         console.log("[**] DEALS " + JSON.stringify(this.deal_profile));
         console.log("[**] Marker " + JSON.stringify(this.aux_marker));
+        
+        this.getImageFilter(this.deal_profile[0].img).then(dataImages=> { 
+            this.imageDeal = fromBase64(dataImages.imagesource);
+        });   
 
 
-        this.imageDeal = "res://" + this.deal_profile[0].img;
+        // this.imageDeal = "res://" + this.deal_profile[0].img;
 
         
         // extrastitle = jsonstringparams["dealId"];
@@ -119,4 +128,17 @@ export class DealprofileComponent implements OnInit {
   //     }
   // });
  }
+
+  async getImageFilter(idImage) {
+    try {
+      // console.log("Name Img " + idImage);
+      const dealsRaw: any = await this.imagesService.getImagesFiles(idImage);
+      // console.log("IMG "+JSON.stringify(dealsRaw));
+      return dealsRaw;
+        } catch(err) {
+      console.log(err);
+        }
+        
+  }
+
 }
