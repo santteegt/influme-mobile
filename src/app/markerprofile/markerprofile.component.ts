@@ -197,7 +197,8 @@ export class MarkerprofileComponent implements OnInit {
 
               const newImage = new Image();          
               newImage.src = fromBase64(dataImage.imagesource);            
-              newImage.stretch = "aspectFill";                          
+              newImage.stretch = "aspectFill";
+              carouselItem.width = 350;                  
               carouselItem.addChild(newImage);                                                             
         }); 
         this.carouselG.addChild(carouselItem);

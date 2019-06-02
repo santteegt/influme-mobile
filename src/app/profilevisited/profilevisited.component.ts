@@ -71,7 +71,7 @@ export class ProfilevisitedComponent implements OnInit {
         		private markerprofileService: MarkerprofileService, 
         		private usersdealsService: UsersdealsService) {
 
-	    this.page.actionBarHidden = true;
+	    // this.page.actionBarHidden = true;
         this.linteresesDown = [];
 	    this.linteresesUp = [];
 

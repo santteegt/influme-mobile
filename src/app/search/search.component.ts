@@ -67,14 +67,14 @@ export class SearchComponent implements OnInit, OnDestroy{
   @ViewChild("maintitle") stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;    
 
-  public newLabel: Label;
-  public newImage: Image;
-  public newImageIcon: Image;
-  public newGridLayout: GridLayout;
-  public newGridLayout1: GridLayout;
-  public newStackLayoutLabel: StackLayout;
-  public newStackLayoutImage: StackLayout;
-  public newStackLayoutIcon: StackLayout;
+  // public newLabel: Label;
+  // public newImage: Image;
+  // public newImageIcon: Image;
+  // public newGridLayout: GridLayout;
+  // public newGridLayout1: GridLayout;
+  // public newStackLayoutLabel: StackLayout;
+  // public newStackLayoutImage: StackLayout;
+  // public newStackLayoutIcon: StackLayout;
   public newStackLayout: StackLayout;
   public marker_profile: Markerprofile[] = [];
   public marker_profile_element: Markerprofile;
@@ -201,9 +201,9 @@ export class SearchComponent implements OnInit, OnDestroy{
               var i = index;
                          
               // get images from mongodb de los restaurantes
-              this.getImageFilter(elementMarker.images[0]).then(dataImages=> {
+              this.getImageFilter(elementMarker.images[0]).then(dataImage=> {
 
-                  this.fillViewMarkers(dataImages, mpelement, i)
+                  this.fillViewMarkers(dataImage, mpelement, i)
 
               });        
 
@@ -214,69 +214,69 @@ export class SearchComponent implements OnInit, OnDestroy{
     }
   }
 
-  public fillViewMarkers(dataImages, mpelement, i){
+  public fillViewMarkers(dataImage, mpelement, i){
 
         // Label con titulo de local
-        this.newLabel = new Label();          
-        this.newLabel.text = mpelement.title;
-        this.newLabel.className = "label-search";
+        const newLabel = new Label();          
+        newLabel.text = mpelement.title;
+        newLabel.className = "label-search";
 
         // Imagen de perfil
-        this.newImage = new Image();          
-        this.newImage.src = fromBase64(dataImages.imagesource);
-        this.newImage.stretch = "fill";
-        this.newImage.style.width = 55;
-        this.newImage.style.height = 55;
-        this.newImage.style.borderRadius = 61;
+        const newImage = new Image();          
+        newImage.src = fromBase64(dataImage.imagesource);
+        newImage.stretch = "fill";
+        newImage.style.width = 55;
+        newImage.style.height = 55;
+        newImage.style.borderRadius = 61;
 
         // Imagen de tipo de local
-        this.newImageIcon = new Image();          
-        this.newImageIcon.src = "res://" + mpelement.type.icontype;
-        this.newImageIcon.stretch = "fill";
-        this.newImageIcon.style.width = 8;
-        this.newImageIcon.style.height = 14;
-        this.newImageIcon.style.borderRadius = 4;
+        const newImageIcon = new Image();          
+        newImageIcon.src = "res://" + mpelement.type.icontype;
+        newImageIcon.stretch = "fill";
+        newImageIcon.style.width = 8;
+        newImageIcon.style.height = 14;
+        newImageIcon.style.borderRadius = 4;
 
         // StackLayout para label
-        this.newStackLayoutLabel = new StackLayout();
+        const newStackLayoutLabel = new StackLayout();
         // this.newStackLayoutLabel.style.backgroundColor = new Color("#860075");
-        this.newStackLayoutLabel.horizontalAlignment = "left";            
-        this.newStackLayoutLabel.marginTop = 10;
-        this.newStackLayoutLabel.marginLeft = 104;              
+        newStackLayoutLabel.horizontalAlignment = "left";            
+        newStackLayoutLabel.marginTop = 10;
+        newStackLayoutLabel.marginLeft = 104;              
                       
-        this.newStackLayoutLabel.addChild(this.newLabel);
+        newStackLayoutLabel.addChild(newLabel);
 
 
         // StackLayout para imagen de tipo de local
-        this.newStackLayoutIcon = new StackLayout();
-        this.newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
-        this.newStackLayoutIcon.width = 21;
-        this.newStackLayoutIcon.height = 21;
-        this.newStackLayoutIcon.style.borderRadius = 4;
-        this.newStackLayoutIcon.marginTop = 25;
-        this.newStackLayoutIcon.marginLeft = 104;
-        this.newStackLayoutIcon.horizontalAlignment = "left";
-        this.newStackLayoutIcon.verticalAlignment = "middle";
-        this.newStackLayoutIcon.addChild(this.newImageIcon);
+        const newStackLayoutIcon = new StackLayout();
+        newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
+        newStackLayoutIcon.width = 21;
+        newStackLayoutIcon.height = 21;
+        newStackLayoutIcon.style.borderRadius = 4;
+        newStackLayoutIcon.marginTop = 25;
+        newStackLayoutIcon.marginLeft = 104;
+        newStackLayoutIcon.horizontalAlignment = "left";
+        newStackLayoutIcon.verticalAlignment = "middle";
+        newStackLayoutIcon.addChild(newImageIcon);
 
         // StackLayout para imagen de perfil
-        this.newStackLayoutImage = new StackLayout();
+        const newStackLayoutImage = new StackLayout();
         // this.newStackLayoutImage.style.backgroundColor = new Color("#867fbd");
-        this.newStackLayoutImage.horizontalAlignment = "left"
-        this.newStackLayoutImage.marginTop = 5;
-        this.newStackLayoutImage.marginLeft = 36;                         
+        newStackLayoutImage.horizontalAlignment = "left"
+        newStackLayoutImage.marginTop = 5;
+        newStackLayoutImage.marginLeft = 36;                         
 
-        this.newStackLayoutImage .addChild(this.newImage);
+        newStackLayoutImage.addChild(newImage);
 
         // GridLayout Principal
-        this.newGridLayout = new GridLayout();          
-        this.newGridLayout.id = mpelement._id;
-        this.newGridLayout.backgroundColor = new Color("white");
-        this.newGridLayout.addChildAtCell(this.newStackLayoutImage, i, 0);                          
-        this.newGridLayout.addChildAtCell(this.newStackLayoutLabel, i, 0);            
-        this.newGridLayout.addChildAtCell(this.newStackLayoutIcon, i, 0);           
-        this.newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
-        this.newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
+        const newGridLayout = new GridLayout();          
+        newGridLayout.id = mpelement._id;
+        newGridLayout.backgroundColor = new Color("white");
+        newGridLayout.addChildAtCell(newStackLayoutImage, i, 0);                          
+        newGridLayout.addChildAtCell(newStackLayoutLabel, i, 0);            
+        newGridLayout.addChildAtCell(newStackLayoutIcon, i, 0);           
+        newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
+        newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
           let grid = <GridLayout>args.object;           
           let json_deal_selected: Markerprofile[] = this.marker_profile.filter(d => d._id === grid.id);
           // let navigationExtras: NavigationExtras = {
@@ -290,9 +290,9 @@ export class SearchComponent implements OnInit, OnDestroy{
           // this._routerExtensions.navigate(["markerprofile"], navigationExtras);
 
         }, this);             
-        this.newGridLayout.height=75;
+        newGridLayout.height=75;
         // this.newGridLayout.style.backgroundColor = new Color("#FF0000");
-        this.myNativeStack.addChild(this.newGridLayout);   
+        this.myNativeStack.addChild(newGridLayout);   
   }
   
   public fillViewUsers(userSearchProfile){
@@ -302,75 +302,75 @@ export class SearchComponent implements OnInit, OnDestroy{
           for(var i=0; i<userSearchProfile.length; i++){
 
               // GridLayout Principal
-              this.newGridLayout = new GridLayout();          
-              this.newGridLayout.id = userSearchProfile[i].info._id;
-              this.newGridLayout.backgroundColor = new Color("white");
+              const newGridLayout = new GridLayout();          
+              newGridLayout.id = userSearchProfile[i].info._id;
+              newGridLayout.backgroundColor = new Color("white");
 
               // GridLayout SECUNDARIO
-              this.newGridLayout1 = new GridLayout();          
-              this.newGridLayout1.backgroundColor = new Color("white");                  
-              this.newGridLayout1.height = 25;                  
-              this.newGridLayout1.marginLeft = 104;
+              const newGridLayout1 = new GridLayout();          
+              newGridLayout1.backgroundColor = new Color("white");                  
+              newGridLayout1.height = 25;                  
+              newGridLayout1.marginLeft = 104;
 
               // Label con titulo de local
-              this.newLabel = new Label();          
-              this.newLabel.text = userSearchProfile[i].info.name;
-              this.newLabel.className = "label-search";
+              const newLabel = new Label();          
+              newLabel.text = userSearchProfile[i].info.name;
+              newLabel.className = "label-search";
 
               // Imagen de perfil
-              this.newImage = new Image();          
-              this.newImage.src = userSearchProfile[i].info.picturehome;
-              this.newImage.stretch = "fill";
-              this.newImage.style.width = 55;
-              this.newImage.style.height = 55;
-              this.newImage.style.borderRadius = 61;
+              const newImage = new Image();          
+              newImage.src = userSearchProfile[i].info.picturehome;
+              newImage.stretch = "fill";
+              newImage.style.width = 55;
+              newImage.style.height = 55;
+              newImage.style.borderRadius = 61;
 
               // StackLayout para label
-              this.newStackLayoutLabel = new StackLayout();
-              this.newStackLayoutLabel.horizontalAlignment = "left";            
-              this.newStackLayoutLabel.height = 75;
-              this.newStackLayoutLabel.marginTop = 10;
-              this.newStackLayoutLabel.marginLeft = 104;                                            
-              this.newStackLayoutLabel.addChild(this.newLabel);
+              const newStackLayoutLabel = new StackLayout();
+              newStackLayoutLabel.horizontalAlignment = "left";            
+              newStackLayoutLabel.height = 75;
+              newStackLayoutLabel.marginTop = 10;
+              newStackLayoutLabel.marginLeft = 104;                                            
+              newStackLayoutLabel.addChild(newLabel);
 
               // StackLayout para imagen de perfil
-              this.newStackLayoutImage = new StackLayout();
-              this.newStackLayoutImage.horizontalAlignment = "left"
-              this.newStackLayoutImage.marginTop = 5;
-              this.newStackLayoutImage.marginLeft = 36;                         
-              this.newStackLayoutImage .addChild(this.newImage);
+              const newStackLayoutImage = new StackLayout();
+              newStackLayoutImage.horizontalAlignment = "left"
+              newStackLayoutImage.marginTop = 5;
+              newStackLayoutImage.marginLeft = 36;                         
+              newStackLayoutImage .addChild(newImage);
 
 
               // Imagen de tipo de local
               for(var j=0; j<userSearchProfile[i].interests.length; j++){
 
                   // StackLayout para imagen de tipo de local
-                  this.newStackLayoutIcon = new StackLayout();
-                  this.newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
-                  this.newStackLayoutIcon.width = 21;
-                  this.newStackLayoutIcon.height = 21;
-                  this.newStackLayoutIcon.style.borderRadius = 4;
+                  const newStackLayoutIcon = new StackLayout();
+                  newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
+                  newStackLayoutIcon.width = 21;
+                  newStackLayoutIcon.height = 21;
+                  newStackLayoutIcon.style.borderRadius = 4;
                   // this.newStackLayoutIcon.marginTop = 25;
                   // this.newStackLayoutIcon.marginLeft = 104;
-                  this.newStackLayoutIcon.horizontalAlignment = "left";
-                  this.newStackLayoutIcon.verticalAlignment = "middle";
+                  newStackLayoutIcon.horizontalAlignment = "left";
+                  newStackLayoutIcon.verticalAlignment = "middle";
 
-                  this.newImageIcon = new Image();          
-                  this.newImageIcon.src = "res://" + userSearchProfile[i].interests[j].icontype;
-                  this.newImageIcon.stretch = "fill";
-                  this.newImageIcon.style.width = 8;
-                  this.newImageIcon.style.height = 14;
-                  this.newImageIcon.style.borderRadius = 4;
-                  this.newStackLayoutIcon.addChild(this.newImageIcon);
-                  this.newGridLayout1.addChildAtCell(this.newStackLayoutIcon, i, j);  
-                  this.newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL));                                                 
+                  const newImageIcon = new Image();          
+                  newImageIcon.src = "res://" + userSearchProfile[i].interests[j].icontype;
+                  newImageIcon.stretch = "fill";
+                  newImageIcon.style.width = 8;
+                  newImageIcon.style.height = 14;
+                  newImageIcon.style.borderRadius = 4;
+                  newStackLayoutIcon.addChild(newImageIcon);
+                  newGridLayout1.addChildAtCell(newStackLayoutIcon, i, j);  
+                  newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL));                                                 
               }
 
-              this.newGridLayout.addChildAtCell(this.newStackLayoutImage, i, 0);                          
-              this.newGridLayout.addChildAtCell(this.newStackLayoutLabel, i, 0);
-              this.newGridLayout.addChildAtCell(this.newGridLayout1, i, 0);
-              this.newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
-              this.newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
+              newGridLayout.addChildAtCell(newStackLayoutImage, i, 0);                          
+              newGridLayout.addChildAtCell(newStackLayoutLabel, i, 0);
+              newGridLayout.addChildAtCell(newGridLayout1, i, 0);
+              newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
+              newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
                 let grid = <GridLayout>args.object;           
                 let json_user_selected: any = userSearchProfile.filter(d => d.info._id === grid.id);
                 let intereses: any = [];
@@ -395,8 +395,8 @@ export class SearchComponent implements OnInit, OnDestroy{
                 });                      
                                       
               }, this);             
-              this.newGridLayout.height=75;
-              this.myNativeStack.addChild(this.newGridLayout);                  
+              newGridLayout.height=75;
+              this.myNativeStack.addChild(newGridLayout);                  
                         
               }
           }
