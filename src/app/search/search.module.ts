@@ -6,12 +6,18 @@ import { SearchComponent } from './search.component';
 
 import { SharedModule } from "../shared/shared.module";
 
+import { ReactiveFormsModule } from '@angular/forms'; 
+import { NativeScriptFormsModule } from 'nativescript-angular/forms'; 
+
+
 @NgModule({
   declarations: [SearchComponent],
   imports: [
     SearchRoutingModule,
     NativeScriptCommonModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    NativeScriptFormsModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

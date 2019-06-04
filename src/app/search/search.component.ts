@@ -41,6 +41,7 @@ import { debounceTime } from 'rxjs/operators';
 
 
 
+
 @Component({
   selector: 'ns-search',
   templateUrl: './search.component.html',
@@ -70,7 +71,7 @@ export class SearchComponent implements OnInit, OnDestroy{
   // public newLabel: Label;
   // public newImage: Image;
   // public newImageIcon: Image;
-  // public newGridLayout: GridLayout;
+  public newGridLayout: GridLayout;
   // public newGridLayout1: GridLayout;
   // public newStackLayoutLabel: StackLayout;
   // public newStackLayoutImage: StackLayout;
@@ -103,9 +104,10 @@ export class SearchComponent implements OnInit, OnDestroy{
 
 
       this.subscription = this.searchControl.valueChanges
-        .pipe(debounceTime(1100))
+        .pipe(debounceTime(500))
         .subscribe((value) => {
-            console.log(">>>>>>>>> " + value);
+            // console.log(">>>>>>>>> " + value);
+            this.onTextChange(value);
         });      
   
 
@@ -139,21 +141,21 @@ export class SearchComponent implements OnInit, OnDestroy{
       searchBar.text = "";
   }
 
-  public onTextChange(args) {   
+  public onTextChange(value) { 
 
       this.myNativeStack.removeChildren();
 
       // let allResults: any = [];
-      let searchBar = <SearchBar>args.object;  
+      // let searchBar = <SearchBar>args.object;  
 
-      if(searchBar.text){
-        
-        this.getMarkerProfile(searchBar.text).then(dataM => {
+      if(value){          
+      
+        this.getMarkerProfile(value).then(dataM => {
 
           this.myNativeStack.removeChildren();
           this.marker_profile = dataM;
 
-          this.getUserInterestsProfile(searchBar.text).then(dataUserResponse => {
+          this.getUserInterestsProfile(value).then(dataUserResponse => {
 
             this.myNativeStack.removeChildren();
 
@@ -195,7 +197,7 @@ export class SearchComponent implements OnInit, OnDestroy{
             this.fillViewUsers(userSearchProfile);
 
             // busqueda de restaurantes
-            dataM.forEach(async (elementMarker, index) => { 
+            dataM.forEach(async (elementMarker, index, self) => {
 
               var mpelement = elementMarker;
               var i = index;
@@ -203,7 +205,9 @@ export class SearchComponent implements OnInit, OnDestroy{
               // get images from mongodb de los restaurantes
               this.getImageFilter(elementMarker.images[0]).then(dataImage=> {
 
-                  this.fillViewMarkers(dataImage, mpelement, i)
+                    // setTimeout(this.fillViewMarkers(dataImage, mpelement, i, self), 7000);
+
+                  this.fillViewMarkers(dataImage, mpelement, i, self);
 
               });        
 
@@ -211,10 +215,13 @@ export class SearchComponent implements OnInit, OnDestroy{
 
           });
       });
+    }else
+    {
+      this.myNativeStack.removeChildren();
     }
   }
 
-  public fillViewMarkers(dataImage, mpelement, i){
+  public fillViewMarkers(dataImage, mpelement, i, marker_profile){
 
         // Label con titulo de local
         const newLabel = new Label();          
@@ -269,7 +276,7 @@ export class SearchComponent implements OnInit, OnDestroy{
         newStackLayoutImage.addChild(newImage);
 
         // GridLayout Principal
-        const newGridLayout = new GridLayout();          
+        const newGridLayout = new GridLayout();         
         newGridLayout.id = mpelement._id;
         newGridLayout.backgroundColor = new Color("white");
         newGridLayout.addChildAtCell(newStackLayoutImage, i, 0);                          
@@ -278,7 +285,7 @@ export class SearchComponent implements OnInit, OnDestroy{
         newGridLayout.addRow(new ItemSpec(0, GridUnitType.AUTO));
         newGridLayout.on(GestureTypes.tap, function (args: GestureEventData ) { 
           let grid = <GridLayout>args.object;           
-          let json_deal_selected: Markerprofile[] = this.marker_profile.filter(d => d._id === grid.id);
+          let json_deal_selected: Markerprofile[] = marker_profile.filter(d => d._id === grid.id);
           // let navigationExtras: NavigationExtras = {
           //     queryParams: {
           //         // "MarkerProfile": JSON.stringify(json_deal_selected)
