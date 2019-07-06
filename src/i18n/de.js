@@ -53,5 +53,11 @@ module.exports = {
 	"unfollow": "folgend",
 	"hot_deals": "Hot Deals",
 	"trending": "Trending",
-	"message_user_save_error": "Eingegebene Daten überprüfen"		
+	"message_user_save_error": "Eingegebene Daten überprüfen",
+	"message_user_fields_error": "Informationen fehlen",
+	"users": "Benutzer",
+	"shops": "Geschäfte",
+	"editprofile": "profil bearbeiten",
+	"impressum": "impressum"	
+
 };

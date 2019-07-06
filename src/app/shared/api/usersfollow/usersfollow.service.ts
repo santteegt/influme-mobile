@@ -3,6 +3,7 @@ import { request } from "tns-core-modules/http";
 import { config } from "../../config";
 import { RestService } from "../rest.service";
 import { Usersfollow } from "../../models/usersfollow.model";
+import { Usersfollowextend } from "../../models/usersfollowextend.model";
 
 
 
@@ -35,5 +36,26 @@ export class UsersfollowService {
 		
 	return promise;
 	}
+	
+	public getFollowingRecords(userid: string): Promise<Usersfollowextend[]> {
 
+  		let headers = null;
+
+  		let promise = this.restAPI.get(config.apiUrl + `/usersfollow/report/following/${userid}`, headers);
+
+
+  		
+		return promise;
+	}
+
+	public getFollowersRecords(userid: string): Promise<any[]> {
+
+  		let headers = null;
+
+  		let promise = this.restAPI.get(config.apiUrl + `/usersfollow/report/followers/${userid}`, headers);
+
+
+  		
+		return promise;
+	}	
 }

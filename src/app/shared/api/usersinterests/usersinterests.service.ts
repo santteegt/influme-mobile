@@ -22,6 +22,17 @@ export class UsersinterestsService {
 		return promise;
 	}
 
+  // public getTypesFullFromUsers(idUser: string): Promise<Usersinterests[]> {
+  public getTypesFullFromUsers(idUser: string): Promise<any[]> {
+
+      let headers = null;
+
+      let promise = this.restAPI.get(config.apiUrl + `/usersinterests/search/full/${idUser}`, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
+  }  
+
 	public getTypesFromUsersName(username: string): Promise<Usersinterestsextend[]> {
   		let headers = null;
 

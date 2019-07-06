@@ -213,14 +213,20 @@ export class ViewmapComponent {
         this.myNativeStack1 = this.stackRef1.nativeElement;
         this.titleNativeStack = this.stackMainTitle.nativeElement;
 
+        //Get number model of iphone
+        let modelSplit = nsPlatform.device.model.split("iPhone");
+        let textModel = modelSplit[1].split(",");
+        let numberModel = parseInt(textModel[0]);
 
-        if (nsPlatform.device.model.includes("11")){
+        console.log("Number model "+numberModel);
 
+        // if (nsPlatform.device.model.includes("11")){
+        if (numberModel >= 11){
             this.titleNativeStack.paddingTop = 93;
             this.titleNativeStack.height = 140;
         }else{
-            this.titleNativeStack.paddingTop = 49;
-            this.titleNativeStack.height = 96;
+            this.titleNativeStack.paddingTop = 20;
+            // this.titleNativeStack.height = 96;
         }
 
         // this.dealsprofilecontent = [];
@@ -414,7 +420,11 @@ export class ViewmapComponent {
 
     goviewmap() {
 
-        this._routerExtensions.navigate(["viewmap"], {animated: false});
+        // this._routerExtensions.navigate(["follower"], {animated: false});
+
+        // this._routerExtensions.navigate(["testinterest"], {animated: false});
+
+        // this._routerExtensions.navigate(["viewmap"], {animated: false});
 
     }
 

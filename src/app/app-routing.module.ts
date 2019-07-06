@@ -18,7 +18,10 @@ const routes: Routes = [
     { path: "interest", loadChildren: "~/app/interest/interest.module#InterestModule" },
     { path: "search", loadChildren: "~/app/search/search.module#SearchModule" },
     { path: "hotdeals", loadChildren: "~/app/hotdeals/hotdeals.module#HotdealsModule" },
-    { path: "profilevisited", loadChildren: "~/app/profilevisited/profilevisited.module#ProfilevisitedModule" }
+    { path: "profilevisited", loadChildren: "~/app/profilevisited/profilevisited.module#ProfilevisitedModule" },
+    { path: "following", loadChildren: "~/app/following/following.module#FollowingModule" },
+    { path: "followingextended", loadChildren: "~/app/followingextended/followingextended.module#FollowingextendedModule" },
+    { path: "follower", loadChildren: "~/app/follower/follower.module#FollowerModule" }
 
 ];
 

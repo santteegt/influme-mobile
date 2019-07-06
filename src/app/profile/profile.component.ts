@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { RouterExtensions } from "nativescript-angular/router";
@@ -49,7 +49,7 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   private cityUser: string;
   private followers: string;
   private following: string;
-
+  public nickUser: string;
   private confImage: string;
   private userLogData: any;
   private lintereses: any;
@@ -122,6 +122,7 @@ constructor(private route: ActivatedRoute, private page: Page,
 
     this.urlImage = this.userLogData.info.picturehome;
     this.nameUser = this.userLogData.info.name;
+    this.nickUser = this.userLogData.info.username;
     this.cityUser = this.userLogData.info.city;
     this.followers = this.userLogData.info.followers;
     this.following = this.userLogData.info.following;
@@ -216,14 +217,29 @@ constructor(private route: ActivatedRoute, private page: Page,
     this.titleNativeStack = this.stackMainTitle.nativeElement;
     this.titleSettingsNativeStack = this.stackMainTitleSettings.nativeElement;
 
+    //Get number model of iphone
+    let modelSplit = nsPlatform.device.model.split("iPhone");
+    let textModel = modelSplit[1].split(",");
+    let numberModel = parseInt(textModel[0]);
 
-    if (nsPlatform.device.model.includes("11")){
+    console.log("Number model "+numberModel);
+
+    // if (nsPlatform.device.model.includes("11")){
+    if (numberModel >= 11){
         this.titleSettingsNativeStack.paddingTop = 93;
         this.titleNativeStack.paddingTop = 93;
     }else{
-        this.titleSettingsNativeStack.paddingTop = 49;
-        this.titleNativeStack.paddingTop = 49;
-    }     
+        this.titleSettingsNativeStack.paddingTop = 20;
+        this.titleNativeStack.paddingTop = 20;
+    }
+
+    // if (nsPlatform.device.model.includes("11")){
+    //     this.titleSettingsNativeStack.paddingTop = 93;
+    //     this.titleNativeStack.paddingTop = 93;
+    // }else{
+    //     this.titleSettingsNativeStack.paddingTop = 49;
+    //     this.titleNativeStack.paddingTop = 49;
+    // }     
 
   }
 
@@ -457,5 +473,20 @@ constructor(private route: ActivatedRoute, private page: Page,
         }
         
   }
+
+    getFollowingInfo() {
+
+        if(parseInt(this.following) != 0){      
+
+            this._routExt.navigate(["following"]);
+        }
+    }
+
+    getFollowersInfo() {
+      if(parseInt(this.followers) != 0){      
+
+          this._routExt.navigate(["follower"]);
+      }
+    }      
 
 }

@@ -53,6 +53,10 @@ module.exports = {
 	"unfollow": "unfollow",
 	"hot_deals": "Hot Deals",
 	"trending": "Trending",
-	"message_user_save_error": "Review entered data"
-
+	"message_user_save_error": "Review entered data",
+	"message_user_fields_error": "Information is missing",
+	"users": "Users",
+	"shops": "Shops",
+	"editprofile": "edit profile",
+	"impressum": "impressum"
 };

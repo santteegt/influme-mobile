@@ -1,9 +1,9 @@
 import { Markerprofile } from '../models/markerprofile.model';
 
-export interface Usersmarker {
+export interface Usersmarkerextend {
 	
 	userid: string;
-	markerid: string;
+	markerid: Markerprofile;
 	status: boolean;
 
 }

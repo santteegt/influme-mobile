@@ -8,7 +8,7 @@ import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import * as nsPlatform from "nativescript-platform";
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 import { Data } from "../providers/data/data";
-
+import { NavigationExtras } from "@angular/router";
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
@@ -23,6 +23,8 @@ import { UserapiService } from "../shared/api/user/userapi.service";
 import { User } from "../shared/models/user.model";
 import { localize } from "nativescript-localize";
 import * as localstorage from "nativescript-localstorage";
+import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
+import { ImagesService } from "../shared/api/images/images.service";
 
 @Component({
   selector: 'ns-profilevisited',
@@ -33,7 +35,7 @@ import * as localstorage from "nativescript-localstorage";
 export class ProfilevisitedComponent implements OnInit {
 
 	@ViewChild("carouselO") carouselRef: ElementRef;
-	// private varCarousel: Carousel;
+	private carousel: Carousel;
 
 	@ViewChild("maintitle") stackMainTitle: ElementRef;
 	titleNativeStack: GridLayout;
@@ -42,13 +44,14 @@ export class ProfilevisitedComponent implements OnInit {
 	public userIdentificationvisited: string;
 	public urlImage: string;
 	public nameUser: string;
+  public nickUser: string;
 	public cityUser: string;
 	public followers: string;
 	public following: string;
 	public lintereses: any;
 	public userLogData: any;
-	public newImage: Image;  
-	public carouselItem: CarouselItem;
+	// public newImage: Image;  
+	// public carouselItem: CarouselItem;
   	private linteresesDown: any;
   	private linteresesUp: any;
   	private dealsSubscribe: any = [];
@@ -69,7 +72,8 @@ export class ProfilevisitedComponent implements OnInit {
 				private dealsprofileService: DealsprofileService, 
 				private usersinterestsService: UsersinterestsService,
         		private markerprofileService: MarkerprofileService, 
-        		private usersdealsService: UsersdealsService) {
+        		private usersdealsService: UsersdealsService,
+            private imagesService: ImagesService) {
 
 	    // this.page.actionBarHidden = true;
         this.linteresesDown = [];
@@ -81,20 +85,23 @@ export class ProfilevisitedComponent implements OnInit {
 	      this.dealsSubscribe = [];
 	    }
 
-	    console.log("Deals " + JSON.stringify(this.dealsSubscribe));
+	    console.log("******** Deals " + JSON.stringify(this.dealsSubscribe));
 
 	    this.userLogData = this.data.storage_varb;
+
+      console.log("this.data.storage_varb __ userLogData " + JSON.stringify(this.userLogData));
 
 	    this.userIdentificationvisited = this.userLogData._id;
 
 	    this.urlImage = this.userLogData.picturehome;
 	    this.nameUser = this.userLogData.name;
+      this.nickUser = this.userLogData.username
 	    this.cityUser = this.userLogData.city;
 	    this.followers = this.userLogData.followers;
 	    this.following = this.userLogData.following;
 	    this.lintereses = this.data.storage_vara;
 
-	    
+	    console.log("Deals " + JSON.stringify(this.dealsSubscribe));
 
 	    for(var i=0; i<this.lintereses.length; i++){
 	      if(i > 8 ){
@@ -110,11 +117,29 @@ export class ProfilevisitedComponent implements OnInit {
 
 	    this.titleNativeStack = this.stackMainTitle.nativeElement;
 
-		if (nsPlatform.device.model.includes("11")){
-		    this.titleNativeStack.paddingTop = 93;
-		}else{
-		    this.titleNativeStack.paddingTop = 49;
-		}
+    //Get number model of iphone
+    let modelSplit = nsPlatform.device.model.split("iPhone");
+    let textModel = modelSplit[1].split(",");
+    let numberModel = parseInt(textModel[0]);
+
+    console.log("Number model "+numberModel);
+
+    // if (nsPlatform.device.model.includes("11")){
+    if (numberModel >= 11){
+        // this.titleNativeStack.paddingTop = 49;
+        // this.titleNativeStack.paddingTop = 93;
+        this.titleNativeStack.paddingTop = 49;
+
+
+    }else{
+        this.titleNativeStack.paddingTop = 20;
+    }
+
+		// if (nsPlatform.device.model.includes("11")){
+		//     this.titleNativeStack.paddingTop = 93;
+		// }else{
+		//     this.titleNativeStack.paddingTop = 49;
+		// }
 
 
 	    if(localstorage.getItem('ResultLogin') != null){
@@ -158,33 +183,45 @@ export class ProfilevisitedComponent implements OnInit {
   	}
 
 	ngAfterViewInit() {
+        this.carousel = this.carouselRef.nativeElement;
+        
         this.fillCarousel();
 
 	}
 
 	private fillCarousel(){
-		const carousel = this.carouselRef.nativeElement as Carousel;
+		// const carousel = this.carouselRef.nativeElement as Carousel;
+
+    console.log("Size len " + this.dealsSubscribe.length);
 
 		if(this.dealsSubscribe.length>0){
 
 		  for(var j=0; j<this.dealsSubscribe.length; j++){
 
-		    this.newImage = new Image();          
-		    this.newImage.src = "res://"+this.dealsSubscribe[j].dealid.img;
-		    this.newImage.stretch = "fill";
-		    this.carouselItem = new CarouselItem(); 
-		    this.carouselItem.addChild(this.newImage);               
-		    carousel.addChild(this.carouselItem);
+        const carouselItem = new CarouselItem(); 
+
+        this.getImageFilter(this.dealsSubscribe[j].dealid.img).then(dataImage=> {
+
+  		    const newImage = new Image();          
+  		    // this.newImage.src = "res://"+this.dealsSubscribe[j].dealid.img;
+          newImage.src = fromBase64(dataImage.imagesource);
+  		    newImage.stretch = "fill";  		    
+  		    carouselItem.addChild(newImage);               
+  		    // carousel.addChild(carouselItem);
+
+        });
+
+        this.carousel.addChild(carouselItem);  
 
 		  }
 
 		}else{
-		  this.newImage = new Image();          
-		  this.newImage.src = "res://empty";
-		  this.newImage.stretch = "fill";
-		  this.carouselItem = new CarouselItem(); 
-		  this.carouselItem.addChild(this.newImage); 
-		  carousel.addChild(this.carouselItem);        
+		  const newImage = new Image();          
+		  newImage.src = "res://empty";
+		  newImage.stretch = "fill";
+		  const carouselItemEmpty = new CarouselItem(); 
+		  carouselItemEmpty.addChild(newImage); 
+		  this.carousel.addChild(carouselItemEmpty);        
 		}
 
 	}  	
@@ -468,6 +505,67 @@ export class ProfilevisitedComponent implements OnInit {
             console.log(err);
         }
         
+    }    
+
+    async getImageFilter(idImage) {
+      try {
+        // console.log("Name Img " + idImage);
+        const dealsRaw: any = await this.imagesService.getImagesFiles(idImage);
+        // console.log("IMG "+JSON.stringify(dealsRaw));
+        return dealsRaw;
+          } catch(err) {
+        console.log(err);
+          }
+          
+    }    
+
+    getFollowingInfo() {
+      if(this.userLogData.following!=0){
+
+          let jsonuseraux = "";
+          jsonuseraux = localstorage.getItem('ResultLogin');
+
+          if( jsonuseraux == null)
+              this._routerExtensions.navigate(["login"], {animated: false});
+          else{
+
+              let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                      "idUserSearched": this.userIdentificationvisited
+                      // "dataUser": JSON.stringify(this.userLogData),
+                      // "dataInterest": JSON.stringify(this.lintereses) 
+                    }
+              };          
+              
+              this._routerExtensions.navigate(["followingextended"], navigationExtras);
+
+          }
+        }      
+    }
+
+    getFollowersInfo() {
+
+      if(this.userLogData.followers!=0){
+
+          let jsonuseraux = "";
+          jsonuseraux = localstorage.getItem('ResultLogin');
+
+          if( jsonuseraux == null)
+              this._routerExtensions.navigate(["login"], {animated: false});
+          else{
+              
+              let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                      "idUserSearched": this.userIdentificationvisited
+                      // "dataUser": JSON.stringify(this.userLogData),
+                      // "dataInterest": JSON.stringify(this.lintereses) 
+                    }
+              };
+              
+              this._routerExtensions.navigate(["follower"], navigationExtras);
+
+          }
+      }  
     }    
 
 }//fin clase

@@ -158,12 +158,26 @@ export class UserComponent implements OnInit {
 
     this.titleNativeStack = this.stackMainTitle.nativeElement;
 
-    if (nsPlatform.device.model.includes("11")){
+    //Get number model of iphone
+    let modelSplit = nsPlatform.device.model.split("iPhone");
+    let textModel = modelSplit[1].split(",");
+    let numberModel = parseInt(textModel[0]);
 
-        this.titleNativeStack.paddingTop = 93;
+    console.log("Number model "+numberModel);
+
+    // if (nsPlatform.device.model.includes("11")){
+    if (numberModel >= 11){
+        this.titleNativeStack.paddingTop = 93;            
     }else{
-        this.titleNativeStack.paddingTop = 49;
-    }
+        this.titleNativeStack.paddingTop = 20;
+    }    
+
+    // if (nsPlatform.device.model.includes("11")){
+
+    //     this.titleNativeStack.paddingTop = 93;
+    // }else{
+    //     this.titleNativeStack.paddingTop = 49;
+    // }
 
   }
 
@@ -183,39 +197,51 @@ export class UserComponent implements OnInit {
 
 	private navigateInterest() {
 
-    localStorage.removeItem('ResultLogin');
-    localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                        
+      console.log("Verifica txtfieldcity " + this.txtfieldcity);
+      console.log("Verifica txtfieldmail " + this.txtfieldmail);
 
-      // let navigationExtras: NavigationExtras = {
-      //     queryParams: {
-      //         "info": JSON.stringify(this.jsonDataUser)
-      //   }
-      // };      
-      // this._routerExt.navigate(["interest"], navigationExtras);
-      if(this.menuOption == 0){
+      if(this.txtfieldcity != "" && this.txtfieldmail != ""){
 
-        let editOption = 0;
-        let navigationExtras: NavigationExtras = {
-        queryParams: {
-              "menuOption": editOption
-        }};
+            localStorage.removeItem('ResultLogin');
+            localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                        
+
+              // let navigationExtras: NavigationExtras = {
+              //     queryParams: {
+              //         "info": JSON.stringify(this.jsonDataUser)
+              //   }
+              // };      
+              // this._routerExt.navigate(["interest"], navigationExtras);
+              if(this.menuOption == 0){
+
+                let editOption = 0;
+                let navigationExtras: NavigationExtras = {
+                queryParams: {
+                      "menuOption": editOption
+                }};
+                
+                this._routerExt.navigate(["interest"], navigationExtras);
+
+              }else if(this.menuOption == 1){
+                  this.userProfile.city = this.txtfieldcity;
+                  this.userProfile.email = this.txtfieldmail;
+                  this.userProfile.influencer = this.turnInfluencer;
+                  this.updateAccountUser(this.userProfile._id, this.userProfile).then(responseSaveUser => {
+                    if(responseSaveUser.error!=null){
+                      this.printError("message_user_save_error");
+                    }else{
+                      this._routerExt.navigate(["profile"]);  
+                    }
+                    
+                  });
+              }      
+      }else{
+
+          console.log("ERROR !!!!!!" );
         
-        this._routerExt.navigate(["interest"], navigationExtras);
-
-      }else if(this.menuOption == 1){
-          this.userProfile.city = this.txtfieldcity;
-          this.userProfile.email = this.txtfieldmail;
-          this.userProfile.influencer = this.turnInfluencer;
-          this.updateAccountUser(this.userProfile._id, this.userProfile).then(responseSaveUser => {
-            if(responseSaveUser.error!=null){
-              this.printError("message_user_save_error");
-            }else{
-              this._routerExt.navigate(["profile"]);  
-            }
-            
-          });
+          this.printError("message_user_fields_error")
       }
-    }
+
+  }
 
   public enableLocationTap() {
       geolocation.isEnabled().then(function (isEnabled) {

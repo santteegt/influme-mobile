@@ -1,0 +1,13 @@
+<!-- <ActionBar>
+    <ActionItem ios.position="left" ios.systemIcon="14" (tap)="goBackProfile()" class="font-awesome">
+    </ActionItem>
+    <NavigationButton visibility="collapse"></NavigationButton>
+</ActionBar> -->
+
+<GridLayout rows="35, *">
+    <!-- <TabView #myNgStack> -->
+	<SegmentedBar row=0 #myNgStack></SegmentedBar>
+	<GridLayout row=1 #myNgStackUsers></GridLayout>	
+	<GridLayout row=1 #myNgStackShops></GridLayout>		
+    <!-- </TabView> -->
+</GridLayout>

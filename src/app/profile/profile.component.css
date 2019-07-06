@@ -22,49 +22,64 @@
 }
 
 .followers-style-number{
-    padding-top: 30px;
-	width:60;
-	height: 35; 
-	background-color: black;
-	color: white;
-/*	font-weight: 700;
-	font-size: 30px;
-*/	text-align: center;
-	border-top-left-radius: 5;
-	border-top-right-radius: 5;
+    padding-top: 10;
+    width:60;
+    height: 35; 
+    background-color: white;
+    color: #545355;
+/*  font-weight: 700;
+    font-size: 30px;
+*/  text-align: center;
+    border-top-left-radius: 5;
+    border-top-right-radius: 5;
     font-family: "SFProDisplay-Bold";
     font-size: 24;
     font-weight: bold;
 }
 
 .followers-style-text{
-	padding-top: 0;
-	width:60;
-	height: 25; 
-	background-color: black;
+    padding-top: 0;
+    width:60;
+    height: 25; 
+    background-color: white;
     text-align: center;
-	border-bottom-left-radius: 5;
-	border-bottom-right-radius: 5;
+    border-bottom-left-radius: 5;
+    border-bottom-right-radius: 5;
     font-family: "SFProDisplay-Light";
-    color: white;
+    color: #545355;
     font-size: 10;
 
 }
 
+.style-vertical-line{
+    border-right-color: #979797;
+    border-right-width: 1;
+    border-right-style: solid;
+}
+
 .main-layout-desprofile{
-    padding-top: 12;
-    padding-left: 40;
+    padding-top: 0;
+    padding-left: 36;
     padding-right: 40;  
 }
 
-.homemarker-title {
-/*	padding-top: 12;
-    padding-left: 40;
-    padding-right: 40;
-*/
+.nick-user-title {
     font-family: "SFProDisplay-Bold";
     font-size: 22;
     font-weight: bold;
+    text-transform: capitalize;
+}
+
+.user-title {
+    font-family: "SFProDisplay-Bold";
+    font-size: 15;
+    font-weight: bold;
+}
+
+.city-title {
+    font-family: "SFProDisplay-Light";
+    font-size: 15;
+    /*font-weight: bold;*/
 }
 
 .homemarker-description {
@@ -133,7 +148,7 @@
 
 .homemarker-social-media{    
     padding-top: 5;
-    padding-left: 40;
+    padding-left: 36;
 }
 
 .homemarker-facebook {
@@ -240,59 +255,86 @@
     font-size: 30;
 }
 
+/* NEW PROFILE*/
+
+.section-one {
+    padding-top: 10;
+    padding-left: 36;
+    padding-right: 40;
+    padding-bottom: 10;    
+}
+
+.photo-profile{
+    border-radius: 70;
+    height: 115;
+    width: 115;
+}
+
+.button-edit{
+    height: 26;
+    width: 73;
+    border-radius: 5;
+    background-color: #6821bc;
+    font-family: "SFProDisplay-Bold";
+    font-size: 10;
+    color: white;
+    font-weight: bold;
+}
+
+
 /*.imagebackground{
-	height: 30%;
-	width: 100%;
-	stretch: aspectFill; 
-	
+    height: 30%;
+    width: 100%;
+    stretch: aspectFill; 
+    
 }
 
 .profiletxt{
-	font-size: 30px;
-	font-weight: bold;
-	color: #000000;
+    font-size: 30px;
+    font-weight: bold;
+    color: #000000;
 }
 
 .nametxt{
-	font-size: 20px;
-	font-weight: bold;
-	color: #000000;
-	align-content: center;
-	word-wrap: true;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    align-content: center;
+    word-wrap: true;
 }
 
 .followbtn{
-	color: #ffffff;
+    color: #ffffff;
     background-color:#ff2d4c;
     width: 20%;
 }
 
 .Grid[col="0"] {
-	text-align: left;
+    text-align: left;
 }
 
 .Grid[col="2"] {
-	text-align: right;
+    text-align: right;
 }
 
 .btnsocial{
-	width: 15%;
-	height: 15%;
-	text-align: center;
+    width: 15%;
+    height: 15%;
+    text-align: center;
 }
 
 .btnsocial1{
-	color: #ffffff;
+    color: #ffffff;
     background-color:#c32aa3;
 }
 
 .btnsocial2{
-	color: #ffffff;
+    color: #ffffff;
     background-color:#3b5998;
 }
 
 .btnsocial3{
-	color: #ffffff;
+    color: #ffffff;
     background-color:#1da1f2;
 }
 

@@ -103,12 +103,20 @@ export class FiltermapComponent implements OnInit {
   ngOnInit() {
         this.titleNativeStack = this.stackMainTitle.nativeElement;
 
-        if (nsPlatform.device.model.includes("11")){
+        //Get number model of iphone
+        let modelSplit = nsPlatform.device.model.split("iPhone");
+        let textModel = modelSplit[1].split(",");
+        let numberModel = parseInt(textModel[0]);
 
-            this.titleNativeStack.paddingTop = 93;
+        console.log("Number model "+numberModel);
+
+        // if (nsPlatform.device.model.includes("11")){
+        if (numberModel >= 11){
+            this.titleNativeStack.paddingTop = 93;            
         }else{
-            this.titleNativeStack.paddingTop = 49;
-        }    
+            this.titleNativeStack.paddingTop = 20;
+        }        
+    
   }
 
   public onItemTap(args) {

@@ -1,3 +1,8 @@
+"impressum" = "impressum";
+"editprofile" = "edit profile";
+"shops" = "Shops";
+"users" = "Users";
+"message_user_fields_error" = "Information is missing";
 "message_user_save_error" = "Review entered data";
 "trending" = "Trending";
 "hot_deals" = "Hot Deals";

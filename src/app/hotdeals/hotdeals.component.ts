@@ -98,14 +98,20 @@ export class HotdealsComponent implements OnInit {
     this.categoryNativeStack = this.stackMyCategory.nativeElement;
 
 
-    if (nsPlatform.device.model.includes("11")){
+    //Get number model of iphone
+    let modelSplit = nsPlatform.device.model.split("iPhone");
+    let textModel = modelSplit[1].split(",");
+    let numberModel = parseInt(textModel[0]);
 
+    console.log("Number model "+numberModel);
+
+    // if (nsPlatform.device.model.includes("11")){
+    if (numberModel >= 11){
         this.titleNativeStack.paddingTop = 93;
-        
+
     }else{
-        this.titleNativeStack.paddingTop = 49;
-        
-    }    
+        this.titleNativeStack.paddingTop = 20;
+    }
 
 
   }

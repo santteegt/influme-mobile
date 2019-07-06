@@ -35,16 +35,16 @@
                 <StackLayout row="0" marginLeft="50" verticalAlignment="center">
                   <Label text="{{'edit_profile' | L}}" class="sideLabel" (tap)='goEditProfile()'></Label>
                 </StackLayout>
-                <StackLayout row="1" marginLeft="10" verticalAlignment="center">
+<!--                 <StackLayout row="1" marginLeft="10" verticalAlignment="center">
                   <Label text="&#xf044;" class="font-awesome icons-menu-side"></Label>
                 </StackLayout>
                 <StackLayout row="1" marginLeft="50" verticalAlignment="center">
                   <Label text="{{'edit_interest' | L}}" class="sideLabel" (tap)='goEditInterests()'></Label>
-                </StackLayout>                
-                <StackLayout row="2" marginLeft="10" verticalAlignment="center">
+                </StackLayout>                 -->
+                <StackLayout row="1" marginLeft="10" verticalAlignment="center">
                   <Label text="&#xf1c6;" class="font-awesome icons-menu-side"></Label>
                 </StackLayout>
-                <StackLayout row="2" marginLeft="50" verticalAlignment="center">
+                <StackLayout row="1" marginLeft="50" verticalAlignment="center">
                   <Label text="{{'logout' | L}}" class="sideLabel" (tap)="logoutUser()"></Label>
                 </StackLayout>
               </GridLayout>
@@ -64,46 +64,99 @@
       <StackLayout row="0" class="title-layout">
         <LABEL text="{{'profile' | L}}"></LABEL>
       </StackLayout>
-      <StackLayout row="0" class="icon-settings">
+<!--       <StackLayout row="0" class="icon-settings">
         <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right" (tap)="openDrawer()"></Image>
       </StackLayout>
-    </GridLayout>
+ -->    </GridLayout>
 
   <GridLayout row="1">    
   <ScrollView>
     <StackLayout>
-      <GridLayout rows="200">
-       <StackLayout row="0">
-        <Image stretch="fill" width=350 [src]="urlImage"></Image>        
-        <!-- <Image stretch="fill" src="res://profilePicture"></Image> -->
+      <GridLayout rows="auto" class="section-one">
+
+       <StackLayout row="0" height="115" verticalAlignment="top" horizontalAlignment="left">
+        <Image stretch="fill" [src]="urlImage" class="photo-profile" horizontalAlignment="left"></Image>   
        </StackLayout>
-        <StackLayout row="0">
+
+       <StackLayout row="0" height="20" marginTop="138" verticalAlignment="top" horizontalAlignment="left">
+          <Label [text]="nickUser" textWrap="true" class="nick-user-title"></Label>     
+       </StackLayout>
+
+       <StackLayout row="0" height="20" marginTop="166" verticalAlignment="top" horizontalAlignment="left">
+          <Label [text]="nameUser" textWrap="true" class="user-title"></Label>     
+       </StackLayout>
+
+       <StackLayout row="0" height="20" marginTop="186" verticalAlignment="top" horizontalAlignment="left">
+          <Label [text]="cityUser" textWrap="true" class="city-title"></Label>     
+       </StackLayout>
+
+       <!-- Followers -->
+       <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginLeft="236" marginTop="15" (tap)="getFollowersInfo()">
+          <LABEL text="{{followers}}" horizontalAlignment="left" class="followers-style-number"></LABEL> 
+       </StackLayout>
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginLeft="236" marginTop="46" (tap)="getFollowersInfo()">
+          <LABEL verticalAlignment="top" horizontalAlignment="left" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
+        </StackLayout>
+       <!-- Following -->
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginLeft="153" marginTop="15" (tap)="getFollowingInfo()">
+          <LABEL text="{{following}}" verticalAlignment="top" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        </StackLayout>
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginLeft="153" marginTop="46" (tap)="getFollowingInfo()">
+          <LABEL verticalAlignment="top" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
+        </StackLayout>
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginTop="26" marginLeft="224.5" class="style-vertical-line" height="38" width="1"></StackLayout>
+
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginTop="80" marginLeft="147">
+          <BUTTON text="{{'editprofile' | L}}" class="button-edit" (tap)="openDrawer()"></BUTTON>
+        </StackLayout>
+
+        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginTop="80" marginLeft="230">
+          <BUTTON text="{{'impressum' | L}}" class="button-edit"></BUTTON>
+        </StackLayout>
+
+        <!-- Button Follow -->
+
+<!--         <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginTop="151" marginLeft="222">
+          <BUTTON text="{{labelfollowbutton}}" class="homemarker-follow-button" (tap)="onClickFollow()"></BUTTON>
+        </StackLayout>                         -->
+
+
+
+
+
+
+
+
+
+<!--         <StackLayout row="0">
           <LABEL text="{{followers}}" verticalAlignment="top" marginTop="20" marginRight="20" horizontalAlignment="right" class="followers-style-number"></LABEL> 
         </StackLayout>
         <StackLayout row="0">
           <LABEL verticalAlignment="top" marginTop="55" marginRight="20" horizontalAlignment="right" text="{{'followers' | L}}" class="followers-style-text"></LABEL>
-        </StackLayout>
-        <StackLayout row="0">
-          <LABEL text="{{following}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL> 
+        </StackLayout> -->
+<!--         <StackLayout row="0">
+          <LABEL text="{{following}}" verticalAlignment="top" marginTop="20" marginRight="90" horizontalAlignment="right" class="followers-style-number"></LABEL>
+
         </StackLayout>
         <StackLayout row="0">
           <LABEL verticalAlignment="top" marginTop="55" marginRight="90" horizontalAlignment="right" text="{{'following' | L}}" class="followers-style-text"></LABEL>
         </StackLayout>
-        <GridLayout marginTop="150" marginRight="10">
+ -->
+<!--         <GridLayout marginTop="150" marginRight="10">
           <StackLayout orientation="horizontal" horizontalAlignment="right">
             <StackLayout *ngFor="let itemInt of linteresesDown" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
               <Image [src]="'res://'+itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
             </StackLayout>
           </StackLayout>        
         </GridLayout>
-        <!-- PARA DOBLE 9 -->
+        PARA DOBLE 9
         <GridLayout marginTop="80" marginRight="10">
           <StackLayout orientation="horizontal" horizontalAlignment="right">
             <StackLayout *ngFor="let itemInt of linteresesUp" class="auto-interest" horizontalAlignment="center" verticalAlignment="center" marginRight="10" backgroundcolor="white">
               <Image [src]="itemInt.img" [width]="itemInt.width" [height]="itemInt.height"></Image>
             </StackLayout>
           </StackLayout>        
-        </GridLayout>      
+        </GridLayout> -->      
 
    <!-- </StackLayout> -->
       </GridLayout> 
@@ -111,11 +164,11 @@
   <!--     </StackLayout> -->
   <GridLayout rows="auto">
       <StackLayout row="0" orientation="vertical" class="main-layout-desprofile">
-          <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                
+          <!-- <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                 -->
       <!-- </StackLayout> -->
       <!-- <StackLayout row="0" orientation="vertical" class="homemarker-description"> -->
           <!-- <Label [text]="cityUser" class="homemarker-description"></Label> {{'profile' | L}}-->
-          <Label [text]="cityUser" class="homemarker-description"></Label>        
+          <!-- <Label [text]="cityUser" class="homemarker-description"></Label>         -->
       <!-- </StackLayout> -->
       <!-- <StackLayout row="0" orientation="vertical" class="homemarker-line-layout" height="5">                 -->
           <Label text=" " class="homemarker-line" height="10"></Label>
@@ -128,14 +181,18 @@
               </StackLayout>
               <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
               </StackLayout>
-              <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
-              </StackLayout>
+<!--               <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
+              </StackLayout> -->
 <!--                   <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginRight="40">                
           <BUTTON text="{{'follow' | L}}" class="homemarker-follow-button"></BUTTON>
               </StackLayout> -->
 
           </StackLayout>
-
+          <!--  -->
+<!--           <StackLayout horizontalAlignment="left" orientation="horizontal">
+            <Label text="Lorem ipsum" class="homemarker-description"></Label>
+          </StackLayout>          
+ -->
           <StackLayout class="homemarker-deals">
               <Label text="{{'deals_redeemed' | L}}"></Label>
           </StackLayout>

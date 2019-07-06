@@ -91,7 +91,7 @@ export class SearchComponent implements OnInit, OnDestroy{
     private usersinterestsService: UsersinterestsService, private markerprofileService: MarkerprofileService, 
     private usersdealsService: UsersdealsService, private data: Data, private userapiService: UserapiService,
     private imagesService: ImagesService) { 
-    this.page.actionBarHidden = true;
+    // this.page.actionBarHidden = true;
         
         if(localstorage.getItem('ResultLogin') != null){
             let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
@@ -119,14 +119,26 @@ export class SearchComponent implements OnInit, OnDestroy{
   this.titleNativeStack = this.stackMainTitle.nativeElement;
   // this.menuNativeStack = this.stackMenubar.nativeElement;
 
+    //Get number model of iphone
+    let modelSplit = nsPlatform.device.model.split("iPhone");
+    let textModel = modelSplit[1].split(",");
+    let numberModel = parseInt(textModel[0]);
 
-  if (nsPlatform.device.model.includes("11")){
+    console.log("Number model "+numberModel);
 
-      this.titleNativeStack.paddingTop = 93;
+    // if (nsPlatform.device.model.includes("11")){
+    if (numberModel >= 11){
+        this.titleNativeStack.paddingTop = 49;            
+    }else{
+        this.titleNativeStack.paddingTop = 20;
+    }
+  // if (nsPlatform.device.model.includes("11")){
 
-  }else{
-      this.titleNativeStack.paddingTop = 49;
-  }   
+  //     this.titleNativeStack.paddingTop = 93;
+
+  // }else{
+  //     this.titleNativeStack.paddingTop = 49;
+  // }   
 
   }
 
@@ -384,6 +396,8 @@ export class SearchComponent implements OnInit, OnDestroy{
                 let subIntereses: any = {};
 
                 this.data.storage_varb = json_user_selected[0].info;
+
+                console.log("*** userLogData "+ JSON.stringify(this.data.storage_varb));
 
                 for(var i=0; i<json_user_selected[0].interests.length; i++){   
                   subIntereses = {};

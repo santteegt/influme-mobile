@@ -3,6 +3,7 @@ import { request } from "tns-core-modules/http";
 import { config } from "../../config";
 import { RestService } from "../rest.service";
 import { Usersmarker } from "../../models/usersmarker.model";
+import { Usersmarkerextend } from "../../models/usersmarkerextend.model";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,18 @@ export class UsersmarkerService {
 		let promise = this.restAPI.post(config.apiUrl + `/usersmarker`, bodyRequest, headers);
 		
 	return promise;
+	}	
+
+	// public getFollowingRecords(userid: string): Promise<Usersmarkerextend[]> {
+	public getFollowingRecords(userid: string): Promise<any[]> {
+
+
+  		let headers = null;
+
+  		let promise = this.restAPI.get(config.apiUrl + `/usersmarker/report/${userid}`, headers);
+
+
+  		
+		return promise;
 	}	
 }

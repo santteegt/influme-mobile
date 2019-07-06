@@ -1,3 +1,8 @@
+"impressum" = "impressum";
+"editprofile" = "profil bearbeiten";
+"shops" = "Geschäfte";
+"users" = "Benutzer";
+"message_user_fields_error" = "Informationen fehlen";
 "message_user_save_error" = "Eingegebene Daten überprüfen";
 "trending" = "Trending";
 "hot_deals" = "Hot Deals";
