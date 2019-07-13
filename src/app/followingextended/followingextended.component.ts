@@ -195,7 +195,7 @@ export class FollowingextendedComponent implements OnInit {
 							const newStackLayoutLabel = new StackLayout();
 							newStackLayoutLabel.horizontalAlignment = "left";            
 							newStackLayoutLabel.height = 75;
-							newStackLayoutLabel.marginTop = 10;
+							newStackLayoutLabel.marginTop = 15;
 							newStackLayoutLabel.marginLeft = 104;                                            
 
 							// Nombre de usuario
@@ -254,36 +254,44 @@ export class FollowingextendedComponent implements OnInit {
 			                const newGridLayout1 = new GridLayout();          
 			                newGridLayout1.backgroundColor = new Color("white");                  
 			                newGridLayout1.height = 25;                  
-			                newGridLayout1.marginLeft = 104;						
+			                newGridLayout1.marginLeft = 104;	
 
-							var contadorCol = 0;
 
-			              	// Imagen de intereses de cada usuario seguido
-			              	interestsUserFollowing.forEach( async interestsRecord => {
+							const newLabelCity = new Label();          
+							newLabelCity.text = elementRecord.useridfollow.city;
+							newLabelCity.style.fontFamily = "SFProDisplay-Medium";
+							newLabelCity.style.fontSize = 12;
+							newLabelCity.style.color = new Color("black");
+							newGridLayout1.addChild(newLabelCity);			                					
 
-									// StackLayout para imagen de tipo de local
-									const newStackLayoutIcon = new StackLayout();
-									newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
-									newStackLayoutIcon.width = 21;
-									newStackLayoutIcon.height = 21;
-									newStackLayoutIcon.style.borderRadius = 4;
-									// this.newStackLayoutIcon.marginTop = 25;
-									// this.newStackLayoutIcon.marginLeft = 104;
-									newStackLayoutIcon.horizontalAlignment = "left";
-									newStackLayoutIcon.verticalAlignment = "middle";
+							// var contadorCol = 0;
 
-									const newImageIcon = new Image();          
-									newImageIcon.src = "res://" + interestsRecord.typeid.icontype;
-									newImageIcon.stretch = "fill";
-									newImageIcon.style.width = 8;
-									newImageIcon.style.height = 14;
-									newImageIcon.style.borderRadius = 4;
-									newStackLayoutIcon.addChild(newImageIcon);
-									newGridLayout1.addChildAtCell(newStackLayoutIcon, index , contadorCol);  
-									newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL)); 
-									contadorCol = contadorCol + 1;
+			    //           	// Imagen de intereses de cada usuario seguido
+			    //           	interestsUserFollowing.forEach( async interestsRecord => {
 
-				              });
+							// 		// StackLayout para imagen de tipo de local
+							// 		const newStackLayoutIcon = new StackLayout();
+							// 		newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
+							// 		newStackLayoutIcon.width = 21;
+							// 		newStackLayoutIcon.height = 21;
+							// 		newStackLayoutIcon.style.borderRadius = 4;
+							// 		// this.newStackLayoutIcon.marginTop = 25;
+							// 		// this.newStackLayoutIcon.marginLeft = 104;
+							// 		newStackLayoutIcon.horizontalAlignment = "left";
+							// 		newStackLayoutIcon.verticalAlignment = "middle";
+
+							// 		const newImageIcon = new Image();          
+							// 		newImageIcon.src = "res://" + interestsRecord.typeid.icontype;
+							// 		newImageIcon.stretch = "fill";
+							// 		newImageIcon.style.width = 8;
+							// 		newImageIcon.style.height = 14;
+							// 		newImageIcon.style.borderRadius = 4;
+							// 		newStackLayoutIcon.addChild(newImageIcon);
+							// 		newGridLayout1.addChildAtCell(newStackLayoutIcon, index , contadorCol);  
+							// 		newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL)); 
+							// 		contadorCol = contadorCol + 1;
+
+				   //            });
 
 							// Stacklayout para filas									        
 							const gridLayoutMain = new GridLayout();

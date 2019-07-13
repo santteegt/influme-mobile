@@ -238,7 +238,11 @@ export class SearchComponent implements OnInit, OnDestroy{
         // Label con titulo de local
         const newLabel = new Label();          
         newLabel.text = mpelement.title;
-        newLabel.className = "label-search";
+        newLabel.style.fontFamily = "SFProDisplay-Medium";
+        newLabel.style.fontSize = 12;            
+        newLabel.style.color = new Color("black");              
+        newLabel.style.fontWeight = "bold";        
+        // newLabel.className = "label-search";
 
         // Imagen de perfil
         const newImage = new Image();          
@@ -334,7 +338,10 @@ export class SearchComponent implements OnInit, OnDestroy{
               // Label con titulo de local
               const newLabel = new Label();          
               newLabel.text = userSearchProfile[i].info.name;
-              newLabel.className = "label-search";
+              newLabel.style.fontFamily = "SFProDisplay-Medium";
+              newLabel.style.fontSize = 12;            
+              newLabel.style.color = new Color("black");              
+              newLabel.style.fontWeight = "bold";
 
               // Imagen de perfil
               const newImage = new Image();          
@@ -348,7 +355,7 @@ export class SearchComponent implements OnInit, OnDestroy{
               const newStackLayoutLabel = new StackLayout();
               newStackLayoutLabel.horizontalAlignment = "left";            
               newStackLayoutLabel.height = 75;
-              newStackLayoutLabel.marginTop = 10;
+              newStackLayoutLabel.marginTop = 15;
               newStackLayoutLabel.marginLeft = 104;                                            
               newStackLayoutLabel.addChild(newLabel);
 
@@ -357,33 +364,53 @@ export class SearchComponent implements OnInit, OnDestroy{
               newStackLayoutImage.horizontalAlignment = "left"
               newStackLayoutImage.marginTop = 5;
               newStackLayoutImage.marginLeft = 36;                         
-              newStackLayoutImage .addChild(newImage);
+              newStackLayoutImage.addChild(newImage);
 
+              // // StackLayout para label ciudad
+              // const newStackLayoutIcon = new StackLayout();
+              // newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
+              // newStackLayoutIcon.width = 21;
+              // newStackLayoutIcon.height = 21;
+              // newStackLayoutIcon.style.borderRadius = 4;
+              // // this.newStackLayoutIcon.marginTop = 25;
+              // // this.newStackLayoutIcon.marginLeft = 104;
+              // newStackLayoutIcon.horizontalAlignment = "left";
+              // newStackLayoutIcon.verticalAlignment = "middle";              
 
-              // Imagen de tipo de local
-              for(var j=0; j<userSearchProfile[i].interests.length; j++){
+              // Label para ciduad
+              const newLabelCity = new Label();          
+              newLabelCity.text = userSearchProfile[i].info.city;
+              newLabelCity.style.fontFamily = "SFProDisplay-Medium";
+              newLabelCity.style.fontSize = 12;            
+              newLabelCity.style.color = new Color("black");
+              newGridLayout1.addChild(newLabelCity);
+              // newGridLayout1.addChildAtCell(newStackLayoutIcon, i, j);  
+              // newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL));
 
-                  // StackLayout para imagen de tipo de local
-                  const newStackLayoutIcon = new StackLayout();
-                  newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
-                  newStackLayoutIcon.width = 21;
-                  newStackLayoutIcon.height = 21;
-                  newStackLayoutIcon.style.borderRadius = 4;
-                  // this.newStackLayoutIcon.marginTop = 25;
-                  // this.newStackLayoutIcon.marginLeft = 104;
-                  newStackLayoutIcon.horizontalAlignment = "left";
-                  newStackLayoutIcon.verticalAlignment = "middle";
+              // // Imagen de tipo de intereses
+              // for(var j=0; j<userSearchProfile[i].interests.length; j++){
 
-                  const newImageIcon = new Image();          
-                  newImageIcon.src = "res://" + userSearchProfile[i].interests[j].icontype;
-                  newImageIcon.stretch = "fill";
-                  newImageIcon.style.width = 8;
-                  newImageIcon.style.height = 14;
-                  newImageIcon.style.borderRadius = 4;
-                  newStackLayoutIcon.addChild(newImageIcon);
-                  newGridLayout1.addChildAtCell(newStackLayoutIcon, i, j);  
-                  newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL));                                                 
-              }
+              //     // StackLayout para imagen de tipo de local
+              //     const newStackLayoutIcon = new StackLayout();
+              //     newStackLayoutIcon.style.backgroundColor = new Color("#d9d6e1");
+              //     newStackLayoutIcon.width = 21;
+              //     newStackLayoutIcon.height = 21;
+              //     newStackLayoutIcon.style.borderRadius = 4;
+              //     // this.newStackLayoutIcon.marginTop = 25;
+              //     // this.newStackLayoutIcon.marginLeft = 104;
+              //     newStackLayoutIcon.horizontalAlignment = "left";
+              //     newStackLayoutIcon.verticalAlignment = "middle";
+
+              //     const newImageIcon = new Image();          
+              //     newImageIcon.src = "res://" + userSearchProfile[i].interests[j].icontype;
+              //     newImageIcon.stretch = "fill";
+              //     newImageIcon.style.width = 8;
+              //     newImageIcon.style.height = 14;
+              //     newImageIcon.style.borderRadius = 4;
+              //     newStackLayoutIcon.addChild(newImageIcon);
+              //     newGridLayout1.addChildAtCell(newStackLayoutIcon, i, j);  
+              //     newGridLayout1.addColumn(new ItemSpec(28, GridUnitType.PIXEL));                                                 
+              // }
 
               newGridLayout.addChildAtCell(newStackLayoutImage, i, 0);                          
               newGridLayout.addChildAtCell(newStackLayoutLabel, i, 0);

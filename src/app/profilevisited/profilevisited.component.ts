@@ -520,7 +520,7 @@ export class ProfilevisitedComponent implements OnInit {
     }    
 
     getFollowingInfo() {
-      if(this.userLogData.following!=0){
+      // if(this.userLogData.following!=0){
 
           let jsonuseraux = "";
           jsonuseraux = localstorage.getItem('ResultLogin');
@@ -540,12 +540,12 @@ export class ProfilevisitedComponent implements OnInit {
               this._routerExtensions.navigate(["followingextended"], navigationExtras);
 
           }
-        }      
+        // }      
     }
 
     getFollowersInfo() {
 
-      if(this.userLogData.followers!=0){
+      //if(this.userLogData.followers!=0){
 
           let jsonuseraux = "";
           jsonuseraux = localstorage.getItem('ResultLogin');
@@ -565,7 +565,7 @@ export class ProfilevisitedComponent implements OnInit {
               this._routerExtensions.navigate(["follower"], navigationExtras);
 
           }
-      }  
+      //}  
     }    
 
 }//fin clase

@@ -476,17 +476,17 @@ constructor(private route: ActivatedRoute, private page: Page,
 
     getFollowingInfo() {
 
-        if(parseInt(this.following) != 0){      
+        // if(parseInt(this.following) != 0){      
 
             this._routExt.navigate(["following"]);
-        }
+        // }
     }
 
     getFollowersInfo() {
-      if(parseInt(this.followers) != 0){      
+      // if(parseInt(this.followers) != 0){      
 
           this._routExt.navigate(["follower"]);
-      }
+      // }
     }      
 
 }
