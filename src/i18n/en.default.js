@@ -58,5 +58,7 @@ module.exports = {
 	"users": "Users",
 	"shops": "Shops",
 	"editprofile": "edit profile",
-	"impressum": "impressum"
+	"impressum": "impressum",
+	"inbox": "Inbox",
+	"view_deal": "view deal"
 };

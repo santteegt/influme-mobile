@@ -58,6 +58,7 @@ module.exports = {
 	"users": "Benutzer",
 	"shops": "Geschäfte",
 	"editprofile": "profil bearbeiten",
-	"impressum": "impressum"	
-
+	"impressum": "impressum",
+	"inbox": "Posteingang",
+	"view_deal": "Angebot anzeigen"	
 };
