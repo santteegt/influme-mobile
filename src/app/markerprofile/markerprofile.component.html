@@ -49,12 +49,14 @@
                     <Label text="{{profile_id_selected.web}}" (tap)="openURLMarker();"></Label>
                 </StackLayout>
                 <StackLayout orientation="horizontal" marginTop="5">
-                    <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
+                    <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="white" class="homemarker-facebook">
+                        <Label text="&#xf082;" class="font-awesome social-net-face"></Label>
                     </StackLayout>
-                    <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
+                    <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram" (tap)="goInstApp()">
+                        <Label text="&#xf16d;" class="font-awesome social-net-inst"></Label>
                     </StackLayout>
-                    <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
-                    </StackLayout>
+<!--                     <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
+                    </StackLayout> -->
 <!--                     <StackLayout horizontalAlignment="right" class="homemarker-follow-button-layout" width="120" height="50" marginLeft="60">                
                         <BUTTON text="follow" (tap)="onClickFollow()" class="homemarker-follow-button"></BUTTON>
                     </StackLayout> -->

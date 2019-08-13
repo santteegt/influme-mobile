@@ -25,6 +25,10 @@ import { localize } from "nativescript-localize";
 import * as localstorage from "nativescript-localstorage";
 import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
 import { ImagesService } from "../shared/api/images/images.service";
+import { openApp } from "nativescript-open-app";
+
+var utils = require("utils/utils");
+
 
 @Component({
   selector: 'ns-profilevisited',
@@ -58,6 +62,7 @@ export class ProfilevisitedComponent implements OnInit {
   	public isBusy = false;
 	public labelfollowbutton: string;  	
   	public showDetails = "collapsed";
+    public showNet = "collapsed";
   	public responseUsersFollow: Usersfollow[];
   	public userLoginRecordUser: User;
   	public userLoginRecordComplete: any;
@@ -155,28 +160,41 @@ export class ProfilevisitedComponent implements OnInit {
 	    this.userIdentificationvisited = this.userLogData._id;
 
 		//verificar si usuario inicia sesion
-        if(this.userIdentification!=null && this.userIdentification != this.userIdentificationvisited){ 
-          this.showDetails="visible";
-          //verificar si usuario es seguido o no para colocar label
-          this.isFollower(this.userIdentification, this.userIdentificationvisited).then(dataResponse => {                       
+        if(this.userIdentification!=null){
 
-            this.responseUsersFollow = dataResponse;
+        // if(this.userIdentification!=null && this.userIdentification != this.userIdentificationvisited){ 
+          if(this.userIdentification != this.userIdentificationvisited){ 
+            this.showNet = "visible"
+            this.showDetails="visible";
+            //verificar si usuario es seguido o no para colocar label
+            this.isFollower(this.userIdentification, this.userIdentificationvisited).then(dataResponse => {                       
 
-            if(this.responseUsersFollow.length>0){
-	            if(this.responseUsersFollow[0].status == false){
-	              this.labelfollowbutton = localize("follow");
+              this.responseUsersFollow = dataResponse;
 
-	            }else if(this.responseUsersFollow[0].status == true){
-	              this.labelfollowbutton = localize("unfollow");
-	            }            	
-            }else{
-            	this.labelfollowbutton = localize("follow");
-            }
+              if(this.responseUsersFollow.length>0){
+  	            if(this.responseUsersFollow[0].status == false){
+  	              this.labelfollowbutton = localize("follow");
+
+  	            }else if(this.responseUsersFollow[0].status == true){
+  	              this.labelfollowbutton = localize("unfollow");
+  	            }            	
+              }else{
+              	this.labelfollowbutton = localize("follow");
+              }
 
 
 
-          });
+            });
+          }else
+          {
+
+            this.showNet = "collapsed"
+          }
+
         }else{
+            
+          this.showNet = "visible";  
+          
           this.showDetails="collapsed";
         }		       	
 
@@ -567,5 +585,13 @@ export class ProfilevisitedComponent implements OnInit {
           }
       //}  
     }    
+
+    goInstApp(){
+      console.log("nickUser " + this.nickUser);
+      var installed = openApp("instagram://user?username="+this.nickUser, false);
+      if (!installed) {
+          utils.openUrl("https://instagram.com");
+      }      
+    }
 
 }//fin clase

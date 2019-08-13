@@ -4,6 +4,7 @@ import { Typemarker } from '../models/typemarker.model';
 export interface Markerprofile {
 	_id: string;
 	title: string;
+	instagramid: string
 	shortdescription: string;
 	type: Typemarker;
 	lat: number;

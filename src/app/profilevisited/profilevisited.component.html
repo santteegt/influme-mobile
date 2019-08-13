@@ -15,7 +15,7 @@
         <Image stretch="fill" [src]="urlImage" class="photo-profile" horizontalAlignment="left"></Image>   
        </StackLayout>
 
-       <StackLayout row="0" height="20" marginTop="138" verticalAlignment="top" horizontalAlignment="left">
+       <StackLayout row="0" height="25" marginTop="138" verticalAlignment="top" horizontalAlignment="left">
           <Label [text]="nickUser" textWrap="true" class="nick-user-title"></Label>     
        </StackLayout>
 
@@ -87,7 +87,7 @@
       </GridLayout> 
 
   <GridLayout rows="auto">
-      <StackLayout row="0" orientation="vertical" class="main-layout-desprofile">
+      <StackLayout row="0" orientation="vertical" class="main-layout-desprofile" visibility="{{ showNet }}">
 <!--           <Label [text]="nameUser" textWrap="true" class="homemarker-title"></Label>                          
           <Label [text]="cityUser" class="homemarker-description"></Label>                 
  -->          <Label text=" " class="homemarker-line" height="10"></Label>
@@ -95,10 +95,14 @@
   </GridLayout>
       <GridLayout row="1" class="homemarker-social-media">
         <StackLayout>
-          <StackLayout orientation="horizontal" marginTop="5">
-              <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="#3b5998" class="homemarker-facebook">
+          <StackLayout orientation="horizontal" marginTop="5" visibility="{{ showNet }}">
+              <!-- Para Facebook -->
+              <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="white" class="homemarker-facebook">  
+                <Label text="&#xf082;" class="font-awesome social-net-face"></Label>              
               </StackLayout>
-              <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram">
+              <!-- Para Instagram -->
+              <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram" (tap)="goInstApp()">
+                <Label text="&#xf16d;" class="font-awesome social-net-inst"></Label>
               </StackLayout>
 <!--               <StackLayout marginLeft="5" horizontalAlignment="left" orientation="vertical" backgroundColor="#55acee" class ="homemarker-twitter">
               </StackLayout> -->

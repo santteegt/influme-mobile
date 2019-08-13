@@ -37,6 +37,10 @@ import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { Color } from "tns-core-modules/color";
 
+import { openApp } from "nativescript-open-app";
+
+// var utils = require("utils/utils");
+
 @Component({
   selector: 'markerprofile',
   templateUrl: './markerprofile.component.html',
@@ -678,4 +682,14 @@ export class MarkerprofileComponent implements OnInit {
         }
         
   }  
+
+    goInstApp(){
+      console.log("nickUser " + this.profile_id_selected.instagramid);
+      var installed = openApp("instagram://user?username="+this.profile_id_selected.instagramid, false);
+      if (!installed) {
+          utils.openUrl("https://instagram.com");
+      }      
+    }  
+
+
 }

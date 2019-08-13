@@ -72,6 +72,11 @@
  -->    <!-- Location -->
     <key>NSLocationAlwaysUsageDescription</key>
     <string>Need location when in use.</string>
+    <key>LSApplicationQueriesSchemes</key>
+      <array>
+        <string>itms</string>
+        <string>instagram</string>
+      </array>    
 <!--     <key>NSLocationUsageDescription</key>
     <string>Need location when in use.</string>        
  --><!--     <key>UIBackgroundModes</key>
