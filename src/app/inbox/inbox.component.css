@@ -1,0 +1,24 @@
+/* Add mobile styles for the component here.  */
+.block-text{
+	padding-top: 11;
+	padding-left: 36;
+	padding-right: 36;
+}
+
+.title-msg{
+    font-family: "SFProDisplay-Bold";
+    font-size: 16;
+    font-weight: bold;	
+}
+
+.separator-line{
+	border-bottom-color: black;
+	border-bottom-style: solid;
+	border-bottom-width: 1;	
+}
+
+.time-txt{
+    font-family: "SFProDisplay-Regular";
+    font-size: 12;  
+    /*color: "#545355"*/
+}

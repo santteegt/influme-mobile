@@ -37,10 +37,12 @@ export class DealsprofileService {
   }
 
 	public getSpecificDeal(idDeal: string): Promise<Dealsprofile> {
-  		let headers = null;
+  		
+
+      let headers = null;
 
 
-  		let promise = this.restAPI.get(config.apiUrl + `/dealsprofile/onedeal${idDeal}`, headers);
+  		let promise = this.restAPI.get(config.apiUrl + `/dealsprofile/onedeal/${idDeal}`, headers);
   		
 		return promise;
 	}	

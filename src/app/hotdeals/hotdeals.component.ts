@@ -360,6 +360,12 @@ export class HotdealsComponent implements OnInit {
         this._routerExtensions.navigate(["search"], {animated: false});
     }
 
+    goinbox() {
+
+        this._routerExtensions.navigate(["inbox"]);
+
+    }    
+
     // gologinview() {
 
     //     let jsonuseraux = "";

@@ -1,0 +1,41 @@
+/* Add mobile styles for the component here.  */
+.main-layout-title{
+	padding-left: 24;
+	padding-right: 24;
+}
+.main-title-msj{
+    font-family: "SFProDisplay-Bold";
+    font-size: 21;
+    font-weight: bold;
+    color: black;
+}
+
+.detail-msj{
+    font-family: "SFProDisplay-Regular";
+    font-size: 16;
+    color: black;
+}
+.image-style{
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 10;
+}
+
+.main-button{
+
+	padding-top: 36;
+	padding-left: 88;
+	padding-right: 87;
+	height: 100;
+}
+
+.intro-style{
+
+	background-color: #f13657;
+	color: white;
+    font-family: "SFProDisplay-Bold";
+    font-size: 15;
+    font-weight: bold;	
+    height: 50;
+    width: 200;
+}

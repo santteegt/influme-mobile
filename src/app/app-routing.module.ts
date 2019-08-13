@@ -21,7 +21,9 @@ const routes: Routes = [
     { path: "profilevisited", loadChildren: "~/app/profilevisited/profilevisited.module#ProfilevisitedModule" },
     { path: "following", loadChildren: "~/app/following/following.module#FollowingModule" },
     { path: "followingextended", loadChildren: "~/app/followingextended/followingextended.module#FollowingextendedModule" },
-    { path: "follower", loadChildren: "~/app/follower/follower.module#FollowerModule" }
+    { path: "follower", loadChildren: "~/app/follower/follower.module#FollowerModule" },
+    { path: "inbox", loadChildren: "~/app/inbox/inbox.module#InboxModule" },
+    { path: "inboxdetail", loadChildren: "~/app/inboxdetail/inboxdetail.module#InboxdetailModule" }        
 
 ];
 

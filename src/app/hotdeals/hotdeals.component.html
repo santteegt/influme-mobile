@@ -8,6 +8,9 @@
 		<StackLayout row="0" class="main-layout-title" >
 			<Label text="{{ 'hot_deals' | L}}" class="main-title"></Label>
 		</StackLayout>
+		<StackLayout row="0" paddingLeft="318" paddingRight="24.1" horizontalAlignment="right" verticalAlignment="bottom">
+			<Button text="&#xf01c;" textWrap="true" class="bottom-inbox font-awesome" (tap)="goinbox()"></Button>
+		</StackLayout>		
 
 		<ScrollView row="1">
 			<GridLayout rows="auto, auto, auto">
