@@ -42,9 +42,15 @@
                   <Label text="{{'edit_interest' | L}}" class="sideLabel" (tap)='goEditInterests()'></Label>
                 </StackLayout>                 -->
                 <StackLayout row="1" marginLeft="10" verticalAlignment="center">
-                  <Label text="&#xf1c6;" class="font-awesome icons-menu-side"></Label>
+                  <Label text="&#xf005;" class="font-awesome icons-menu-side"></Label>
                 </StackLayout>
                 <StackLayout row="1" marginLeft="50" verticalAlignment="center">
+                  <Label text="{{'influencer_' | L}}" class="sideLabel" (tap)='verifyAcceptedInfluencer()'></Label>
+                </StackLayout>                                
+                <StackLayout row="2" marginLeft="10" verticalAlignment="center">
+                  <Label text="&#xf1c6;" class="font-awesome icons-menu-side"></Label>
+                </StackLayout>
+                <StackLayout row="2" marginLeft="50" verticalAlignment="center">
                   <Label text="{{'logout' | L}}" class="sideLabel" (tap)="logoutUser()"></Label>
                 </StackLayout>
               </GridLayout>
@@ -64,6 +70,9 @@
       <StackLayout row="0" class="title-layout">
         <LABEL text="{{'profile' | L}}"></LABEL>
       </StackLayout>
+       <StackLayout row="0" height="20" marginTop="10" marginright="50" verticalAlignment="top" horizontalAlignment="right" visibility="{{ showDetails }}">
+          <Label text="&#xf005;" textWrap="true" class="font-awesome star-style"></Label>     
+       </StackLayout>      
 <!--       <StackLayout row="0" class="icon-settings">
         <Image height="25" width="25" src="res://icons/setting" horizontalAlignment="right" (tap)="openDrawer()"></Image>
       </StackLayout>
@@ -88,7 +97,7 @@
 
        <StackLayout row="0" height="20" marginTop="186" verticalAlignment="top" horizontalAlignment="left">
           <Label [text]="cityUser" textWrap="true" class="city-title"></Label>     
-       </StackLayout>
+       </StackLayout>       
 
        <!-- Followers -->
        <StackLayout row="0" verticalAlignment="top" horizontalAlignment="left" marginLeft="236" marginTop="15" (tap)="getFollowersInfo()">

@@ -15,6 +15,7 @@ import { Image } from "tns-core-modules/ui/image";
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { StackLayout } from "tns-core-modules/ui/layouts/stack-layout";
 import * as nsPlatform from "nativescript-platform";
+const localize = require("nativescript-localize");
 
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 
@@ -29,6 +30,9 @@ import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source
 
 import { Data } from "../providers/data/data";
 
+import { User } from "../shared/models/user.model";
+
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
 
 // import { registerElement } from 'nativescript-angular/element-registry';
 
@@ -57,6 +61,8 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   private linteresesUp: any;
   private dealsSubscribe: any = [];
   public isBusy = false;
+  showDetails= "collapsed";
+  private feedback: Feedback;
 
  @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
   private drawer: RadSideDrawer;
@@ -79,6 +85,8 @@ constructor(private route: ActivatedRoute, private page: Page,
                 private _changeDetectionRef: ChangeDetectorRef, private dealsprofileService: DealsprofileService,
                 private markerprofileService: MarkerprofileService,private imagesService: ImagesService, 
                 private usersinterestsService: UsersinterestsService, private data: Data) { 
+
+    this.feedback = new Feedback();
 
     let token="";
     this.linteresesDown = [];
@@ -126,6 +134,13 @@ constructor(private route: ActivatedRoute, private page: Page,
     this.cityUser = this.userLogData.info.city;
     this.followers = this.userLogData.info.followers;
     this.following = this.userLogData.info.following;
+
+    if(this.userLogData.info.approvedinfluencer === true){
+      this.showDetails = "visible";  
+    }else{
+      this.showDetails = "collapsed";  
+    }
+
 
     this.lintereses = this.userLogData.intereses;
 
@@ -257,6 +272,55 @@ constructor(private route: ActivatedRoute, private page: Page,
  
     localStorage.removeItem('ResultLogin');
     this.routeMap();
+
+  }
+
+  verifyAcceptedInfluencer() {
+
+    this.getIfInfluencer(this.userIdentification).then(dataResponse => {
+
+      if(dataResponse.length > 0){
+
+        if(dataResponse[0].approvedinfluencer===true){
+
+            localStorage.removeItem('ResultLogin');
+
+            this.userLogData.info.approvedinfluencer = dataResponse[0].approvedinfluencer;
+            
+            localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                                
+
+            this.printError("approved_");
+
+            this.showDetails = 'visible';
+
+        }else if(dataResponse[0].approvedinfluencer===false){
+
+            localStorage.removeItem('ResultLogin');
+
+            this.userLogData.info.approvedinfluencer = dataResponse[0].approvedinfluencer;
+            
+            localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                                
+
+            this.printError("noapproved_");
+
+            this.showDetails = 'collapsed';          
+        }else{
+
+            localStorage.removeItem('ResultLogin');
+
+            this.userLogData.info.approvedinfluencer = dataResponse[0].approvedinfluencer;
+            
+            localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                                
+
+            this.printError("pending_");
+
+            this.showDetails = 'collapsed';
+
+        }        
+
+      }
+
+    });
 
   }
 
@@ -432,6 +496,18 @@ constructor(private route: ActivatedRoute, private page: Page,
       
   }
 
+  async getIfInfluencer(idUser: string) {
+
+      try {
+          const user_type: User[] = await this.userApiService.getifInfluencer(idUser);
+          // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+          return user_type;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }  
+
   async getMarkerByType(typeIds: string) {
 
 
@@ -487,6 +563,22 @@ constructor(private route: ActivatedRoute, private page: Page,
 
           this._routExt.navigate(["follower"]);
       // }
-    }      
+    }     
+
+  printError(textError){
+      this.feedback.show({
+            title: "Message Response",
+            message: localize(textError),
+            duration: 1400,
+            titleFont: "SFProDisplay-Bold",
+            titleSize: 16,
+            messageFont: "SFProDisplay-Regular",
+            messageSize: 13,
+            type: FeedbackType.Info,
+            onTap: () => {
+              console.log("showError tapped");
+            }
+          });
+  }     
 
 }

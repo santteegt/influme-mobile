@@ -43,7 +43,7 @@
         	   <Label class="t-15 c-white label-switch" text="Influencer account" textWrap="true"></Label>            
           </StackLayout>
           <StackLayout orientation="vertical" col="1" verticalAlignment="center" horizontalAlignment="right">
-          	<Switch checked="false" (checkedChange)="onFirstChecked($event)"></Switch>
+          	<Switch [checked]="this.turnInfluencer" (checkedChange)="onFirstChecked($event)"></Switch>
           </StackLayout>
       </GridLayout>
     </StackLayout>

@@ -22,8 +22,11 @@ import { Usersinterestsextend } from "../shared/models/usersinterestsextend.mode
 
 import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
 import { Markerprofile } from "../shared/models/markerprofile.model";
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
+
 import { Data } from "../providers/data/data";
 
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
@@ -89,7 +92,7 @@ export class SearchComponent implements OnInit, OnDestroy{
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
     private ngZone: NgZone, private dealsprofileService: DealsprofileService, 
     private usersinterestsService: UsersinterestsService, private markerprofileService: MarkerprofileService, 
-    private usersdealsService: UsersdealsService, private data: Data, private userapiService: UserapiService,
+    private dealsqrcodeService: DealsqrcodeService, private data: Data, private userapiService: UserapiService,
     private imagesService: ImagesService) { 
     // this.page.actionBarHidden = true;
         
@@ -654,7 +657,7 @@ export class SearchComponent implements OnInit, OnDestroy{
     async getDealsSubscribe(userId: string) {
 
       try {
-          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
           return users_deals;
       } catch(err) {
           console.log(err);

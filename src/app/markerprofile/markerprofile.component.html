@@ -49,7 +49,7 @@
                     <Label text="{{profile_id_selected.web}}" (tap)="openURLMarker();"></Label>
                 </StackLayout>
                 <StackLayout orientation="horizontal" marginTop="5">
-                    <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="white" class="homemarker-facebook">
+                    <StackLayout horizontalAlignment="left" orientation="vertical" backgroundColor="white" class="homemarker-facebook"  (tap)="goFaceApp()">
                         <Label text="&#xf082;" class="font-awesome social-net-face"></Label>
                     </StackLayout>
                     <StackLayout horizontalAlignment="left" marginLeft="5" orientation="vertical" backgroundColor="#cd486b" class ="homemarker-instagram" (tap)="goInstApp()">

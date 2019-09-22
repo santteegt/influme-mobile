@@ -11,8 +11,10 @@ import { User } from "../shared/models/user.model";
 import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
 import { Usersinterestsextend } from "../shared/models/usersinterestsextend.model";
 
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 
 import { Data } from "../providers/data/data";
 
@@ -33,7 +35,7 @@ export class LoginComponent {
     // constructor(private _routerExtensions: RouterExtensions, private zone: NgZone, private page: Page) {
     constructor(private _routerExtensions: RouterExtensions, private page: Page, 
         private usersinterestsService: UsersinterestsService, 
-        private usersdealsService: UsersdealsService,
+        private dealsqrcodeService: DealsqrcodeService,
         private data: Data) {
         this.page.actionBarHidden = true;
         // this.page.backgroundSpanUnderStatusBar = true;
@@ -109,6 +111,7 @@ export class LoginComponent {
         userData.followers = 0;
         userData.following = 0;
         userData.influencer = false;
+        userData.approvedinfluencer = null;
 
         //Para verificar si es nuevo (0) o edicion (1)
         let editOption = 0;
@@ -235,7 +238,7 @@ export class LoginComponent {
     async getDealsSubscribe(userId: string) {
 
           try {
-              const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+              const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
               return users_deals;
           } catch(err) {
               console.log(err);

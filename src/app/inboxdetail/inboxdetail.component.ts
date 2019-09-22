@@ -9,7 +9,11 @@ import { NavigationExtras } from "@angular/router";
 
 
 import * as localstorage from "nativescript-localstorage";
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+// import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
+
 import { Data } from "../providers/data/data";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
@@ -49,7 +53,7 @@ export class InboxdetailComponent implements OnInit {
 
   	constructor(private _routerExtensions: RouterExtensions,
   		private route: ActivatedRoute,   		
-  		private usersdealsService: UsersdealsService,
+  		private dealsqrcodeService: DealsqrcodeService,
   		private data: Data,
   		private dealsprofileService: DealsprofileService,
   		private usersinterestsService: UsersinterestsService,
@@ -238,7 +242,7 @@ export class InboxdetailComponent implements OnInit {
 	async getDealsSubscribe(userId: string) {
 
 	  try {
-	      const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+	      const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
 	      console.log("******* " + JSON.stringify(users_deals));
 	      // var dealsprofilecontent: any = JSON.parse(deals_profile); 
 	      return users_deals;

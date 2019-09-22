@@ -11,5 +11,6 @@ export interface User {
 	email: string;
 	influencer: boolean;
 	error?: string;
+	approvedinfluencer?: boolean;
 	
 }

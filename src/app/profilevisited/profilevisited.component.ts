@@ -15,8 +15,11 @@ import { UsersinterestsService } from "../shared/api/usersinterests/usersinteres
 import { Usersinterests } from "../shared/models/usersinterests.model";
 import { MarkerprofileService } from "../shared/api/markerprofile/markerprofile.service";
 import { Markerprofile } from "../shared/models/markerprofile.model";
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
+
 import { UsersfollowService } from "../shared/api/usersfollow/usersfollow.service";
 import { Usersfollow } from "../shared/models/usersfollow.model";
 import { UserapiService } from "../shared/api/user/userapi.service";
@@ -66,6 +69,7 @@ export class ProfilevisitedComponent implements OnInit {
   	public responseUsersFollow: Usersfollow[];
   	public userLoginRecordUser: User;
   	public userLoginRecordComplete: any;
+    public showDetails_= "collapsed";
 
 	constructor(private page: Page,
                 private userApiService: UserapiService, 
@@ -77,7 +81,7 @@ export class ProfilevisitedComponent implements OnInit {
 				private dealsprofileService: DealsprofileService, 
 				private usersinterestsService: UsersinterestsService,
         		private markerprofileService: MarkerprofileService, 
-        		private usersdealsService: UsersdealsService,
+        		private dealsqrcodeService: DealsqrcodeService,
             private imagesService: ImagesService) {
 
 	    // this.page.actionBarHidden = true;
@@ -104,6 +108,13 @@ export class ProfilevisitedComponent implements OnInit {
 	    this.cityUser = this.userLogData.city;
 	    this.followers = this.userLogData.followers;
 	    this.following = this.userLogData.following;
+      if(this.userLogData.approvedinfluencer===true){
+        this.showDetails_ = "visible";
+      }else{
+        this.showDetails_ = "collapsed";
+      }
+
+
 	    this.lintereses = this.data.storage_vara;
 
 	    console.log("Deals " + JSON.stringify(this.dealsSubscribe));
@@ -465,7 +476,7 @@ export class ProfilevisitedComponent implements OnInit {
   	async getDealsSubscribe(userId: string) {
 
       try {
-          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
           return users_deals;
       } catch(err) {
           console.log(err);

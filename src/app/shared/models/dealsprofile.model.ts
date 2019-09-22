@@ -2,6 +2,7 @@ import { Markerprofile } from '../models/markerprofile.model';
 
 export interface Dealsprofile {
 	_id: string;
+	title: '';
 	conditions: string;
 	img: string;
 	markerid: Markerprofile;

@@ -22,9 +22,11 @@ import { Label } from "tns-core-modules/ui/label";
 
 
 
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
 
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 
 @Component({
   selector: 'ns-hotdeals',
@@ -69,7 +71,7 @@ export class HotdealsComponent implements OnInit {
 
   constructor(private page: Page, private route: ActivatedRoute,
     private _routerExtensions: RouterExtensions, private data: Data, 
-    private usersdealsService: UsersdealsService, private imagesService: ImagesService,
+    private dealsqrcodeService: DealsqrcodeService, private imagesService: ImagesService,
     private ngZone: NgZone) { 
 
     this.page.actionBarHidden = true;
@@ -424,7 +426,7 @@ export class HotdealsComponent implements OnInit {
   async getDealsSubscribe(userId: string) {
 
       try {
-          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
           console.log("******* " + JSON.stringify(users_deals));
           // var dealsprofilecontent: any = JSON.parse(deals_profile); 
           return users_deals;

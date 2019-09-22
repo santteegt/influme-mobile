@@ -29,8 +29,11 @@ import { localize } from "nativescript-localize";
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 // import { IOS } from "tns-core-modules/platform";
 
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
+
 
 import * as nsPlatform from "nativescript-platform";
 
@@ -104,7 +107,7 @@ export class ViewmapComponent {
 
     constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
         private dealsprofileService: DealsprofileService, private usersinterestsService: UsersinterestsService,
-        private markerprofileService: MarkerprofileService, private usersdealsService: UsersdealsService, 
+        private markerprofileService: MarkerprofileService, private dealsqrcodeService: DealsqrcodeService, 
         private data: Data, private imagesService: ImagesService) {
     
         this.page.actionBarHidden = true;
@@ -420,6 +423,8 @@ export class ViewmapComponent {
 
     goviewmap() {
 
+        // this._routerExtensions.navigate(["inbox"]);
+
         // this._routerExtensions.navigate(["follower"], {animated: false});
 
         // this._routerExtensions.navigate(["testinterest"], {animated: false});
@@ -667,7 +672,7 @@ export class ViewmapComponent {
   async getDealsSubscribe(userId: string) {
 
       try {
-          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
           return users_deals;
       } catch(err) {
           console.log(err);

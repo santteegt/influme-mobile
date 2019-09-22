@@ -127,6 +127,7 @@ export class UserComponent implements OnInit {
     	this.imageurl = this.userProfile.picturehome;
       this.txtfieldcity = this.userProfile.city;
       this.txtfieldmail = this.userProfile.email;
+      this.turnInfluencer = this.userProfile.influencer;
 
 
       // this.jsonDataUser = {
@@ -185,7 +186,8 @@ export class UserComponent implements OnInit {
 
       this.userProfile.city = this.txtfieldcity;
       this.userProfile.email = this.txtfieldmail;
-      this.userProfile.influencer = this.turnInfluencer;
+      console.log("handle checked continue() "+this.turnInfluencer);
+      this.userProfile.influencer = this.turnInfluencer;      
       this.userLogData.info = this.userProfile;
       this.navigateInterest();
   }
@@ -222,8 +224,15 @@ export class UserComponent implements OnInit {
                 this._routerExt.navigate(["interest"], navigationExtras);
 
               }else if(this.menuOption == 1){
+
                   this.userProfile.city = this.txtfieldcity;
-                  this.userProfile.email = this.txtfieldmail;
+                  this.userProfile.email = this.txtfieldmail;   
+                  console.log("handle checked edit() "+this.turnInfluencer);               
+                  if(this.turnInfluencer===false && this.userProfile.influencer===true){
+
+                    this.userProfile.approvedinfluencer=null;
+
+                  }
                   this.userProfile.influencer = this.turnInfluencer;
                   this.updateAccountUser(this.userProfile._id, this.userProfile).then(responseSaveUser => {
                     if(responseSaveUser.error!=null){
@@ -317,8 +326,10 @@ export class UserComponent implements OnInit {
 public onFirstChecked(args) {
         let firstSwitch = <Switch>args.object;
         if (firstSwitch.checked) {
+            console.log("handle checked ");
             this.turnInfluencer = true;
-        } else {
+        } else {            
+            console.log("handle unchecked ");          
             this.turnInfluencer = false;
         }
     }

@@ -39,11 +39,23 @@ export class UserapiService {
 	}
 
 	public updateUser(idUser: string, bodyRequest: User): Promise<User> {
+
+    console.log("UpdateUser service ************** "+ JSON.stringify(bodyRequest));
   		let headers = { "Content-Type": "application/json" };
 
   		let promise = this.restAPI.put(config.apiUrl + `/users/update/${idUser}`, bodyRequest, headers);
   		
 		return promise;
 	}	
+
+
+  public getifInfluencer(idUser: string): Promise<User[]> {
+      let headers = null;
+
+      let promise = this.restAPI.get(config.apiUrl + `/users/search/influencer/${idUser}`, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
+  }  
 
 }

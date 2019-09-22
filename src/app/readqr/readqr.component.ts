@@ -6,14 +6,16 @@ import { ActivatedRoute } from "@angular/router";
 import { NavigationExtras } from "@angular/router";
 import { Page } from "tns-core-modules/ui/page";  
 
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
 
 import { Markerprofile } from "../shared/models/markerprofile.model";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 
+import { localize } from "nativescript-localize";
 import * as localstorage from "nativescript-localstorage";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
 
 
 
@@ -30,11 +32,14 @@ export class ReadqrComponent implements OnInit {
   deal_profile: Dealsprofile[];
   marker_profile: Markerprofile;
   userIdentification: string;
+  private feedback: Feedback;
 
 
   constructor(private barcodeScanner: BarcodeScanner, private _routerExtensions: RouterExtensions, 
-    private route: ActivatedRoute, private page: Page, private usersdealsService: UsersdealsService,
+    private route: ActivatedRoute, private page: Page, private dealsqrcodeService: DealsqrcodeService,
     private dealsprofileService: DealsprofileService) { 
+
+    this.feedback = new Feedback();
         
     // this.page.actionBarHidden = true;
     // this.page.backgroundSpanUnderStatusBar = true;
@@ -54,55 +59,100 @@ export class ReadqrComponent implements OnInit {
   }
 
   public onScanResult(evt) {
-    // console.log(evt.object);
+    
+    console.log("Ecaneo el codigo QR: " + evt.text);
     //alert(`onScanResult: ${evt.text} (${evt.format})`);
     // alert("Congratulations!!")
     dialogs.alert({
         title: "Successful",
-        message: "Congratulations!!, the discount is yours",
+        message: "Code read correctly!!!!",
         okButtonText: "Close"
     }).then(() => {
       
       this.barcodeScanner.stop();
-      
-      let objectUsersDeals = {} as Usersdeals;
-      objectUsersDeals.userid = this.userIdentification;
-      objectUsersDeals.dealid = this.deal_profile[0]._id;
 
-      //save user-deal
-      this.postUserDeal(objectUsersDeals).then(dataResponse => {
+      this.verifyCodeqr(evt.text).then(dataResponseVerify => {
 
-        let objectTickets = {} as Dealsprofile;
-        objectTickets.used_tickets = this.deal_profile[0].used_tickets + 1 ;
+        if(dataResponseVerify!=null){
+          if(dataResponseVerify.length>0){
+            if(dataResponseVerify[0].dealid === this.deal_profile[0]._id)   {
 
-        console.log("[**] Update Deals Ticekts " + JSON.stringify(objectTickets));
-        
-        //update number used_tickets
-        this.updateUsedTickets(this.deal_profile[0]._id, objectTickets).then(dataResponseDeal => {
+                    let objectUsersDealsCodeqr = {} as Dealsqrcode;
+                    objectUsersDealsCodeqr = dataResponseVerify[0]
+                    objectUsersDealsCodeqr.userid = this.userIdentification;
+                    objectUsersDealsCodeqr.dateused = new Date();
+                    objectUsersDealsCodeqr.isused = true;
 
-          console.log("[**] Response Update Ticekts " + JSON.stringify(dataResponseDeal));
+                    this.postUserDealCodeqr(evt.text, objectUsersDealsCodeqr).then(dataResponse => {
 
-          this.deal_profile[0].used_tickets = dataResponseDeal.used_tickets;         
+                              console.log("{****} Grabo readr");
 
-          let navigationExtras: NavigationExtras = {
-            queryParams: {
-                "MarkerProfile": JSON.stringify(this.marker_profile)
-              }
-          };
-          // this._routerExtensions.navigate(["markerprofile"], navigationExtras)
-          this._routerExtensions.navigate(["viewmap"], {clearHistory: true});
-          // this._routerExtensions.back();
+                              let objectTickets = {} as Dealsprofile;
+                              objectTickets.used_tickets = this.deal_profile[0].used_tickets + 1 ;
+
+                              console.log("[**] Update Deals Ticekts " + JSON.stringify(objectTickets));
+                              
+                              //update number used_tickets
+                              this.updateUsedTickets(this.deal_profile[0]._id, objectTickets).then(dataResponseDeal => {
+
+                                console.log("[**] Response Update Ticekts " + JSON.stringify(dataResponseDeal));
+
+                                this.deal_profile[0].used_tickets = dataResponseDeal.used_tickets;         
+
+                                let navigationExtras: NavigationExtras = {
+                                  queryParams: {
+                                      "MarkerProfile": JSON.stringify(this.marker_profile)
+                                    }
+                                };
+                                // this._routerExtensions.navigate(["markerprofile"], navigationExtras)
+                                this._routerExtensions.navigate(["viewmap"], {clearHistory: true});
+                                // this._routerExtensions.back();
 
 
-          console.log("Dialog closed!");
-        });
+                                console.log("Dialog closed!");
+                              });              
+
+                    });          
+            }else{
+              this.printError("error_read_qr1");
+              this._routerExtensions.navigate(["viewmap"], {clearHistory: true});              
+            }
+
+          }else{
+
+            this.printError("error_read_qr");
+            this._routerExtensions.navigate(["viewmap"], {clearHistory: true});
+
+          }
+        }else{
+            this.printError("error_read_qr")
+            this._routerExtensions.navigate(["viewmap"], {clearHistory: true});
+        }
+
 
       });
+      
 
     });
 
 
   }
+
+  printError(textError){
+      this.feedback.show({
+            title: "Error Selection",
+            message: localize(textError),
+            duration: 2500,
+            titleFont: "SFProDisplay-Bold",
+            titleSize: 16,
+            messageFont: "SFProDisplay-Regular",
+            messageSize: 13,
+            type: FeedbackType.Error,
+            onTap: () => {
+              console.log("showError tapped");
+            }
+          });
+  }  
 
   public scanTapped(): void {
    let scan = () => {
@@ -134,10 +184,10 @@ export class ReadqrComponent implements OnInit {
   }
 
 
-  async postUserDeal(objectUpdate: Usersdeals) {
+  async postUserDealCodeqr(codeQrScanned, objectUpdate: Dealsqrcode) {
 
       try {
-          const user_deal: Usersdeals = await this.usersdealsService.saveDealUser(objectUpdate);
+          const user_deal: Dealsqrcode = await this.dealsqrcodeService.saveUsedCodeqr(codeQrScanned,objectUpdate);
           // var dealsprofilecontent: any = JSON.parse(deals_profile); 
           return user_deal;
       } catch(err) {
@@ -158,6 +208,17 @@ export class ReadqrComponent implements OnInit {
       }
       
   }  
+
+  async verifyCodeqr(codeqr) {
+
+      try {
+          const profileQR: Dealsqrcode[] = await this.dealsqrcodeService.getProfileCodeqr(codeqr);      
+          return profileQR;
+        } catch(err) {
+      console.log(err);
+        }
+        
+    }  
 
 
 }

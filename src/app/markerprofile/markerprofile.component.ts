@@ -25,8 +25,11 @@ import { Dealsprofile } from "../shared/models/dealsprofile.model";
 import { Usersmarker } from "../shared/models/usersmarker.model";
 import { Data } from "../providers/data/data";
 
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
-import { Usersdeals } from "../shared/models/usersdeals.model";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { Usersdeals } from "../shared/models/usersdeals.model";
+
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 
 import { UsersinterestsService } from "../shared/api/usersinterests/usersinterests.service";
 import { Usersinterests } from "../shared/models/usersinterests.model";
@@ -82,7 +85,7 @@ export class MarkerprofileComponent implements OnInit {
     private dealsprofileService: DealsprofileService, private ngZone: NgZone, 
     private markerprofileService: MarkerprofileService, private imagesService: ImagesService,
     private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService,
-    private data: Data, private usersdealsService: UsersdealsService) {
+    private data: Data, private dealsqrcodeService: DealsqrcodeService) {
 
     let profileMarkerString = ""; 
 
@@ -234,23 +237,30 @@ export class MarkerprofileComponent implements OnInit {
               this.images_descuentos.forEach(async (element) => {
 
                 console.log("{*} Iterando Deals "+ JSON.stringify(element));
-              
-                this.getDealsByUserUsed(this.userIdentification, element._id).then(dataResponseVerify => {
 
-                  console.log("{*} Usuario registro? "+ dataResponseVerify.length);
+                this.setDealsHtml(element);
 
-                  if(dataResponseVerify.length==0){
-                    this.setDealsHtml(element);
-                  }else{
-                    contIndex = contIndex + 1;
-                  }              
-                  if(contIndex == this.images_descuentos.length){
-                    this.setDealsHtmlEmpty();                    
-                  }
+                /*               
+                * Documentado por cambios frontend
+                */
 
-                });
+                // this.getDealsByUserUsed(this.userIdentification, element._id).then(dataResponseVerify => {
+
+                //   console.log("{*} Usuario registro? "+ dataResponseVerify.length);
+
+                //   if(dataResponseVerify.length==0){
+                //     this.setDealsHtml(element);
+                //   }else{
+                //     contIndex = contIndex + 1;
+                //   }              
+                //   if(contIndex == this.images_descuentos.length){
+                //     this.setDealsHtmlEmpty();                    
+                //   }
+
+                // });
 
               });
+
           }else{
               this.setDealsHtmlEmpty();
           }
@@ -646,7 +656,7 @@ export class MarkerprofileComponent implements OnInit {
   async getDealsSubscribe(userId: string) {
 
       try {
-          const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+          const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
           return users_deals;
       } catch(err) {
           console.log(err);
@@ -654,17 +664,16 @@ export class MarkerprofileComponent implements OnInit {
       
   }
 
-  async getDealsByUserUsed(userid, dealid) {
+  // async getDealsByUserUsed(userid, dealid) {
 
-        try {
-      const dealsRaw: Usersdeals[] = await this.usersdealsService.getDealsByUser(userid, dealid);
-      // var dealsprofilecontent: any = JSON.parse(deals_profile); 
-      return dealsRaw;
-        } catch(err) {
-      console.log(err);
-        }
+  //       try {
+  //     const dealsRaw: Usersdeals[] = await this.usersdealsService.getDealsByUser(userid, dealid);
+  //     return dealsRaw;
+  //       } catch(err) {
+  //     console.log(err);
+  //       }
         
-    }  
+  //   }  
   
   onBusyChanged(args) {
         let indicator = <ActivityIndicator>args.object;
@@ -690,6 +699,14 @@ export class MarkerprofileComponent implements OnInit {
           utils.openUrl("https://instagram.com");
       }      
     }  
+
+    goFaceApp(){
+      console.log("nickUser " + this.profile_id_selected.instagramid);
+      // var installed = openApp("fb://profile/"+this.profile_id_selected.facebookid, false);
+      // if (!installed) {
+          utils.openUrl("https://facebook.com/"+this.profile_id_selected.facebookid);
+      // }      
+    }      
 
 
 }

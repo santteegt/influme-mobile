@@ -10,7 +10,11 @@ import * as nsPlatform from "nativescript-platform";
 
 
 import * as localstorage from "nativescript-localstorage";
-import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+// import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
+
+import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.service";
+
+
 import { Data } from "../providers/data/data";
 import { Dealsprofile } from "../shared/models/dealsprofile.model";
 import { DealsprofileService } from "../shared/api/dealsprofile/dealsprofile.service";
@@ -45,7 +49,7 @@ export class InboxComponent implements OnInit {
 	userIdentification: string;  	
 
   	constructor(private _routerExtensions: RouterExtensions, private ngZone: NgZone,
-  		private usersdealsService: UsersdealsService,
+  		private dealsqrcodeService: DealsqrcodeService,
       private inboxmessagesService: InboxmessagesService,
   		private data: Data,
   		private dealsprofileService: DealsprofileService,
@@ -127,8 +131,9 @@ export class InboxComponent implements OnInit {
     			newLabelTitle.style.fontSize = 16;
     			newLabelTitle.style.fontWeight = "bold";
 
+          var msjHour = messagesResponse[j].datepost.split("T");
     			const newLabelHour = new Label();          
-    			newLabelHour.text = messagesResponse[j].hour;
+    			newLabelHour.text = msjHour[0];
     			newLabelHour.style.fontFamily = "SFProDisplay-Regular";
     			newLabelHour.style.fontSize = 12;
     			// newLabelHour.style.color = new Color(this.messagesList[j].colortext);
@@ -293,7 +298,7 @@ export class InboxComponent implements OnInit {
 	async getDealsSubscribe(userId: string) {
 
 	  try {
-	      const users_deals: any = await this.usersdealsService.getAllDealsSubscribe(userId);
+	      const users_deals: any = await this.dealsqrcodeService.getAllDealsSubscribe(userId);
 	      console.log("******* " + JSON.stringify(users_deals));
 	      // var dealsprofilecontent: any = JSON.parse(deals_profile); 
 	      return users_deals;
