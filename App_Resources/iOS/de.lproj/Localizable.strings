@@ -1,3 +1,9 @@
+"pending_" = "Steht aus";
+"noapproved_" = "Nein genehmigt";
+"approved_" = "Genehmigt";
+"influencer_" = "Beeinflusser??";
+"error_read_qr1" = "Der Code QR entspricht nicht dem ausgewählten Angebot.";
+"error_read_qr" = "Codeqr wird bereits verwendet.";
 "view_deal" = "Angebot anzeigen";
 "inbox" = "Posteingang";
 "impressum" = "impressum";

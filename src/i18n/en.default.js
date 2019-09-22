@@ -60,5 +60,11 @@ module.exports = {
 	"editprofile": "edit profile",
 	"impressum": "impressum",
 	"inbox": "Inbox",
-	"view_deal": "view deal"
+	"view_deal": "view deal",
+	"error_read_qr": "Codeqr already used.",
+	"error_read_qr1": "Code QR does not correspond to selected deal.",
+	"influencer_": "Influencer??",
+	"approved_": "Approved",
+	"noapproved_": "No Approved",
+	"pending_": "Pending"
 };

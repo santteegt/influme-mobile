@@ -60,5 +60,13 @@ module.exports = {
 	"editprofile": "profil bearbeiten",
 	"impressum": "impressum",
 	"inbox": "Posteingang",
-	"view_deal": "Angebot anzeigen"	
+	"view_deal": "Angebot anzeigen",
+	"error_read_qr": "Codeqr wird bereits verwendet.",
+	"error_read_qr1": "Der Code QR entspricht nicht dem ausgewählten Angebot.",
+	"influencer_": "Beeinflusser??",
+	"approved_": "Genehmigt",
+	"noapproved_": "Nein genehmigt",
+	"pending_": "Steht aus"
+
+
 };

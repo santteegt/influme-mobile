@@ -1,3 +1,9 @@
+"pending_" = "Pending";
+"noapproved_" = "No Approved";
+"approved_" = "Approved";
+"influencer_" = "Influencer??";
+"error_read_qr1" = "Code QR does not correspond to selected deal.";
+"error_read_qr" = "Codeqr already used.";
 "view_deal" = "view deal";
 "inbox" = "Inbox";
 "impressum" = "impressum";
