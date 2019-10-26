@@ -43,13 +43,13 @@ import { SegmentedBar, SegmentedBarItem } from "tns-core-modules/ui/segmented-ba
 })
 export class FollowingextendedComponent implements OnInit {
 
-	@ViewChild("myNgStack") stackRef: ElementRef;
+	@ViewChild("myNgStack", {static: false}) stackRef: ElementRef;
 	myNativeStack: SegmentedBar;
 
-	@ViewChild("myNgStackUsers") stackRefUsers: ElementRef;
+	@ViewChild("myNgStackUsers", {static: false}) stackRefUsers: ElementRef;
 	myNativeStackUsers: GridLayout;
 
-	@ViewChild("myNgStackShops") stackRefShops: ElementRef;
+	@ViewChild("myNgStackShops", {static: false}) stackRefShops: ElementRef;
 	myNativeStackShops: GridLayout;		
 
 	mainUserSaveIdentification: string = "";

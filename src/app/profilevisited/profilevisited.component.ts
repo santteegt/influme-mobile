@@ -41,10 +41,10 @@ var utils = require("utils/utils");
 })
 export class ProfilevisitedComponent implements OnInit {
 
-	@ViewChild("carouselO") carouselRef: ElementRef;
+	@ViewChild("carouselO", {static: false}) carouselRef: ElementRef;
 	private carousel: Carousel;
 
-	@ViewChild("maintitle") stackMainTitle: ElementRef;
+	@ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
 	titleNativeStack: GridLayout;
 
 	public userIdentification: string;

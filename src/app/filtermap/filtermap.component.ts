@@ -18,7 +18,7 @@ import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 export class FiltermapComponent implements OnInit {
 
 
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;
 
   public myItems: any;

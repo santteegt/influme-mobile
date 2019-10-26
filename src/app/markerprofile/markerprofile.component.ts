@@ -52,11 +52,11 @@ import { openApp } from "nativescript-open-app";
 })
 export class MarkerprofileComponent implements OnInit {
   // //Para carrusel
-  @ViewChild('mycarite') carRef: ElementRef;
+  @ViewChild('mycarite', {static: false}) carRef: ElementRef;
   public carouselG: Carousel;
 
   // Para coger un StackLayout y agregar elementos
-  @ViewChild("myNgStack") stackRef: ElementRef;
+  @ViewChild("myNgStack", {static: false}) stackRef: ElementRef;
   myNativeStack: StackLayout;
 
   // public newImage: Image;

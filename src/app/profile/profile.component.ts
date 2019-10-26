@@ -64,16 +64,16 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   showDetails= "collapsed";
   private feedback: Feedback;
 
- @ViewChild(RadSideDrawerComponent) public drawerComponent: RadSideDrawerComponent;
+ @ViewChild(RadSideDrawerComponent, {static: false}) public drawerComponent: RadSideDrawerComponent;
   private drawer: RadSideDrawer;
 
-  @ViewChild("carouselO") carouselRef: ElementRef;
+  @ViewChild("carouselO", {static: false}) carouselRef: ElementRef;
   public carousel: Carousel;
 
-  @ViewChild("maintitlesettings") stackMainTitleSettings: ElementRef;
+  @ViewChild("maintitlesettings", {static: false}) stackMainTitleSettings: ElementRef;
   titleSettingsNativeStack: StackLayout;
 
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;      
 
   // public newImage: Image;  

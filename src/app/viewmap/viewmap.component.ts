@@ -60,14 +60,14 @@ export class ViewmapComponent {
     userIdentification: string;
 
     // Para coger un StackLayout y agregar elementos
-    @ViewChild("myNgStack") stackRef: ElementRef;
+    @ViewChild("myNgStack", {static: false}) stackRef: ElementRef;
     myNativeStack: StackLayout;
 
     // @ViewChild("myNgStack1") stackRef1: ElementRef;
-    @ViewChild("myNgStack1") stackRef1: ElementRef;
+    @ViewChild("myNgStack1", {static: false}) stackRef1: ElementRef;
     myNativeStack1: StackLayout;
 
-    @ViewChild("maintitle") stackMainTitle: ElementRef;
+    @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
     titleNativeStack: StackLayout;    
 
     // >> creating-image-code

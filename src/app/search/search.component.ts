@@ -65,10 +65,10 @@ export class SearchComponent implements OnInit, OnDestroy{
   searchControl = new FormControl();
   subscription: Subscription;
 
-  @ViewChild("myNgStack") stackRef: ElementRef;
+  @ViewChild("myNgStack", {static: false}) stackRef: ElementRef;
   myNativeStack: StackLayout;
 
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;    
 
   // public newLabel: Label;

@@ -2,10 +2,10 @@
   "nativescript": {
     "id": "org.nativescript.influmemobile",
     "tns-android": {
-      "version": "6.1.2"
+      "version": "5.0.0"
     },
     "tns-ios": {
-      "version": "6.1.1"
+      "version": "5.2.0"
     }
   },
   "name": "influme-mobile",
@@ -18,44 +18,45 @@
     "lint": "tslint \"app/**/*.ts\""
   },
   "dependencies": {
-    "@angular/animations": "8.0.0",
-    "@angular/common": "8.0.0",
-    "@angular/compiler": "8.0.0",
-    "@angular/core": "8.0.0",
-    "@angular/forms": "8.0.0",
-    "@angular/http": "8.0.0-beta.10",
-    "@angular/platform-browser": "8.0.0",
-    "@angular/platform-browser-dynamic": "8.0.0",
-    "@angular/router": "8.0.0",
+    "@angular/animations": "~7.0.0",
+    "@angular/common": "~7.0.0",
+    "@angular/compiler": "~7.0.0",
+    "@angular/core": "~7.0.0",
+    "@angular/forms": "~7.0.0",
+    "@angular/http": "~7.0.0",
+    "@angular/platform-browser": "~7.0.0",
+    "@angular/platform-browser-dynamic": "~7.0.0",
+    "@angular/router": "~7.0.0",
     "jwt-decode": "^2.2.0",
-    "nativescript-angular": "8.0.2",
+    "nativescript-angular": "~7.0.0",
     "nativescript-auth0": "^2.1.0",
     "nativescript-barcodescanner": "^3.0.0",
     "nativescript-carousel": "^4.1.0",
     "nativescript-feedback": "^1.3.6",
-    "nativescript-geolocation": "5.1.0",
+    "nativescript-geolocation": "^4.5.0",
     "nativescript-google-maps-sdk": "^2.6.1",
     "nativescript-localize": "^4.1.0",
-    "nativescript-localstorage": "^2.0.1",
+    "nativescript-localstorage": "^2.0.0",
     "nativescript-open-app": "^0.2.0",
-    "nativescript-platform": "^1.3.2",
+    "nativescript-platform": "^1.2.4",
     "nativescript-theme-core": "~1.0.4",
-    "nativescript-ui-sidedrawer": "7.0.0",
+    "nativescript-ui-sidedrawer": "^5.1.0",
     "reflect-metadata": "~0.1.10",
     "request-promise-native": "^1.0.7",
     "rxjs": "~6.3.0",
-    "tns-core-modules": "6.1.2",
+    "tns-core-modules": "~5.0.2",
     "underscore": "^1.9.1",
-    "zone.js": "0.9.1"
+    "zone.js": "~0.8.18"
   },
   "devDependencies": {
     "@angular/cli": "^7.1.4",
-    "@angular/compiler-cli": "8.0.0",
+    "@angular/compiler-cli": "^7.2.7",
     "@nativescript/schematics": "~0.4.0",
-    "@ngtools/webpack": "8.0.0",
+    "@ngtools/webpack": "~7.0.0",
     "@types/jasmine": "^3.3.5",
-    "nativescript-dev-webpack": "~1.2.0",
-    "typescript": "3.4.5"
+    "nativescript-dev-typescript": "~0.7.0",
+    "nativescript-dev-webpack": "~0.18.0",
+    "typescript": "^3.1.6"
   },
   "readme": "NativeScript Application"
 }

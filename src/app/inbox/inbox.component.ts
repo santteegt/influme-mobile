@@ -36,10 +36,10 @@ import { InboxmessagesService } from "../shared/api/inboxmessages/inboxmessages.
 })
 export class InboxComponent implements OnInit {
 
-	@ViewChild("maintitle") stackMainTitle: ElementRef;
+	@ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
 	titleNativeStack: GridLayout;	
 
-	@ViewChild("stackmsj") stackRef: ElementRef;
+	@ViewChild("stackmsj", {static: false}) stackRef: ElementRef;
 	myNativeStack: StackLayout;
 
 	public messagesList: any;	

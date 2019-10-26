@@ -40,15 +40,15 @@ import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 export class HotdealsComponent implements OnInit {
 
   // Para margen titulo segun dispositivo
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;   
 
 // GridLayout para hotdeals
-  @ViewChild("myNgStack") stackRef: ElementRef;
+  @ViewChild("myNgStack", {static: false}) stackRef: ElementRef;
   myNativeStack: GridLayout;
 
   // GridLayout para hotdeals
-  @ViewChild("myCategory") stackMyCategory: ElementRef;              
+  @ViewChild("myCategory", {static: false}) stackMyCategory: ElementRef;              
   categoryNativeStack: StackLayout;    
 
 

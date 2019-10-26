@@ -34,7 +34,7 @@ import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 })
 export class InterestComponent implements OnInit {
 
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: StackLayout;
 
   public myItems: Typemarker[];

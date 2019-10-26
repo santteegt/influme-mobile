@@ -36,7 +36,7 @@ import * as nsPlatform from "nativescript-platform";
 })
 export class UserComponent implements OnInit {
 
-  @ViewChild("maintitle") stackMainTitle: ElementRef;
+  @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: StackLayout;   
 
   public lnname: string;

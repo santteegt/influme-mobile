@@ -37,10 +37,10 @@ import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source
 })
 export class InboxdetailComponent implements OnInit {
 
-	@ViewChild("maintitle") stackMainTitle: ElementRef;
+	@ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
 	titleNativeStack: GridLayout;
 
-	@ViewChild("gridmain") stackMainContent: ElementRef;
+	@ViewChild("gridmain", {static: false}) stackMainContent: ElementRef;
 	contentNativeStack: GridLayout;			
 
   	msj_detail: any;	
