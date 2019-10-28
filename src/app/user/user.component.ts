@@ -155,7 +155,8 @@ export class UserComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+
 
     this.titleNativeStack = this.stackMainTitle.nativeElement;
 
@@ -172,6 +173,11 @@ export class UserComponent implements OnInit {
     }else{
         this.titleNativeStack.paddingTop = 20;
     }    
+    
+  }  
+
+  ngOnInit() {
+
 
     // if (nsPlatform.device.model.includes("11")){
 

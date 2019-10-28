@@ -100,89 +100,90 @@ export class InboxComponent implements OnInit {
 
   	}
 
+  ngAfterViewInit() {
+
+      this.titleNativeStack = this.stackMainTitle.nativeElement;
+      this.myNativeStack = this.stackRef.nativeElement;   
+
+      //Get number model of iphone
+      let modelSplit = nsPlatform.device.model.split("iPhone");
+      let textModel = modelSplit[1].split(",");
+      let numberModel = parseInt(textModel[0]);
+
+      if (numberModel >= 11){
+          this.titleNativeStack.paddingTop = 49;            
+      }else{
+          this.titleNativeStack.paddingTop = 20;
+      }
+
+      this.getAllMessages().then(messagesResponse => {
+
+          console.log("Mensajes ** " + JSON.stringify(messagesResponse));
+
+          for(var j=0; j<messagesResponse.length; j++){
+
+            const newLabelTitle = new Label();          
+            newLabelTitle.text = messagesResponse[j].title;
+            newLabelTitle.textWrap = true;
+            newLabelTitle.style.fontFamily = "SFProDisplay-Bold";
+            newLabelTitle.style.fontSize = 16;
+            newLabelTitle.style.fontWeight = "bold";
+
+            var msjHour = messagesResponse[j].datepost.split("T");
+            const newLabelHour = new Label();          
+            newLabelHour.text = msjHour[0];
+            newLabelHour.style.fontFamily = "SFProDisplay-Regular";
+            newLabelHour.style.fontSize = 12;
+            // newLabelHour.style.color = new Color(this.messagesList[j].colortext);
+            newLabelHour.style.color = new Color("#545355");
+
+            
+            const newStackLayoutSep = new StackLayout();            
+            newStackLayoutSep.width = 307;
+            newStackLayoutSep.height = 28;
+            newStackLayoutSep.style.borderBottomColor = new Color("black");
+            // newStackLayoutSep.style.borderBottomStyle = "solid";
+            newStackLayoutSep.style.borderBottomWidth = 1;
+            newStackLayoutSep.addChild(newLabelHour);
+            
+            const newStackLayout = new StackLayout();
+            newStackLayout.id = messagesResponse[j]._id;
+            newStackLayout.style.paddingTop = 11;
+            newStackLayout.style.paddingLeft = 36;
+            newStackLayout.style.paddingRight = 36;
+            if(messagesResponse[j].title.length > 34){
+              newStackLayout.height = 82;
+            }else
+            {
+              newStackLayout.height = 63;       
+            }
+            newStackLayout.addChild(newLabelTitle);     
+            newStackLayout.addChild(newStackLayoutSep); 
+            newStackLayout.on(GestureTypes.tap, function (args: GestureEventData ) {
+
+              let grid = <StackLayout>args.object;           
+
+              let json_msj_selected: any = messagesResponse.filter(d => d._id === grid.id);      
+
+              let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                      "DetailMsj": JSON.stringify(json_msj_selected)
+                    }
+              };
+              this.ngZone.run(() => this._routerExtensions.navigate(['inboxdetail'], navigationExtras )).then();
+
+
+            }, this);         
+
+            this.myNativeStack.addChild(newStackLayout)   
+
+          }
+      });      
+
+
+    }    
+
   	ngOnInit() {
-
-		this.titleNativeStack = this.stackMainTitle.nativeElement;
-
-		this.myNativeStack = this.stackRef.nativeElement;	  
-
-	    //Get number model of iphone
-	    let modelSplit = nsPlatform.device.model.split("iPhone");
-	    let textModel = modelSplit[1].split(",");
-	    let numberModel = parseInt(textModel[0]);
-
-	    if (numberModel >= 11){
-	        this.titleNativeStack.paddingTop = 49;            
-	    }else{
-	        this.titleNativeStack.paddingTop = 20;
-	    }
-
-
-    this.getAllMessages().then(messagesResponse => {
-
-        console.log("Mensajes ** " + JSON.stringify(messagesResponse));
-
-    		for(var j=0; j<messagesResponse.length; j++){
-
-    			const newLabelTitle = new Label();          
-    			newLabelTitle.text = messagesResponse[j].title;
-    			newLabelTitle.textWrap = true;
-    			newLabelTitle.style.fontFamily = "SFProDisplay-Bold";
-    			newLabelTitle.style.fontSize = 16;
-    			newLabelTitle.style.fontWeight = "bold";
-
-          var msjHour = messagesResponse[j].datepost.split("T");
-    			const newLabelHour = new Label();          
-    			newLabelHour.text = msjHour[0];
-    			newLabelHour.style.fontFamily = "SFProDisplay-Regular";
-    			newLabelHour.style.fontSize = 12;
-    			// newLabelHour.style.color = new Color(this.messagesList[j].colortext);
-          newLabelHour.style.color = new Color("#545355");
-
-    			
-    			const newStackLayoutSep = new StackLayout();						
-    			newStackLayoutSep.width = 307;
-    			newStackLayoutSep.height = 28;
-    			newStackLayoutSep.style.borderBottomColor = new Color("black");
-    			// newStackLayoutSep.style.borderBottomStyle = "solid";
-    			newStackLayoutSep.style.borderBottomWidth = 1;
-    			newStackLayoutSep.addChild(newLabelHour);
-    			
-    			const newStackLayout = new StackLayout();
-        	newStackLayout.id = messagesResponse[j]._id;
-    			newStackLayout.style.paddingTop = 11;
-    			newStackLayout.style.paddingLeft = 36;
-    			newStackLayout.style.paddingRight = 36;
-    			if(messagesResponse[j].title.length > 34){
-    				newStackLayout.height = 82;
-    			}else
-    			{
-    				newStackLayout.height = 63;				
-    			}
-    			newStackLayout.addChild(newLabelTitle);			
-    			newStackLayout.addChild(newStackLayoutSep);	
-    			newStackLayout.on(GestureTypes.tap, function (args: GestureEventData ) {
-
-    				let grid = <StackLayout>args.object;           
-
-    				let json_msj_selected: any = messagesResponse.filter(d => d._id === grid.id);			 
-
-            let navigationExtras: NavigationExtras = {
-                queryParams: {
-                    "DetailMsj": JSON.stringify(json_msj_selected)
-                  }
-            };
-            this.ngZone.run(() => this._routerExtensions.navigate(['inboxdetail'], navigationExtras )).then();
-
-
-          }, this);   			
-
-    			this.myNativeStack.addChild(newStackLayout)		
-
-    		}
-    });
-
-
 
 	}
 

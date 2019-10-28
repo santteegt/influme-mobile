@@ -100,7 +100,8 @@ export class FiltermapComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+
         this.titleNativeStack = this.stackMainTitle.nativeElement;
 
         //Get number model of iphone
@@ -116,6 +117,11 @@ export class FiltermapComponent implements OnInit {
         }else{
             this.titleNativeStack.paddingTop = 20;
         }        
+
+    
+  }  
+
+  ngOnInit() {
     
   }
 

@@ -77,23 +77,28 @@ export class InboxdetailComponent implements OnInit {
 
   	}
 
+  ngAfterViewInit() {    
+
+    this.titleNativeStack = this.stackMainTitle.nativeElement;
+
+    this.contentNativeStack = this.stackMainContent.nativeElement;
+
+      //Get number model of iphone
+      let modelSplit = nsPlatform.device.model.split("iPhone");
+      let textModel = modelSplit[1].split(",");
+      let numberModel = parseInt(textModel[0]); 
+
+      if (numberModel >= 11){
+          this.titleNativeStack.paddingTop = 49;
+
+      }else{
+          this.titleNativeStack.paddingTop = 20;
+      }   
+
+
+  }
+
 	ngOnInit() {
-
-		this.titleNativeStack = this.stackMainTitle.nativeElement;
-
-		this.contentNativeStack = this.stackMainContent.nativeElement;
-
-    	//Get number model of iphone
-	    let modelSplit = nsPlatform.device.model.split("iPhone");
-	    let textModel = modelSplit[1].split(",");
-	    let numberModel = parseInt(textModel[0]);	
-
-	    if (numberModel >= 11){
-	        this.titleNativeStack.paddingTop = 49;
-
-	    }else{
-	        this.titleNativeStack.paddingTop = 20;
-	    }	  
 
 		// const newImage = new Image();          
 		// newImage.src = "res://" + msj_detail[0].img;

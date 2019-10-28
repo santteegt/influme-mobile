@@ -115,27 +115,13 @@ export class FollowingextendedComponent implements OnInit {
 
 	}
 
-  	ngOnInit() {
+    ngAfterViewInit() {
 
 		this.myNativeStack = this.stackRef.nativeElement;
 
 		this.myNativeStackUsers = this.stackRefUsers.nativeElement;
 
 		this.myNativeStackShops = this.stackRefShops.nativeElement;
-
-	    if(localstorage.getItem('ResultLogin') != null){
-            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
-            this.userLoginRecordComplete = userLoginRecord;
-            this.userLoginRecordUser = userLoginRecord.info;
-            if(this.userIdentification == null || this.userIdentification == ""){
-        		this.userIdentification = userLoginRecord.info._id;
-        	
-            }
-            this.mainUserSaveIdentification = userLoginRecord.info._id;
-            
-        	
-        }
-        		
 
 		const newGridLayout = new GridLayout();			
 
@@ -424,6 +410,28 @@ export class FollowingextendedComponent implements OnInit {
 				});
 
 	 	}); 		
+
+    }
+
+
+  	ngOnInit() {
+
+
+	    if(localstorage.getItem('ResultLogin') != null){
+            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userLoginRecordComplete = userLoginRecord;
+            this.userLoginRecordUser = userLoginRecord.info;
+            if(this.userIdentification == null || this.userIdentification == ""){
+        		this.userIdentification = userLoginRecord.info._id;
+        	
+            }
+            this.mainUserSaveIdentification = userLoginRecord.info._id;
+            
+        	
+        }
+        		
+
+
   	}
 
 

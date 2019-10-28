@@ -103,6 +103,30 @@ export class SearchComponent implements OnInit, OnDestroy{
 
   }
 
+  ngAfterViewInit() {  
+
+      this.myNativeStack = this.stackRef.nativeElement;
+
+      this.titleNativeStack = this.stackMainTitle.nativeElement;  
+
+      //Get number model of iphone
+      let modelSplit = nsPlatform.device.model.split("iPhone");
+      let textModel = modelSplit[1].split(",");
+      let numberModel = parseInt(textModel[0]);
+
+      console.log("Number model "+numberModel);
+
+      // if (nsPlatform.device.model.includes("11")){
+      if (numberModel >= 11){
+          this.titleNativeStack.paddingTop = 49;            
+      }else{
+          this.titleNativeStack.paddingTop = 20;
+      }
+
+
+
+  }
+
   ngOnInit() {    
 
 
@@ -117,24 +141,8 @@ export class SearchComponent implements OnInit, OnDestroy{
     // this.myNativeStackLabel = this.stackRefLabel.nativeElement;
     // this.myNativeStackImage = this.stackRefImage.nativeElement;
     // this.myNativeStackIcon = this.stackRefIcon.nativeElement;
-    this.myNativeStack = this.stackRef.nativeElement;
+    
 
-  this.titleNativeStack = this.stackMainTitle.nativeElement;
-  // this.menuNativeStack = this.stackMenubar.nativeElement;
-
-    //Get number model of iphone
-    let modelSplit = nsPlatform.device.model.split("iPhone");
-    let textModel = modelSplit[1].split(",");
-    let numberModel = parseInt(textModel[0]);
-
-    console.log("Number model "+numberModel);
-
-    // if (nsPlatform.device.model.includes("11")){
-    if (numberModel >= 11){
-        this.titleNativeStack.paddingTop = 49;            
-    }else{
-        this.titleNativeStack.paddingTop = 20;
-    }
   // if (nsPlatform.device.model.includes("11")){
 
   //     this.titleNativeStack.paddingTop = 93;

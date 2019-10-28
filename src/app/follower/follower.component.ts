@@ -73,11 +73,17 @@ export class FollowerComponent implements OnInit {
 
 	}
 
-	ngOnInit() {
+    ngAfterViewInit() {
 
-		this.myNativeStack = this.stackRef.nativeElement;
+ 		this.myNativeStack = this.stackRef.nativeElement;
 
 		this.myNativeStackUsers = this.stackRefUsers.nativeElement;
+
+    	
+    }
+
+	ngOnInit() {
+
 
 
 	    if(localstorage.getItem('ResultLogin') != null){

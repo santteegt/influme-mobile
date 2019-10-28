@@ -180,6 +180,26 @@ constructor(private route: ActivatedRoute, private page: Page,
   }
 
   ngAfterViewInit() {
+
+        this.titleNativeStack = this.stackMainTitle.nativeElement;
+        this.titleSettingsNativeStack = this.stackMainTitleSettings.nativeElement;
+
+        //Get number model of iphone
+        let modelSplit = nsPlatform.device.model.split("iPhone");
+        let textModel = modelSplit[1].split(",");
+        let numberModel = parseInt(textModel[0]);
+
+        console.log("Number model "+numberModel);
+
+        // if (nsPlatform.device.model.includes("11")){
+        if (numberModel >= 11){
+            this.titleSettingsNativeStack.paddingTop = 93;
+            this.titleNativeStack.paddingTop = 93;
+        }else{
+            this.titleSettingsNativeStack.paddingTop = 20;
+            this.titleNativeStack.paddingTop = 20;
+        }
+    
         this.drawer = this.drawerComponent.sideDrawer;
         this._changeDetectionRef.detectChanges();
 
@@ -228,25 +248,6 @@ constructor(private route: ActivatedRoute, private page: Page,
   }
 
   ngOnInit() {
-
-    this.titleNativeStack = this.stackMainTitle.nativeElement;
-    this.titleSettingsNativeStack = this.stackMainTitleSettings.nativeElement;
-
-    //Get number model of iphone
-    let modelSplit = nsPlatform.device.model.split("iPhone");
-    let textModel = modelSplit[1].split(",");
-    let numberModel = parseInt(textModel[0]);
-
-    console.log("Number model "+numberModel);
-
-    // if (nsPlatform.device.model.includes("11")){
-    if (numberModel >= 11){
-        this.titleSettingsNativeStack.paddingTop = 93;
-        this.titleNativeStack.paddingTop = 93;
-    }else{
-        this.titleSettingsNativeStack.paddingTop = 20;
-        this.titleNativeStack.paddingTop = 20;
-    }
 
     // if (nsPlatform.device.model.includes("11")){
     //     this.titleSettingsNativeStack.paddingTop = 93;

@@ -27,7 +27,11 @@ import { ImagesService } from "../shared/api/images/images.service";
 import { localize } from "nativescript-localize";
 
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
+
+//****  Actualizacion GETPLATAFORM
 // import { IOS } from "tns-core-modules/platform";
+// import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
+//**** *******************************
 
 // import { UsersdealsService } from "../shared/api/usersdeals/usersdeals.service";
 // import { Usersdeals } from "../shared/models/usersdeals.model";
@@ -40,6 +44,7 @@ import * as nsPlatform from "nativescript-platform";
 import { Data } from "../providers/data/data";
 
 import { ImageSource, fromBase64, fromFile } from "tns-core-modules/image-source";
+import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -69,6 +74,10 @@ export class ViewmapComponent {
 
     @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
     titleNativeStack: StackLayout;    
+
+    @ViewChild("gfilter", {static: false}) gridFilter: ElementRef;
+    myGridStack: GridLayout;
+
 
     // >> creating-image-code
     public newImage: Image;
@@ -138,7 +147,10 @@ export class ViewmapComponent {
             this.userIdentification = userLoginRecord.info._id;
         }
 
-        console.log("Model Device: "+ nsPlatform.device.model);
+        console.log("[*]Model Device: "+ nsPlatform.device.model);
+
+        
+
 
 
         // this.availableMarkers();
@@ -211,10 +223,12 @@ export class ViewmapComponent {
         //         ]
     }
 
-    ngOnInit() {
+    ngAfterViewInit() {
+
         this.myNativeStack = this.stackRef.nativeElement;
         this.myNativeStack1 = this.stackRef1.nativeElement;
         this.titleNativeStack = this.stackMainTitle.nativeElement;
+        this.myGridStack = this.gridFilter.nativeElement;
 
         //Get number model of iphone
         let modelSplit = nsPlatform.device.model.split("iPhone");
@@ -227,10 +241,18 @@ export class ViewmapComponent {
         if (numberModel >= 11){
             this.titleNativeStack.paddingTop = 93;
             this.titleNativeStack.height = 140;
+
+            this.myGridStack.paddingTop = 163;
         }else{
             this.titleNativeStack.paddingTop = 20;
             // this.titleNativeStack.height = 96;
+
+            this.myGridStack.paddingTop = 90;
         }
+
+    }
+
+    ngOnInit() {
 
         // this.dealsprofilecontent = [];
     }

@@ -151,10 +151,7 @@ export class MarkerprofileComponent implements OnInit {
 }
 
 
-
-  ngOnInit() { 
-
-        this.carouselG = this.carRef.nativeElement;            
+  ngOnInit() {             
 
         if(localstorage.getItem('ResultLogin') != null){
             let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
@@ -215,7 +212,7 @@ export class MarkerprofileComponent implements OnInit {
 
   ngAfterViewInit() { 
 
-
+    this.carouselG = this.carRef.nativeElement;
 
     this.loadImagesMarker();
 

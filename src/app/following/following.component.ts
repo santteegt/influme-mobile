@@ -97,26 +97,14 @@ export class FollowingComponent implements OnInit {
 
 	}
 
-  	ngOnInit() {
+    ngAfterViewInit() {
+
 
 		this.myNativeStack = this.stackRef.nativeElement;
 
 		this.myNativeStackUsers = this.stackRefUsers.nativeElement;
 
 		this.myNativeStackShops = this.stackRefShops.nativeElement;		
-
-	    if(localstorage.getItem('ResultLogin') != null){
-            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
-            this.userLoginRecordComplete = userLoginRecord;
-            this.userLoginRecordUser = userLoginRecord.info;
-            if(this.userIdentification == null || this.userIdentification == ""){
-        		this.userIdentification = userLoginRecord.info._id;
-        		// console.log("[*] following this.userIdentification 2 " + this.userIdentification);
-            }
-            this.mainUserSaveIdentification = userLoginRecord.info._id;
-            // console.log("**** Bandera 2 "+this.flagView);
-        	
-        }
 
 		const newGridLayout = new GridLayout();			
 
@@ -379,7 +367,26 @@ export class FollowingComponent implements OnInit {
 				});
 
 
-	 	}); 		
+	 	});     	
+
+    }
+
+  	ngOnInit() {
+
+	    if(localstorage.getItem('ResultLogin') != null){
+            let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userLoginRecordComplete = userLoginRecord;
+            this.userLoginRecordUser = userLoginRecord.info;
+            if(this.userIdentification == null || this.userIdentification == ""){
+        		this.userIdentification = userLoginRecord.info._id;
+        		// console.log("[*] following this.userIdentification 2 " + this.userIdentification);
+            }
+            this.mainUserSaveIdentification = userLoginRecord.info._id;
+            // console.log("**** Bandera 2 "+this.flagView);
+        	
+        }
+
+		
   	}
 
 

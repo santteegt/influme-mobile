@@ -108,9 +108,8 @@ export class InterestComponent implements OnInit {
 
 }
 
-ngOnInit() {
+ngAfterViewInit() {
 
-    this.isVisible = false;
     this.titleNativeStack = this.stackMainTitle.nativeElement;
 
     //Get number model of iphone
@@ -126,7 +125,14 @@ ngOnInit() {
 
     }else{
         this.titleNativeStack.paddingTop = 20;
-    }    
+    }
+
+}
+
+ngOnInit() {
+
+    this.isVisible = false;
+    
 
     // if (nsPlatform.device.model.includes("11")){
 
