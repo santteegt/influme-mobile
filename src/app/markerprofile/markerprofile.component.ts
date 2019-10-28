@@ -42,6 +42,9 @@ import { Color } from "tns-core-modules/color";
 
 import { openApp } from "nativescript-open-app";
 
+import { UserapiService } from "../shared/api/user/userapi.service";
+import { User } from "../shared/models/user.model";
+
 // var utils = require("utils/utils");
 
 @Component({
@@ -80,12 +83,14 @@ export class MarkerprofileComponent implements OnInit {
 
   responseUsersMarker: Usersmarker[];
 
+  public userLoginRecordUser: User;
+  public userLoginRecordComplete: any;
 
   constructor(private _routerExtensions: RouterExtensions, private route: ActivatedRoute, private page: Page,
     private dealsprofileService: DealsprofileService, private ngZone: NgZone, 
     private markerprofileService: MarkerprofileService, private imagesService: ImagesService,
     private usersmarkerService: UsersmarkerService, private usersinterestsService: UsersinterestsService,
-    private data: Data, private dealsqrcodeService: DealsqrcodeService) {
+    private data: Data, private dealsqrcodeService: DealsqrcodeService, private userApiService: UserapiService) {
 
     let profileMarkerString = ""; 
 
@@ -155,6 +160,8 @@ export class MarkerprofileComponent implements OnInit {
 
         if(localstorage.getItem('ResultLogin') != null){
             let userLoginRecord = JSON.parse(localstorage.getItem('ResultLogin'));
+            this.userLoginRecordComplete = userLoginRecord;
+            this.userLoginRecordUser = userLoginRecord.info;            
             this.userIdentification = userLoginRecord.info._id;
         }
 
@@ -373,11 +380,13 @@ export class MarkerprofileComponent implements OnInit {
 
     let objectUpdateMarker = {} as Markerprofile;
     let objectUpdateFollowers = {} as Usersmarker;
+    let objectUpdateUser = {} as User;
 
     console.log("[*] Debug tamano " + this.responseUsersMarker.length);
 
     if(this.responseUsersMarker.length == 0){
       this.labelfollowbutton = localize("unfollow");
+      objectUpdateUser.following = this.userLoginRecordUser.following + 1;
       objectUpdateMarker.followers = this.profile_id_selected.followers + 1;
       //save table users_markers
       objectUpdateFollowers.userid = this.userIdentification;
@@ -387,33 +396,60 @@ export class MarkerprofileComponent implements OnInit {
         console.log("Save User_MArker " + JSON.stringify(dataResponse));
         this.responseUsersMarker = [];
         this.responseUsersMarker.push(dataResponse);
+        this.genericFunction(objectUpdateMarker, objectUpdateUser);
       });
     }else if(this.responseUsersMarker[0].status == false){
       this.labelfollowbutton = localize("unfollow");
+      objectUpdateUser.following = this.userLoginRecordUser.following + 1;
       objectUpdateMarker.followers = this.profile_id_selected.followers + 1;
       //update table users_markers
       objectUpdateFollowers.status = true;
       this.putUserMarkerFollower(this.userIdentification, this.profile_id_selected._id, objectUpdateFollowers).then(dataResponse => {
         console.log("Update User_Marker " + JSON.stringify(dataResponse));
         this.responseUsersMarker[0].status = dataResponse.status;
+        this.genericFunction(objectUpdateMarker, objectUpdateUser);
       });      
     }else if(this.responseUsersMarker[0].status == true){
       this.labelfollowbutton = localize("follow");
       objectUpdateMarker.followers = this.profile_id_selected.followers - 1;
+      objectUpdateUser.following = this.userLoginRecordUser.following - 1;
       //update table users_markers
       objectUpdateFollowers.status = false;
       this.putUserMarkerFollower(this.userIdentification, this.profile_id_selected._id, objectUpdateFollowers).then(dataResponse => {
         console.log("Update User_Marker " + JSON.stringify(dataResponse));
         this.responseUsersMarker[0].status = dataResponse.status;
+        this.genericFunction(objectUpdateMarker, objectUpdateUser);
       });
     }
 
-    this.putMarkerFollower(this.profile_id_selected._id, objectUpdateMarker).then(dataResponse => {
-      this.profile_id_selected.followers = dataResponse.followers;
+    // this.putMarkerFollower(this.profile_id_selected._id, objectUpdateMarker).then(dataResponse => {
+    //   this.profile_id_selected.followers = dataResponse.followers;
+    //       this.putUserFinalFollower(this.userLoginRecordUser._id, objectUpdateUser).then(dataResponseUser => {
+    //           this.userLoginRecordComplete.info.following = dataResponseUser.following
+    //           alert(JSON.stringify(dataResponseUser));
+    //           localStorage.removeItem('ResultLogin');
+    //           localstorage.setItem('ResultLogin', JSON.stringify(this.userLoginRecordComplete));
+    //       });      
 
-    });
+    // });
     
 }
+
+  genericFunction(objectUpdateMarker, objectUpdateUser){
+
+    this.putMarkerFollower(this.profile_id_selected._id, objectUpdateMarker).then(dataResponse => {
+      this.profile_id_selected.followers = dataResponse.followers;
+          this.putUserFinalFollower(this.userLoginRecordUser._id, objectUpdateUser).then(dataResponseUser => {
+              this.userLoginRecordComplete.info.following = dataResponseUser.following
+              console.log("******** [] **********"+JSON.stringify(dataResponseUser));
+              localStorage.removeItem('ResultLogin');
+              localstorage.setItem('ResultLogin', JSON.stringify(this.userLoginRecordComplete));
+          });      
+
+    });
+
+
+  }
 
   goviewmap() {
       this._routerExtensions.navigate(["viewmap"], {animated: false});
@@ -703,7 +739,20 @@ export class MarkerprofileComponent implements OnInit {
       // if (!installed) {
           utils.openUrl("https://facebook.com/"+this.profile_id_selected.facebookid);
       // }      
-    }      
+    }    
+
+    async putUserFinalFollower(userid, objectUpdate: User) {
+
+        try {
+            const user_profile: User = await this.userApiService.updateUser(userid, objectUpdate);
+            // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+            return user_profile;
+        } catch(err) {
+            console.log(err);
+        }
+    }
+        
+
 
 
 }

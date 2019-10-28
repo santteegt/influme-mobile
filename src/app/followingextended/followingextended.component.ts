@@ -691,11 +691,13 @@ export class FollowingextendedComponent implements OnInit {
 
 		    let objectUpdateMarker = {} as Markerprofile;
 		    let objectUpdateFollowers = {} as Usersmarker;
+		    let objectUpdateUser = {} as User;
 
 
 		    if(responseUsersMarker.length == 0){
 
 		      tagButton.text = localize("unfollow");
+		      objectUpdateUser.following = this.userLoginRecordUser.following + 1;
 		      objectUpdateMarker.followers = elementRecord.markerid.followers + 1;
 		      //save table users_markers
 		      objectUpdateFollowers.userid = this.mainUserSaveIdentification;
@@ -705,16 +707,19 @@ export class FollowingextendedComponent implements OnInit {
 		        console.log("Save User_MArker " + JSON.stringify(dataResponse));
 		        responseUsersMarker = [];
 		        responseUsersMarker.push(dataResponse);
+		        this.genericFunction(elementRecord, objectUpdateMarker, objectUpdateUser);
 		      });
 		    }else if(responseUsersMarker[0].status == false){
 		      // this.labelfollowbutton = localize("unfollow");
 		      tagButton.text = localize("unfollow");
 		      objectUpdateMarker.followers = elementRecord.markerid.followers + 1;
+		      objectUpdateUser.following = this.userLoginRecordUser.following + 1;
 		      //update table users_markers
 		      objectUpdateFollowers.status = true;
 		      this.putUserMarkerFollower(this.mainUserSaveIdentification, elementRecord.markerid._id, objectUpdateFollowers).then(dataResponse => {
 		        console.log("Update User_Marker " + JSON.stringify(dataResponse));
 		        responseUsersMarker[0].status = dataResponse.status;
+		        this.genericFunction(elementRecord, objectUpdateMarker, objectUpdateUser);
 		      });      
 		    }else 
 		    //***
@@ -722,20 +727,32 @@ export class FollowingextendedComponent implements OnInit {
 		      // this.labelfollowbutton = localize("follow");
 		  	  tagButton.text = localize("follow");
 		      objectUpdateMarker.followers = elementRecord.markerid.followers - 1;
+		      objectUpdateUser.following = this.userLoginRecordUser.following - 1;
 		      //update table users_markers
 		      objectUpdateFollowers.status = false;
 		      this.putUserMarkerFollower(this.mainUserSaveIdentification, elementRecord.markerid._id, objectUpdateFollowers).then(dataResponse => {
 		        console.log("Update User_Marker " + JSON.stringify(dataResponse));
+		        this.genericFunction(elementRecord, objectUpdateMarker, objectUpdateUser);
 		        // this.responseUsersMarker[0].status = dataResponse.status;
 		      });
 		    }
 
+	}
+
+  genericFunction(elementRecord, objectUpdateMarker, objectUpdateUser){
 		    this.putMarkerFollower(elementRecord.markerid._id, objectUpdateMarker).then(dataResponse => {
 		      elementRecord.markerid.followers = dataResponse.followers;
+	          this.putUserFinalFollower(this.userLoginRecordUser._id, objectUpdateUser).then(dataResponseUser => {
+	              this.userLoginRecordComplete.info.following = dataResponseUser.following
+	              console.log("******** [] **********"+JSON.stringify(dataResponseUser));
+	              localStorage.removeItem('ResultLogin');
+	              localstorage.setItem('ResultLogin', JSON.stringify(this.userLoginRecordComplete));
+	          });      
+
 
 		    });
 
-	}
+  }
 
 
     async getAllFollowingUsers(userid) {

@@ -661,6 +661,7 @@ export class FollowingComponent implements OnInit {
 
 		    let objectUpdateMarker = {} as Markerprofile;
 		    let objectUpdateFollowers = {} as Usersmarker;
+		    let objectUpdateUser = {} as User;
 
 		    // console.log("[*] Debug tamano " + this.responseUsersMarker.length);
 
@@ -690,18 +691,36 @@ export class FollowingComponent implements OnInit {
 		      // this.labelfollowbutton = localize("follow");
 		  	  tagButton.text = localize("follow");
 		      objectUpdateMarker.followers = elementRecord.markerid.followers - 1;
+		      objectUpdateUser.following = this.userLoginRecordUser.following - 1;
 		      //update table users_markers
 		      objectUpdateFollowers.status = false;
 		      this.putUserMarkerFollower(this.mainUserSaveIdentification, elementRecord.markerid._id, objectUpdateFollowers).then(dataResponse => {
 		        console.log("Update User_Marker " + JSON.stringify(dataResponse));
+			    this.putMarkerFollower(elementRecord.markerid._id, objectUpdateMarker).then(dataResponse => {
+			      	elementRecord.markerid.followers = dataResponse.followers;
+					this.putUserFinalFollower(this.userLoginRecordUser._id, objectUpdateUser).then(dataResponseUser => {
+			              this.userLoginRecordComplete.info.following = dataResponseUser.following
+			              console.log("******** [] **********"+JSON.stringify(dataResponseUser));
+			              localStorage.removeItem('ResultLogin');
+			              localstorage.setItem('ResultLogin', JSON.stringify(this.userLoginRecordComplete));
+			          });		      
+
+			    });
+		        
 		        // this.responseUsersMarker[0].status = dataResponse.status;
 		      });
 		    }
 
-		    this.putMarkerFollower(elementRecord.markerid._id, objectUpdateMarker).then(dataResponse => {
-		      elementRecord.markerid.followers = dataResponse.followers;
+		  //   this.putMarkerFollower(elementRecord.markerid._id, objectUpdateMarker).then(dataResponse => {
+		  //     	elementRecord.markerid.followers = dataResponse.followers;
+				// this.putUserFinalFollower(this.userLoginRecordUser._id, objectUpdateUser).then(dataResponseUser => {
+		  //             this.userLoginRecordComplete.info.following = dataResponseUser.following
+		  //             console.log("******** [] **********"+JSON.stringify(dataResponseUser));
+		  //             localStorage.removeItem('ResultLogin');
+		  //             localstorage.setItem('ResultLogin', JSON.stringify(this.userLoginRecordComplete));
+		  //         });		      
 
-		    });
+		  //   });
 
 	}
 
