@@ -224,17 +224,20 @@
 
 .sideTitleStackLayout {
     /*padding-top: 93;*/
-    padding-bottom: 2;
+    /*padding-bottom: 2;*/
     font-family: "SFProDisplay-Bold";
     font-weight: bold;
     font-size: 35;
-    height: 56;
+/*    height: 56;
     text-align: center;
     vertical-align: center;
-    color: black;
+*/    color: black;
+    vertical-align: top;
+    text-align: center;
     border-bottom-style: dotted;
     border-bottom-color: black;
     border-bottom-width: 1;
+
 }
 
 .sideLabel {
@@ -283,6 +286,11 @@
 .star-style{
     color: green;
     font-size: 22;    
+}
+
+.bottom-menu-maps-select{
+    
+    color: #ff8a58;
 }
 
 /*.imagebackground{

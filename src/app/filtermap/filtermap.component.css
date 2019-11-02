@@ -72,3 +72,13 @@
 	font-family: "SFProDisplay-Bold";
 	text-align: center;
 }
+
+.text-close-icon {
+	font-size: 30;
+	font-family: "FontAwesome";	
+    color: white;
+}
+
+.page {
+    background-color: black;
+}

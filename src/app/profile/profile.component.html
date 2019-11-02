@@ -91,7 +91,7 @@
           <Label [text]="nickUser" textWrap="true" class="nick-user-title"></Label>     
        </StackLayout>
 
-       <StackLayout row="0" height="20" marginTop="166" verticalAlignment="top" horizontalAlignment="left">
+       <StackLayout row="0" height="20" width="200" marginTop="166" verticalAlignment="top" horizontalAlignment="left">
           <Label [text]="nameUser" textWrap="true" class="user-title"></Label>     
        </StackLayout>
 
@@ -211,19 +211,15 @@
           </StackLayout>
 
           <StackLayout class="homemarker-deals-images" marginBottom="25">
-<!--             <Carousel #carousel ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
-                    <CarouselItem>
-                        <Image src="res://mido/CouponMido" stretch="fill" ></Image>
-                    </CarouselItem>
-                    <CarouselItem>
-                        <Image src="res://sonsofmana/CouponSOM" stretch="fill"></Image>
-                    </CarouselItem>
-            </Carousel> -->    
-                  <Carousel #carouselO ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
-                  </Carousel>
+
+              <Carousel #carouselO ios:finite="true" ios:bounce="false" showIndicator="true" indicatorColor="#66ccff" indicatorColorUnselected="#cceeff" height="100%" width="100%">
+              </Carousel>
+              <Stacklayout #imgempty></Stacklayout>
 
           </StackLayout>   
-                                      <ActivityIndicator id="indicator" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+          <ActivityIndicator id="indicator" #activityIndicator [busy]="isBusy" (busyChange)="onBusyChanged($event)" width="60" height="60" class="activity-indicator ext_loading" horizontalAlignment="center" verticalAlignment="top">
+            
+          </ActivityIndicator>
 
         </StackLayout>  
       </GridLayout>      
@@ -235,7 +231,7 @@
           <Button text="&#xf06e;" textWrap="true" class="bottom-menu-maps" (tap)="goviewmap()"></Button>
           <Button text="&#xf002;" textWrap="true" class="bottom-menu-maps" (tap)="gosearch()"></Button>
           <Button text="&#xf06d;" textWrap="true" class="bottom-menu-maps" (tap)="goHotDeals()"></Button>
-          <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps"></Button>
+          <Button text="&#xf007;" textWrap="true" class="bottom-menu-maps bottom-menu-maps-select"></Button>
       </StackLayout>
 
   </GridLayout>

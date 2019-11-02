@@ -13,7 +13,7 @@
     </StackLayout>
     
     <StackLayout row="2">
-    	<TextField height="40" class="txt t-15 c-white border-stack" hint="Name" [text]="lname"></TextField>
+    	<TextField height="40" class="txt t-15 c-white border-stack" hint="Name" [text]="lname" (blur)="onBlurName($event)"></TextField>
     </StackLayout>
     
     <StackLayout row="3">
@@ -58,7 +58,7 @@
     </StackLayout>    
 
       <AbsoluteLayout width="100" horizontalAlignment="right" verticalAlignment="top" marginTop="20" height="100">
-        <Image src="res://icons/close" width="35" height="35" (tap)="goBackProfile()" marginLeft="35" visibility="{{ showDetails1 }}"></Image>
+        <Image src="res://icons/close" width="35" height="35" (tap)="goBackProfile()" marginLeft="70" visibility="{{ showDetails1 }}"></Image>
       </AbsoluteLayout>        
 
 

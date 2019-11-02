@@ -73,6 +73,9 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   @ViewChild("maintitlesettings", {static: false}) stackMainTitleSettings: ElementRef;
   titleSettingsNativeStack: StackLayout;
 
+  @ViewChild("imgempty", {static: false}) stackEmpty: ElementRef;
+  emptyLayout: StackLayout;
+
   @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;      
 
@@ -183,6 +186,7 @@ constructor(private route: ActivatedRoute, private page: Page,
 
         this.titleNativeStack = this.stackMainTitle.nativeElement;
         this.titleSettingsNativeStack = this.stackMainTitleSettings.nativeElement;
+        this.emptyLayout = this.stackEmpty.nativeElement
 
         //Get number model of iphone
         let modelSplit = nsPlatform.device.model.split("iPhone");
@@ -237,12 +241,21 @@ constructor(private route: ActivatedRoute, private page: Page,
       }
 
     }else{
+      // const newImageEmptyDeals = new Image();          
+      // newImageEmptyDeals.src = "res://empty";
+      // newImageEmptyDeals.stretch = "fill";
+      // const carouselItemEmpty = new CarouselItem(); 
+      // carouselItemEmpty.addChild(newImageEmptyDeals); 
+      // this.carousel.addChild(carouselItemEmpty);        
+      
       const newImageEmptyDeals = new Image();          
       newImageEmptyDeals.src = "res://empty";
       newImageEmptyDeals.stretch = "fill";
-      const carouselItemEmpty = new CarouselItem(); 
-      carouselItemEmpty.addChild(newImageEmptyDeals); 
-      this.carousel.addChild(carouselItemEmpty);        
+      // const carouselItemEmpty = new CarouselItem(); 
+      // carouselItemEmpty.addChild(newImageEmptyDeals); 
+      this.emptyLayout.addChild(newImageEmptyDeals);              
+
+      
     }
 
   }

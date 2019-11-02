@@ -192,6 +192,7 @@ export class UserComponent implements OnInit {
 
       this.userProfile.city = this.txtfieldcity;
       this.userProfile.email = this.txtfieldmail;
+      this.userProfile.name = this.lname;
       console.log("handle checked continue() "+this.turnInfluencer);
       this.userProfile.influencer = this.turnInfluencer;      
       this.userLogData.info = this.userProfile;
@@ -207,9 +208,11 @@ export class UserComponent implements OnInit {
 
       console.log("Verifica txtfieldcity " + this.txtfieldcity);
       console.log("Verifica txtfieldmail " + this.txtfieldmail);
+      console.log("Verifica lname " + this.lname);
 
-      if(this.txtfieldcity != "" && this.txtfieldmail != ""){
+      if(this.txtfieldcity != "" && this.txtfieldmail != "" && this.lname != ""){
 
+            console.log("NUEVA SESSION: " +JSON.stringify(this.userLogData));
             localStorage.removeItem('ResultLogin');
             localstorage.setItem('ResultLogin', JSON.stringify(this.userLogData));                        
 
@@ -231,6 +234,7 @@ export class UserComponent implements OnInit {
 
               }else if(this.menuOption == 1){
 
+                  this.userProfile.name = this.lname;
                   this.userProfile.city = this.txtfieldcity;
                   this.userProfile.email = this.txtfieldmail;   
                   console.log("handle checked edit() "+this.turnInfluencer);               
@@ -345,6 +349,13 @@ onBlurCity(args) {
     let textField = <TextField>args.object;
 
     this.txtfieldcity = textField.text;    
+}
+
+onBlurName(args) {
+    // blur event will be triggered when the user leaves the TextField
+    let textField = <TextField>args.object;
+
+    this.lname = textField.text;    
 }    
 
 onBlurEmail(args) {

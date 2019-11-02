@@ -129,7 +129,7 @@ export class FiltermapComponent implements OnInit {
     if (this.myItems[args]["status"] == 0)
     {
      this.myItems[args]["status"]=1;
-     this.myItems[args]["colorstack"]="border-color: red;";
+     this.myItems[args]["colorstack"]="border-color: #f13657;";
      this.myItems[args]["opacityvalue"]="1";
     }else
     {
@@ -184,6 +184,19 @@ export class FiltermapComponent implements OnInit {
     // });
 
   }
+
+    private routeMap() {
+
+        this._routerExtensions.navigate(["viewmap"], {   
+            animated: true,
+            transition: {
+                name: "slideRight",
+                duration: 350,
+                curve: "ease"
+            }});
+
+
+  }  
 
   public cleanLocalStorage(){
 
