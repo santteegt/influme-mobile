@@ -34,6 +34,9 @@ import { User } from "../shared/models/user.model";
 
 import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
 
+import { Auth0 } from 'nativescript-auth0';
+
+import * as jwt from "jwt-decode";
 // import { registerElement } from 'nativescript-angular/element-registry';
 
 // registerElement('Carousel', () => Carousel);
@@ -63,6 +66,7 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   public isBusy = false;
   showDetails= "collapsed";
   private feedback: Feedback;
+  private userProfile: User;
 
  @ViewChild(RadSideDrawerComponent, {static: false}) public drawerComponent: RadSideDrawerComponent;
   private drawer: RadSideDrawer;
@@ -78,6 +82,13 @@ export class ProfileComponent implements AfterViewInit, OnInit {
 
   @ViewChild("maintitle", {static: false}) stackMainTitle: ElementRef;
   titleNativeStack: GridLayout;      
+
+  private auth0: Auth0;
+
+  private jsonFinal: any;
+
+  public imagenUpdate: string;
+
 
   // public newImage: Image;  
   // public carouselItem: CarouselItem;
@@ -128,6 +139,12 @@ constructor(private route: ActivatedRoute, private page: Page,
 
     let infoUser = localStorage.getItem('ResultLogin');
     this.userLogData = JSON.parse(infoUser);
+    this.userProfile = this.userLogData.info;
+
+    console.log("[************] ngOnInit (REFRESH TOKEN) JSON COMPLETO"  + JSON.stringify(this.userLogData, undefined, 4));
+
+    console.log("[************] ngOnInit (REFRESH TOKEN)"  + this.userLogData.refreshToken);
+
 
     this.userIdentification = this.userLogData.info._id;
 
@@ -183,6 +200,7 @@ constructor(private route: ActivatedRoute, private page: Page,
   }
 
   ngAfterViewInit() {
+      
 
         this.titleNativeStack = this.stackMainTitle.nativeElement;
         this.titleSettingsNativeStack = this.stackMainTitleSettings.nativeElement;
@@ -215,7 +233,111 @@ constructor(private route: ActivatedRoute, private page: Page,
         //   this.fillCarousell();
         // });
 
-  }
+    //-------- PROCESO DE UPDATE IMAGEN DE INSTAGRAM
+
+        const userInfo = <any>{};
+
+        this.auth0 = new Auth0('u5l96Kp3uEDJ7PSfhH56WyHIJe4PaiXd', 'devappmobile.auth0.com');
+
+        console.log("[*] Inicia proceso de actualizacion de imagen ");
+
+        console.log("[*] [*] JSON Completo Storage " + JSON.stringify(this.userLogData, undefined, 4));
+
+        console.log("[*] [*] FLIEDS JSONs " + Object.keys(this.userLogData));
+
+
+        //this.auth0.getUserInfo(this.userLogData.accessToken).then(userInfoRaw=> {renewCredentials
+        this.auth0.renewCredentials(this.userLogData.refreshToken).then(userAccesRaw=> {
+
+          // var newCred: any = userAccesRaw;
+
+          console.log("[*] [*] FLIEDS JSONs renew Credenciales" + Object.keys(userAccesRaw));
+          //delete userAccesRaw.idToken;
+
+          console.log("[*] [*] Response Renovacion de Credenciales FULL" + JSON.stringify(userAccesRaw, undefined, 4));
+          // console.log("[*] [*] Response Renovacion de Credenciales accessToken " + newCred['accessToken']);
+          // console.log("[*] [*] Response Renovacion de Credenciales accessToken " + newCred['refreshToken']);
+          
+
+
+          // this.auth0.getUserInfo(userAccesRaw.accessToken).then(userInfoRaw=> {
+          this.updateInfoUsuarioLogin(this.userLogData.info._id, userAccesRaw.accessToken).then(responseRefreshUser => {
+
+            console.log("[*] [*] Response Renew Image Profile FULL" + JSON.stringify(responseRefreshUser, undefined, 4));
+
+            console.log("[*] [*] Response Renew Image Profile FULL" + JSON.stringify(responseRefreshUser, undefined, 4));
+
+
+          //   for (const key in userInfoRaw) {
+              
+          //     if (userInfoRaw.hasOwnProperty(key)) {
+
+          //         if(key === "pictureURL") {
+                                      
+          //           this.imagenUpdate = userInfoRaw[key];
+                    
+          //         }
+          //         userInfo[key] = userInfoRaw[key];
+                
+          //     }
+          //   }
+
+            this.urlImage = responseRefreshUser.newImgProfile;
+
+            console.log("**** Nueva Imagen " + responseRefreshUser.newImgProfile);
+
+            //if(this.userLogData.info.picturehome != this.urlImage){
+
+                console.log("IMAGEN CAMBIADA");
+
+                // this.userProfile = this.userLogData.info;
+                this.userProfile.picturehome = responseRefreshUser.picturehome;
+                this.userProfile.tokenaccess = userAccesRaw.accessToken;
+                // this.userProfile.refreshtoken = userAccesRaw.refreshToken;
+                this.userProfile.token_detail = JSON.stringify(userAccesRaw);
+                //this.userProfile.raw_profile = JSON.stringify(userInfoRaw);
+
+
+
+                console.log("PAYLOAD " + JSON.stringify(this.userProfile));
+
+                this.updateAccountUser(this.userLogData.info._id, this.userProfile).then(responseSaveUser => {
+
+                  console.log("RENEW 3");  
+                    if(responseSaveUser.error!=null){
+                      this.printError("message_user_save_error");
+                    }else{
+
+                      console.log("RENEW 4");  
+                      this.jsonFinal = {
+                            "info": this.userProfile,
+                            "accessToken": userAccesRaw.accessToken,
+                            "refreshToken": this.userLogData.refreshToken,
+                            "idToken": this.userLogData.idToken,            
+                            "intereses": this.userLogData.intereses,
+                            "token_detail": JSON.stringify(userAccesRaw)
+                            //"raw_profile": JSON.stringify(userInfoRaw)
+                          };        
+
+                        console.log(JSON.stringify(this.jsonFinal, undefined, 4));
+
+                        localstorage.removeItem('ResultLogin');
+                        localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal)); 
+
+                        //console.log("[*][*] FINAL PROCESO " + JSON.stringify(this.jsonFinal, undefined, 4));                     
+
+                        console.log("[*][*] FINAL PROCESO SINGLE rerfresh token : " + this.jsonFinal.refreshToken);                     
+                    }
+                  
+                });      
+
+            //}      
+
+          });
+
+        });        
+
+  }  
 
   private fillCarousel(){
 
@@ -269,6 +391,61 @@ constructor(private route: ActivatedRoute, private page: Page,
     //     this.titleSettingsNativeStack.paddingTop = 49;
     //     this.titleNativeStack.paddingTop = 49;
     // }     
+
+    // VERIFICACION AUNTOMATICA DE DATOS DE USUARIO
+
+    // this.updateDataInfoInstagram(this.userLogData.accessToken).then(dataResponseinfo => {
+
+
+      // .then((result) => {            
+
+      //           console.log(" [**] UPDATE INSTAGRAM INFO " + JSON.stringify(result));
+            
+      // }).catch((e: Error) => console.log(e, e.stack));
+
+
+
+
+
+    // });
+
+        // this.auth0 = new Auth0('u5l96Kp3uEDJ7PSfhH56WyHIJe4PaiXd', 'devappmobile.auth0.com');
+
+        // this.auth0.webAuthentication({
+        //     scope: 'openid profile email bio offline_access', scheme: "influmemobile"
+        // }).then((res) => {            
+
+        //     const usuario: string = jwt(res['idToken']);
+
+        //     let userData = {} as User;
+
+        //     userData.username = usuario["nickname"];
+        //     userData.name = usuario["name"];
+        //     userData.city = "";
+        //     userData.email = "";
+        //     userData.picturehome = usuario["picture"];
+        //     userData.followers = 0;
+        //     userData.following = 0;
+        //     userData.influencer = false;
+        //     userData.approvedinfluencer = null;
+            
+        //     this.jsonFinal = {
+        //         "info": userData,
+        //         "accessToken": res.accessToken,
+        //         "idToken": res.idToken,            
+        //         "intereses": this.userLogData.intereses
+        //     };        
+
+        //     console.log("[******] JSON UPDATE VERIFY INSTAGRAM PICTURE " + JSON.stringify(this.jsonFinal));
+
+        //     localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));
+
+        //     this.urlImage = userData.picturehome;
+
+
+        // }).catch((e: Error) => console.log(e, e.stack));    
+
+    // ********************************************
 
   }
 
@@ -510,6 +687,18 @@ constructor(private route: ActivatedRoute, private page: Page,
       
   }
 
+  // async updateDataInfoInstagram(token: string) {
+
+  //     try {
+  //         const infoProfile: any = await this.userApiService.updateDataInfoInstagram(token);
+  //         // var dealsprofilecontent: any = JSON.parse(deals_profile); 
+  //         return infoProfile;
+  //     } catch(err) {
+  //         console.log(err);
+  //     }
+      
+  // }
+
   async getIfInfluencer(idUser: string) {
 
       try {
@@ -594,5 +783,33 @@ constructor(private route: ActivatedRoute, private page: Page,
             }
           });
   }     
+
+  async updateAccountUser(idUser: string, bodySave: User) {
+
+    console.log("Objeto User a actualizar " + JSON.stringify(bodySave));
+
+      try {
+          const userprofile_: User = await this.userApiService.updateUser(idUser, bodySave);
+          console.log("Objeto de retorno de create Account " + JSON.stringify(userprofile_));
+          return userprofile_;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }
+
+  async updateInfoUsuarioLogin(idUser: string, tkuser: string) {
+
+    console.log("Refresh info token....");
+
+      try {
+          const userprofile_: any = await this.userApiService.getRefeshInfoLogin(idUser, tkuser);
+          console.log("Objeto de retorno Refresh info token " + JSON.stringify(userprofile_));
+          return userprofile_;
+      } catch(err) {
+          console.log(err);
+      }
+      
+  }    
 
 }

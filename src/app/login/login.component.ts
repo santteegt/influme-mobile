@@ -17,6 +17,7 @@ import { DealsqrcodeService } from "../shared/api/dealsqrcode/dealsqrcode.servic
 import { Dealsqrcode } from "../shared/models/dealsqrcode.model";
 
 import { Data } from "../providers/data/data";
+import { TextField } from "tns-core-modules/ui/text-field";
 
 @Component({
     selector: "Login",
@@ -30,6 +31,10 @@ export class LoginComponent {
     private auth0: Auth0;
     // private lstore: NLocalStorage;
     private jsonFinal: any;
+
+    public lname: string;
+
+    public textname: TextField;
     // private userData: User;
 
     // constructor(private _routerExtensions: RouterExtensions, private zone: NgZone, private page: Page) {
@@ -99,6 +104,24 @@ export class LoginComponent {
         
         const usuario: string = jwt(res['idToken']);
 
+        console.log("[*] Datos de Login Res" + JSON.stringify(res));
+
+        console.log("[*] Datos de Login Usuario con token" + JSON.stringify(usuario));
+
+        console.log("[*] Token refresh" + res['refreshToken']);
+
+
+
+        // for (const key in res) {
+
+        //   console.log("[****] Field " + key);
+          
+        // }
+
+
+
+        
+
         // let usuarioJson: any = JSON.parse(usuario);
 
         let userData = {} as User;
@@ -112,6 +135,9 @@ export class LoginComponent {
         userData.following = 0;
         userData.influencer = false;
         userData.approvedinfluencer = null;
+
+        this.textname = new TextField();
+        this.textname.text = userData.name;
 
         //Para verificar si es nuevo (0) o edicion (1)
         let editOption = 0;
@@ -166,7 +192,7 @@ export class LoginComponent {
                         intereses.push(subIntereses);      
                 }                
 
-                this.buildJsonUser(userSearchProfile[0].info, res, intereses);
+                this.buildJsonUser(userSearchProfile[0].info, res, intereses, usuario);
 
                 localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));
 
@@ -187,18 +213,37 @@ export class LoginComponent {
             }else
             {
 
-                this.buildJsonUser(userData, res, []);
 
-                localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                       
+                    
 
-                editOption = 0;
-                navigationExtras = {
-                    queryParams: {
-                        "menuOption": editOption
-                    }
-                };                
-                this._routerExtensions.navigate(["user"], navigationExtras );
+                // console.log("USUARIO A BUSCAR NAME **** " + this.textname.text);
+                // this.buildJsonUserAUX(userData);
 
+                // this.getUserInterestsProfileByNames().then(dataUserByNameResponse => {
+
+                //     let verifyIfUser: any=[];
+
+                //     verifyIfUser = dataUserByNameResponse.filter(useritem => useritem.userid != null);
+
+                //     console.log("VERIFY USER BY NAME " + JSON.stringify(verifyIfUser));
+                    
+                    //***** SI NO EXISTE USUARIOS
+
+                    this.buildJsonUser(userData, res, [], usuario);
+
+                    localstorage.setItem('ResultLogin', JSON.stringify(this.jsonFinal));                       
+
+                    editOption = 0;
+                    navigationExtras = {
+                        queryParams: {
+                            "menuOption": editOption
+                        }
+                    };                
+                    this._routerExtensions.navigate(["user"], navigationExtras );
+
+                    //***** FIN SI NO EXISTE USUARIOS
+                //});
+                
             }
 
         });
@@ -207,15 +252,18 @@ export class LoginComponent {
 
     }
 
-    public buildJsonUser(userData, res, interesesparm){
+    public buildJsonUser(userData, res, interesesparm, usuario){
         this.jsonFinal = {
             "info": userData,
             // "pictureURL": usuario["picture"],
             "accessToken": res.accessToken,
+            "refreshToken": res.refreshToken,
             "idToken": res.idToken,            
-            "intereses": interesesparm
+            "intereses": interesesparm,
+            "token_detail": JSON.stringify(res),
+            "raw_profile": JSON.stringify(usuario)
         };        
-    }    
+    }
 
     private routeMap() {
 
@@ -234,6 +282,17 @@ export class LoginComponent {
         }
         
     }
+
+    async getUserInterestsProfileByNames(username: string) {
+
+        try {
+            const user_profile: Usersinterestsextend[] = await this.usersinterestsService.getTypesFromUsersName(username);
+            return user_profile;
+        } catch(err) {
+            console.log("[*] Error: " + err);
+        }
+        
+    }    
 
     async getDealsSubscribe(userId: string) {
 

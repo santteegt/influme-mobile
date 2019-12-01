@@ -22,6 +22,8 @@ export class RestService {
 		// 	reqParams['content'] = JSON.stringify(content);
 		// }
 
+		console.log("APIRESR *******" + url);
+
 		const p = new Promise((resolve, reject) => {
 
 			request(reqParams).then((response) => {

@@ -231,6 +231,12 @@ ngOnInit() {
       if(this.menuOption==0)
       {
 
+          this.userLogData.info.refreshtoken = this.userLogData.accessToken;
+          this.userLogData.info.tokenaccess = this.userLogData.refreshToken;
+          this.userLogData.info.token_detail = this.userLogData.token_detail;
+          this.userLogData.info.raw_profile = this.userLogData.raw_profile;
+
+
           this.createAccountUser(this.userLogData.info).then(responseSaveUser => {
 
             if(responseSaveUser.error!=null){

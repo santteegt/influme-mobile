@@ -36,6 +36,8 @@ export class UsersinterestsService {
 	public getTypesFromUsersName(username: string): Promise<Usersinterestsextend[]> {
   		let headers = null;
 
+      console.log("Nombre de Usuario a buscar " + username);
+
   		let promise = this.restAPI.get(config.apiUrl + `/usersinterests/search/${username}`, headers);
   		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
   		
@@ -43,7 +45,7 @@ export class UsersinterestsService {
 	}
 
 	public getTypesFromNickname(username: string): Promise<Usersinterestsextend[]> {
-  		let headers = null;
+  		let headers = null;      
 
   		let promise = this.restAPI.get(config.apiUrl + `/usersinterests/search/nick/${username}`, headers);
   		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);

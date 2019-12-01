@@ -56,6 +56,24 @@ export class UserapiService {
       // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
       
     return promise;
+  }
+
+  public updateDataInfoInstagram(token: string): Promise<any> {
+      let headers = null;
+
+      let promise = this.restAPI.get(`https://api.instagram.com/v1/users/self/?access_token=` + token, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
+  }    
+
+  public getRefeshInfoLogin(idUser: string, tkuser: string): Promise<any> {
+      let headers = null;
+
+      let promise = this.restAPI.get(config.apiUrl + `/users/search/single/update/${idUser}/${tkuser}`, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
   }  
 
 }
