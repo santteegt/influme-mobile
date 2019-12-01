@@ -67,7 +67,7 @@ El codigo fuente como tal se encuentra dentro del directorio `src/app`, y esta e
 
 Create Google Maps API Key in [Google Developers Console](https://console.developers.google.com), create a project, and enable the `Google Maps Android API` and `Google Maps SDK for iOS` APIs. Then under credentials, create an API key. The KEY API is used in the component **viewmap**, file `viewmap.module.ts`.[See more](https://www.npmjs.com/package/nativescript-google-maps-sdk).
 
-### nativescript-google-maps-sdk
+### nativescript-auth0
 
 Para su correcto funcionamiento es necesario configurar una aplicacion en el dashboard de [AUTH0](https://auth0.com/) que permita autenticarse con Instagram, generando una client ID y un dominio. En este proyecto el clientID y dominio de AUTH0 es insertado en los componentes **login y profile**, archivos `login.component.ts` linea 50, `profile.component.ts` linea 240 respectivamente. 
 
