@@ -1,93 +1,98 @@
 # Influme Mobile
 
-Influme Mobile application written in NativeScript
+Influme Mobile application built in [NativeScript](https://www.nativescript.org/)
 
-## Setup instructions
+## Architecture Overview
 
-### Prerequisite
+The App is mainly written using NativeScript 6.1.x and Angular TypeScript 8.x, allowing to deploy the App in both iOS and Android (**not tested**) devices. Source code is structured as follows:
 
+* `src/app/<component_name>/` Define (sub-)components in the form of a general module (`<component>.module.ts`) & a route (`<component>.routing.ts`).
+
+* `src/app/shared/` Contains shared libraries for access the DB schema `models/` and perform API calls (`api/`). The folder also contains the `config.ts` file that is in change on configuring the URL to the backend server.
+
+* `src/app/app-routing.module.ts` configures the routes to navigate to the different screens within the App
+
+* `src/i18n/` contains the localization files to support different languages (using the [nativescript-localize](https://market.nativescript.org/plugins/nativescript-localize) plugin)
+
+## System Requirements
+
+* Node v10+
 * [NativeScript CLI](https://docs.nativescript.org/start/quick-setup)
+* [Influme backend](https://github.com/santteegt/influme-backend)
 
-### Run APP
+### Setup Instructions
 
-* Source Code
+* Download the source code:
 
 ```
 git clone https://github.com/santteegt/influme-mobile.git
+cd influme-mobile
 ```
 
-* Install dependencies
+* To install the project dependencies:
 
 ```
 $ npm install
 $ tns platform add ios
 ```
 
-* Run in Development mode
+* Plugin Configuration
 
+The following plugins need to be configured prior running/deploying the App
+
+#### nativescript-google-maps-sdk
+
+* Create Google Maps API Key in [Google Developers Console](https://console.developers.google.com), create a project, and enable the `Google Maps Android API` and `Google Maps SDK for iOS` APIs. Then, under credentials create an API key. This KEY API is finally set in the **src/app/viewmap/viewmap.module.ts** component. For more in-depth info about this plugin see the [package docs](https://www.npmjs.com/package/nativescript-google-maps-sdk).
+
+#### nativescript-auth0
+
+* In order for the app to support authentication through Instagram, you need to create an [AUTH0](https://auth0.com/) account and configure the [API through the dashboard](https://auth0.com/docs/connections/social/instagram). Then, the `domain` and generated `client ID`must be set in the `login/login.component.ts` and `profile/profile.component.ts` components (`this.auth0 = new Auth0(CLIENT_ID, YOUR_AUTH0_DOMAIN)`). To achieve this check the following instructions:
+
+**Configure the Instagram API**
+
+1. Access the [Instagram Developer Portal](https://www.instagram.com/developer/)
+2. Register a new client App wihitn the **Manage Clients** menu
+3. Set the **Valid redirect URIs** field with the URL value  `{YOUR_AUTH0_DOMAIN}/login/callback` (e.g. `https://devappmobile.auth0.com/login/callback`)
+4. Add tester users in the **Sandbox** menu (for development purposes only)
+5. Copy the CLIENT_ID & CLIENT_SECRET values to be used later
+
+**Create an App through the Auth0 Dashbord**
+
+1. Create a **Native** App with the following settings:
+    - **Allowed Callback URLs**: in the form `{BUNDLE_IDENTIFIER}://${YOUR_AUTH0_DOMAIN}/ios/{BUNDLE_IDENTIFIER}/callback`, where the {BUNDLE_IDENTIFIER} is defined in the `package.json` file within this repo
+2. Activate the Instagram authentication in the *connections/social* menu by setting the CLIENT_ID & CLIENT_SECRET obtained from the Instragram Developer Portal, and check the **Basic Profile** property
+3. Finally, choose the app created in step 1
+
+For more in-depth info about the plugin check the [package docs](https://www.npmjs.com/package/nativescript-auth0).
+
+### Running the App in Development mode
+
+* iOS
 ```
 $ tns run ios
 ```
-
-### Useful commands
-
-* `tns create influme-mobile --template tns-template-enterprise-auth-ng`
-* `tns platform list`
-* `tns platform add <ios|android>`
-* `tns device`
-* `tns run <ios|android>`
-* `tns plugin add <plugin-name>`
-
-* `ng generate module <module-name> --routing`
-* `ng generate component <component-name> --module <module-name>`
-* `ng generate service <service-name>`
-
+* Android (Not fully tested yet)
 
 ### Production deployment
 
+* iOS
+
 * `tns prepare ios --release --log trace`
+* To archive and submit the App to the Apple App Store, ppen the `platforms/ios/influmemobile.xcworkspace` using Xcode.
 
-## Arquitectura APP
+* Android (Not fully tested yet)
 
-El codigo fuente como tal se encuentra dentro del directorio `src/app`, y esta extructurado de la siguiente manera:
+## Misc: Useful commands
 
-* `<componente>/` Los componentes son creados bajo el directorio `src/app`. Cada componente debe contar con su modulo general (`x.module.ts`) y archivo de rutas (`x.routing.ts`).
+* NativeScript
+    * `tns create influme-mobile --template tns-template-enterprise-auth-ng`: create a new App from template
+    * `tns platform list`: List App supported platforms
+    * `tns platform add <ios|android>`: Add support for a platform
+    * `tns device`: List connected devices
+    * `tns run <ios|android>`: Run the App in the specified device platrom
+    * `tns plugin add <plugin-name>`: Install a new plugin
 
-* `shared/` Contiene los servicios utilizados `api/` y las clases para el modelo de datos `models/`. Ademas especifica el archivo `config.ts` donde se configura la URL de conexion con mongoDB.
-
-* El archivo `app-routing.module.ts` contiene todas las rutas para navegacion de la APP.
-
-* `fonts/` Contiene las fuentes utilizadas: FontAwesome, San Francisco.
-
-* `i18n/` Contiene los archivos de traduccion, que trabajan con el plugin [nativescript-localize](https://market.nativescript.org/plugins/nativescript-localize).
-
-## Plugins Configurables
-
-### nativescript-google-maps-sdk
-
-Create Google Maps API Key in [Google Developers Console](https://console.developers.google.com), create a project, and enable the `Google Maps Android API` and `Google Maps SDK for iOS` APIs. Then under credentials, create an API key. The KEY API is used in the component **viewmap**, file `viewmap.module.ts`.[See more](https://www.npmjs.com/package/nativescript-google-maps-sdk).
-
-### nativescript-auth0
-
-Para su correcto funcionamiento es necesario configurar una aplicacion en el dashboard de [AUTH0](https://auth0.com/) que permita autenticarse con Instagram, generando una client ID y un dominio. En este proyecto el clientID y dominio de AUTH0 es insertado en los componentes **login y profile**, archivos `login.component.ts` linea 50, `profile.component.ts` linea 240 respectivamente. 
-
-**API Instagram**
-
-1. Acceder en [Instagram Developer](https://www.instagram.com/developer/).
-2. En el menú *Manage Clients*, registrar nuevo cliente.
-3. Ingresar la información respectiva y en la propiedad *Valid redirect URIs * colocar la siguiente URL `{YOUR_AUTH0_DOMAIN}/login/callback`, por ejemplo `https://devappmobile.auth0.com/login/callback`. Para que otros usuarios puedan interactuar con este cliente es importante agregarlos sobre el menú *Sandbox*.
-
-**Creación de aplicación en Auth0 Dashbord**
-
-1. Crear aplicación de tipo **Native**. Y tener en cuenta el siguiente campo:
-    - **Allowed Callback URLs**: Tiene el siguiente formato `{YOUR_BUNDLE_IDENTIFIER}://${YOUR_AUTH0_DOMAIN}/ios/{YOUR_BUNDLE_IDENTIFIER}/callback`. El valor de {YOUR_BUNDLE_IDENTIFIER} est definido en el archivo del proyecto *package.json* propiedad *nativescript.id*.
-
-2. Dentro del dashboard en el menu *connections/social* activar Instagram y configurarlo con el clientID y clientSecret de la API de Instagram previamente configurado, además de seleccionar la propiedad **Basic Profile**. Finalmente seleccionar la aplicación auth0 creada en el punto 1.
-
-La documentacion de configuracion del plugin puede ser encontrado [aqui](https://www.npmjs.com/package/nativescript-auth0).
-
-
-
-
-
-
+* Angular
+    * `ng generate module <module-name> --routing`: Generates a new module boilerplate code
+    * `ng generate component <component-name> --module <module-name>`: Generates a new component boilerplate code
+    * `ng generate service <service-name>`: Generate a new service boilerplate code
