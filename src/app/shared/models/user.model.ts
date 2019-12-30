@@ -6,6 +6,7 @@ export interface User {
 	tokenaccess: string;
 	refreshtoken: string;
 	token_detail: string;
+	subid: any;
 	raw_profile: string;
 	name: string;
 	city: string;

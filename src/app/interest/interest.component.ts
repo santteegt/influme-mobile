@@ -232,7 +232,7 @@ ngOnInit() {
       {
 
           this.userLogData.info.refreshtoken = this.userLogData.accessToken;
-          this.userLogData.info.tokenaccess = this.userLogData.refreshToken;
+          this.userLogData.info.tokenaccess = this.userLogData.refreshToken;          
           this.userLogData.info.token_detail = this.userLogData.token_detail;
           this.userLogData.info.raw_profile = this.userLogData.raw_profile;
 

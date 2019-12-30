@@ -51,7 +51,16 @@ export class UsersinterestsService {
   		// let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
   		
 		return promise;
-	}		
+	}
+
+  public getTypesFromId(subid: string): Promise<Usersinterestsextend[]> {
+      let headers = null;      
+
+      let promise = this.restAPI.get(config.apiUrl + `/usersinterests/search/sub/${subid}`, headers);
+      // let promise = this.restAPI.get(config.apiUrl + `/users/${userId}`, headers);
+      
+    return promise;
+  }  		
 
   	public saveUserInterests(bodyRequest: Usersinterests): Promise<Usersinterests> {
 

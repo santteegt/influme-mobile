@@ -131,6 +131,7 @@ export class LoginComponent {
         userData.city = "";
         userData.email = "";
         userData.picturehome = usuario["picture"];
+        userData.subid = usuario["sub"];
         userData.followers = 0;
         userData.following = 0;
         userData.influencer = false;
@@ -143,7 +144,7 @@ export class LoginComponent {
         let editOption = 0;
 
         //verifica si existe el username registrado. 
-        this.getUserInterestsProfile(userData.username).then(dataUserResponse => {
+        this.getUserInterestsProfileId(userData.username).then(dataUserResponse => {
 
             let userProfile: any={};
             let interestsProfile = [];
@@ -282,6 +283,17 @@ export class LoginComponent {
         }
         
     }
+
+    async getUserInterestsProfileId(idUser: string) {
+
+        try {
+            const user_profile: Usersinterestsextend[] = await this.usersinterestsService.getTypesFromId(idUser);
+            return user_profile;
+        } catch(err) {
+            console.log("[*] Error: " + err);
+        }
+        
+    }    
 
     async getUserInterestsProfileByNames(username: string) {
 
